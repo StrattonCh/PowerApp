@@ -1,0 +1,499 @@
+\documentclass[]{article}
+\RequirePackage{amssymb, amsfonts, amsmath, latexsym, verbatim, xspace, setspace}
+\RequirePackage{tikz, pgflibraryplotmarks}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{kbordermatrix}
+\lstset{
+	basicstyle=\ttfamily,
+	columns=fullflexible,
+	frame=single,
+	breaklines=true,
+	postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+	keepspaces = TRUE,
+}
+
+\newcommand{\bfX}{\mbox{\boldmath $X$}}
+\newcommand{\bfy}{\mbox{\boldmath $y$}}
+\newcommand{\bfB}{\mbox{\boldmath $\beta$}}
+\newcommand{\bfe}{\mbox{\boldmath $\epsilon$}}
+\newcommand{\bfZ}{\mbox{\boldmath $Z$}}
+\newcommand{\bfBt}{\mbox{$\tilde{\boldsymbol{\beta}}$}}
+
+% Here's where you edit the Class, Exam, Date, etc.
+\newcommand{\class}{STAT 578}
+\newcommand{\examnum}{Homework 6}
+\newcommand{\examdate}{due 03/01/18}
+
+\singlespacing
+% \onehalfspacing
+% \doublespacing
+
+\parindent 0ex
+\title{Power App Derivations}
+\date{}
+
+\begin{document}
+	
+\maketitle
+
+\section{Exponential Distribution}
+
+\subsection{Statistic: $\sum_{i=1}^n X_i$}
+
+\subsubsection{Alternative: Greater than}
+
+Suppose that $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
+\[
+\begin{split}
+\text{$H_0$: }& \theta \leq \theta_0 \\
+\text{$H_a$: }& \theta > \theta_0
+\end{split}
+\]
+
+Consider the following test function:
+\[
+\phi(\bfX) = \begin{cases}
+1 & \sum_{i=1}^n X_i > k \\
+0 & \text{else}
+\end{cases},
+\]
+
+where $k$ is chosen such that $Pr(\phi(\bfX) = 1|\theta_0) = \alpha$. It can be shown that if $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, then $\sum_{i=1}^{n} X_i \sim \text{Gamma}(n, \theta)$. Using this relationship, we derive the test. 
+\[
+\begin{split}
+Pr(\phi(\bfX) = 1|\theta_0) = Pr\left(\sum_{i=1}^n X_i > k\Big|\theta_0\right) = \alpha 
+\end{split}
+\]
+
+Let $T = \sum_{i=1}^n X_i \sim \text{Gamma}(n, \theta)$. To define our test, we seek the value $k$ such that 
+\[
+Pr(T > k | \theta_0) = 1 - Pr(T \leq k | \theta_0) = \alpha
+\]
+
+The value of $k$ that satisfies this equation is the $(1 - \alpha)^{th}$ quantile of the $\text{Gamma}{n, \theta_0}$ distribution. Letting $\Gamma_{n, \theta_0, 1-\alpha}$ denote this value, our test functions becomes
+\[
+\phi(\bfX) = \begin{cases}
+1 & \sum_{i=1}^n X_i > \Gamma_{n, \theta_0, 1-\alpha} \\
+0 & \text{else}
+\end{cases}
+\]
+
+Therefore, our power function is
+\[
+\beta(\theta) = Pr(\bfX \in RR) = Pr\left(\sum_{i=1}^n X_i > \Gamma_{n, \theta_0, 1-\alpha} \Big| \theta\right) = 1 - Pr\left(\sum_{i=1}^n X_i \leq \Gamma_{n, \theta_0, 1-\alpha} \Big| \theta\right)
+\]
+
+\subsubsection{Alternative: Less than}
+
+Suppose that $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
+\[
+\begin{split}
+\text{$H_0$: }& \theta \geq \theta_0 \\
+\text{$H_a$: }& \theta < \theta_0
+\end{split}
+\]
+
+Consider the following test function:
+\[
+\phi(\bfX) = \begin{cases}
+1 & \sum_{i=1}^n X_i < k \\
+0 & \text{else}
+\end{cases},
+\]
+
+where $k$ is chosen such that $Pr(\phi(\bfX) = 1|\theta_0) = \alpha$. Let $T = \sum_{i=1}^n X_i \sim \text{Gamma}(n, \theta)$. To define our test, we seek the value $k$ such that 
+\[
+Pr(T < k | \theta_0) = \alpha
+\]
+
+The value of $k$ that satisfies this equation is the $\alpha^{th}$ quantile of the $\text{Gamma}{n, \theta_0}$ distribution. Letting $\Gamma_{n, \theta_0, \alpha}$ denote this value, our test functions becomes
+\[
+\phi(\bfX) = \begin{cases}
+1 & \sum_{i=1}^n X_i < \Gamma_{n, \theta_0, \alpha} \\
+0 & \text{else}
+\end{cases}
+\]
+
+Therefore, our power function is
+\[
+\beta(\theta) = Pr(\bfX \in RR) = Pr\left(\sum_{i=1}^n X_i < \Gamma_{n, \theta_0, \alpha} \Big| \theta\right) 
+\]
+
+\subsubsection{Alternative: Not equal to}
+
+Suppose that $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
+\[
+\begin{split}
+\text{$H_0$: }& \theta = \theta_0 \\
+\text{$H_a$: }& \theta \neq \theta_0
+\end{split}
+\]
+
+Consider the following test function:
+\[
+\phi(\bfX) = \begin{cases}
+1 & \sum_{i=1}^n X_i < k_1 \text{ or } \sum_{i=1}^n X_i > k_2 \\
+0 & \text{else}
+\end{cases},
+\]
+
+where $k_1$ and $k_2$ are chosen such that $Pr(\phi(\bfX) = 1|\theta_0) = \alpha$. In this case, we assume a symmetric test function in that $k_1$ and $k_2$ are chosen such that $Pr(\sum_{i=1}^n X_i < k_1) = \alpha/2$ and $Pr(\sum_{i=1}^n X_i > k_2) = \alpha/2$. Let $T = \sum_{i=1}^n X_i \sim \text{Gamma}(n, \theta)$. 
+
+The values of $k_1$ and $k_2$ that satisfy these equations are the $(\alpha/2)^{th}$ and $(1 - \alpha/2)^{th}$ quantiles of the $\text{Gamma}{n, \theta_0}$ distribution. Letting $\Gamma_{n, \theta_0, \alpha/2}$ and $\Gamma_{n, \theta_0, 1- \alpha/2}$ denote these values, our test functions becomes
+\[
+\phi(\bfX) = \begin{cases}
+1 & \sum_{i=1}^n X_i < \Gamma_{n, \theta_0, \alpha/2} \text{ or } \sum_{i=1}^n X_i > \Gamma_{n, \theta_0, 1 - \alpha/2}\\
+0 & \text{else}
+\end{cases}
+\]
+
+Therefore, our power function is
+\[
+\beta(\theta) = Pr(\bfX \in RR) = 1 - Pr\left(\sum_{i=1}^n X_i < \Gamma_{n, \theta_0, 1 - \alpha/2}\right) +  Pr\left(\sum_{i=1}^n X_i > \Gamma_{n, \theta_0, \alpha/2} \Big| \theta\right) 
+\]
+
+\subsection{Statistic: $X_{(1)}$}
+
+\subsubsection{Alternative: Greater than}
+
+Suppose that $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
+\[
+\begin{split}
+\text{$H_0$: }& \theta \leq \theta_0 \\
+\text{$H_a$: }& \theta > \theta_0
+\end{split}
+\]
+
+Consider the following test function:
+\[
+\phi(\bfX) = \begin{cases}
+1 & X_{(1)} > k \\
+0 & \text{else}
+\end{cases},
+\]
+
+where $k$ is chosen such that $Pr(\phi(\bfX) = 1|\theta_0) = \alpha$. It can be shown that if $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, then $X_{(1)} \sim \text{Exp}(\frac{\theta}{n})$. Using this relationship, we derive the test. 
+\[
+\begin{split}
+Pr(\phi(\bfX) = 1|\theta_0) = Pr\left(X_{(1)} > k\Big|\theta_0\right) = \alpha 
+\end{split}
+\]
+
+Let $T = X_{(1)} \sim \text{Exp}(\frac{\theta}{n})$. To define our test, we seek the value $k$ such that 
+\[
+Pr(T > k | \theta_0) = 1 - Pr(T \leq k | \theta_0) = \alpha
+\]
+
+The value of $k$ that satisfies this equation is the $(1 - \alpha)^{th}$ quantile of the $\text{Exp}(\frac{\theta_0}{n})$ distribution. Letting $\eta_{\theta_0/n, 1-\alpha}$ denote this value, our test functions becomes
+\[
+\phi(\bfX) = \begin{cases}
+1 & X_{(1)} > \eta_{\theta_0/n, 1-\alpha} \\
+0 & \text{else}
+\end{cases}
+\]
+
+Therefore, our power function is
+\[
+\beta(\theta) = Pr(\bfX \in RR) = Pr\left(X_{(1)} > \eta_{\theta_0/n, 1-\alpha} \Big| \theta\right) = 1 - Pr\left(X_{(1)}\leq \eta_{\theta_0/n, 1-\alpha} \Big| \theta\right)
+\]
+
+\subsubsection{Alternative: Less than}
+
+Suppose that $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
+\[
+\begin{split}
+\text{$H_0$: }& \theta \geq \theta_0 \\
+\text{$H_a$: }& \theta < \theta_0
+\end{split}
+\]
+
+Consider the following test function:
+\[
+\phi(\bfX) = \begin{cases}
+1 & X_{(1)} < k \\
+0 & \text{else}
+\end{cases},
+\]
+
+where $k$ is chosen such that $Pr(\phi(\bfX) = 1|\theta_0) = \alpha$. Let $T = X_{(1)} \sim \text{Exp}(\frac{\theta}{n})$. To define our test, we seek the value $k$ such that 
+\[
+Pr(T < k | \theta_0) = \alpha
+\]
+
+The value of $k$ that satisfies this equation is the $\alpha^{th}$ quantile of the $\text{Exp}(\frac{\theta_0}{n})$ distribution. Letting $\eta_{\theta_0/n, \alpha}$ denote this value, our test functions becomes
+\[
+\phi(\bfX) = \begin{cases}
+1 & X_{(1)} < \eta_{\theta_0/n, \alpha} \\
+0 & \text{else}
+\end{cases}
+\]
+
+Therefore, our power function is
+\[
+\beta(\theta) = Pr(\bfX \in RR) = Pr\left(X_{(1)} < \eta_{\theta_0/n, \alpha} \Big| \theta\right)
+\]
+
+\subsubsection{Alternative: Not equal to}
+
+Suppose that $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
+\[
+\begin{split}
+\text{$H_0$: }& \theta = \theta_0 \\
+\text{$H_a$: }& \theta \neq \theta_0
+\end{split}
+\]
+
+Consider the following test function:
+\[
+\phi(\bfX) = \begin{cases}
+1 & X_{(1)} < k_1 \text{ or } X_{(1)} > k_2 \\
+0 & \text{else}
+\end{cases},
+\]
+
+where $k_1$ and $k_2$ are chosen such that $Pr(\phi(\bfX) = 1|\theta_0) = \alpha$. In this case, we choose $k_1$ and $k_2$ such that our test is symmetric. Let $T = X_{(1)} \sim \text{Exp}(\frac{\theta}{n})$. To define our test, we seek the values $k_1$ and $k_2$ such that $Pr(T < k_1 | \theta_0) = \alpha/2$ and $Pr(T > k_2 | \theta_0) = \alpha/2$. 
+
+The values of $k_1$ and $k_2$ that satisfy these equations are the $(\alpha/2)^{th}$ and $(1 - \alpha/2)^{th}$ quantiles of the $\text{Exp}(\frac{\theta_0}{n})$ distribution. Letting $\eta_{\theta_0/n, \alpha/2}$ and $\eta_{\theta_0/n, 1 - \alpha/2}$ denote this value, our test functions becomes
+\[
+\phi(\bfX) = \begin{cases}
+1 & X_{(1)} < \eta_{\theta_0/n, \alpha/2} \text{ or } X_{(1)} > \eta_{\theta_0/n, 1 - \alpha/2}\\
+0 & \text{else}
+\end{cases}
+\]
+
+Therefore, our power function is
+\[
+\beta(\theta) = Pr(\bfX \in RR) = 1 - Pr\left(X_{(1)} < \eta_{\theta_0/n, 1 - \alpha/2}\right) + Pr\left(X_{(1)} < \eta_{\theta_0/n, \alpha/2} \Big| \theta\right)
+\]
+
+\subsection{Statistic: $X_{(n)}$}
+
+\subsubsection{Alternative: Greater than}
+
+Suppose that $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
+\[
+\begin{split}
+\text{$H_0$: }& \theta \leq \theta_0 \\
+\text{$H_a$: }& \theta > \theta_0
+\end{split}
+\]
+
+Consider the following test function:
+\[
+\phi(\bfX) = \begin{cases}
+1 & X_{(n)} > k \\
+0 & \text{else}
+\end{cases},
+\]
+
+where $k$ is chosen such that $Pr(\phi(\bfX) = 1|\theta_0) = \alpha$. To find this value of $k$, we need to know the distribution of the sample max. By definition, 
+\[
+F_{X_{(n)}}(x) = \left[F_X(x)\right]^n = \left[1 - \text{exp}(-\frac{x}{\theta})\right]^n
+\]
+
+
+Let $T = X_{(n)}$. To define our test, we seek the value $k$ such that 
+\[
+Pr(T > k | \theta_0) = 1 - Pr(T \leq k | \theta_0) = \alpha
+\]
+
+Using the distribution function derived above, we have
+\[
+\begin{split}
+1 - \left[1 - \text{exp}(-\frac{k}{\theta_0})\right]^n &= \alpha \\
+\left[1 - \text{exp}(-\frac{k}{\theta_0})\right]^n &= 1 - \alpha \\
+1 - \text{exp}(-\frac{k}{\theta_0}) &= (1-\alpha)^{1/n} \\
+\text{exp}(-\frac{k}{\theta_0}) &= 1 - (1-\alpha)^{1/n} \\
+-\frac{k}{\theta_0} &= \log(1 - (1-\alpha)^{1/n}) \\
+k &= -\theta_0\log(1 - (1-\alpha)^{1/n})
+\end{split}
+\]
+
+Therefore, our test function is
+\[
+\phi(\bfX) = \begin{cases}
+1 & X_{(n)} > -\theta_0\log(1 - (1-\alpha)^{1/n}) \\
+0 & \text{else}
+\end{cases}
+\]
+
+Therefore, our power function is
+\[
+\begin{split}
+\beta(\theta) &= Pr(\bfX \in RR) = Pr\left(X_{(n)} > -\theta_0\log(1 - (1-\alpha)^{1/n}) \Big| \theta\right) \\
+&= 1 - Pr\left(X_{(n)}\leq -\theta_0\log(1 - (1-\alpha)^{1/n}) \Big| \theta\right) \\
+&= 1 - \left[1 - \text{exp}\left(\frac{-\theta_0\log(1 - (1-\alpha)^{1/n})}{\theta}\right)\right]^n
+\end{split}
+\]
+
+
+\subsubsection{Alternative: Less than}
+
+Suppose that $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
+\[
+\begin{split}
+\text{$H_0$: }& \theta \geq \theta_0 \\
+\text{$H_a$: }& \theta < \theta_0
+\end{split}
+\]
+
+Consider the following test function:
+\[
+\phi(\bfX) = \begin{cases}
+1 & X_{(n)} < k \\
+0 & \text{else}
+\end{cases},
+\]
+
+where $k$ is chosen such that $Pr(\phi(\bfX) = 1|\theta_0) = \alpha$. Let $T = X_{(n)}$. To define our test, we seek the value $k$ such that 
+\[
+Pr(T < k | \theta_0) = \alpha
+\]
+
+Using the distribution function derived above, we have
+\[
+\begin{split}
+\left[1 - \text{exp}(-\frac{k}{\theta_0})\right]^n &= \alpha \\
+1 - \text{exp}(-\frac{k}{\theta_0}) &= \alpha^{1/n} \\
+\text{exp}(-\frac{k}{\theta_0}) &= 1 - \alpha^{1/n} \\
+-\frac{k}{\theta_0} &= \log(1 - \alpha^{1/n}) \\
+k &= -\theta_0\log(1 - \alpha^{1/n})
+\end{split}
+\]
+
+Therefore, our test function is
+\[
+\phi(\bfX) = \begin{cases}
+1 & X_{(n)} < -\theta_0\log(1 - \alpha^{1/n}) \\
+0 & \text{else}
+\end{cases}
+\]
+
+Therefore, our power function is
+\[
+\begin{split}
+\beta(\theta) &= Pr(\bfX \in RR) = Pr\left(X_{(n)} < -\theta_0\log(1 - \alpha^{1/n}) \Big| \theta\right) \\
+&= Pr\left(X_{(n)} < -\theta_0\log(1 - \alpha^{1/n}) \Big| \theta\right) \\
+&= \left[1 - \text{exp}\left(\frac{-\theta_0\log(1 - \alpha^{1/n})}{\theta}\right)\right]^n
+\end{split}
+\]
+
+\subsubsection{Alternative: Not equal to}
+
+Suppose that $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
+\[
+\begin{split}
+\text{$H_0$: }& \theta = \theta_0 \\
+\text{$H_a$: }& \theta \neq \theta_0
+\end{split}
+\]
+
+Consider the following test function:
+\[
+\phi(\bfX) = \begin{cases}
+1 & X_{(n)} < k_1 \text{ or } X_{(n)} > k_2 \\
+0 & \text{else}
+\end{cases},
+\]
+
+where $k_1$ and $k_2$ are chosen such that $Pr(\phi(\bfX) = 1|\theta_0) = \alpha$. In this case, we choose a symmetric test function. Let $T = X_{(n)}$. To define our test, we seek the values $k_1$ and $k_2$ such that $Pr(T < k_1 | \theta_0) = \alpha/2$ and $Pr(T > k_2 | \theta_0) = \alpha/2$. Using the distribution function derived above, we have
+\[
+\begin{split}
+\left[1 - \text{exp}(-\frac{k_1}{\theta_0})\right]^n &= \alpha/2 \\
+1 - \text{exp}(-\frac{k_1}{\theta_0}) &= (\alpha/2)^{1/n} \\
+\text{exp}(-\frac{k_1}{\theta_0}) &= 1 - (\alpha/2)^{1/n} \\
+-\frac{k_1}{\theta_0} &= \log(1 - (\alpha/2)^{1/n}) \\
+k_1 &= -\theta_0\log(1 - (\alpha/2)^{1/n})
+\end{split}
+\]
+
+Similarly, 
+\[
+\begin{split}
+1 - \left[1 - \text{exp}(-\frac{k_2}{\theta_0})\right]^n &= \alpha/2 \\
+\left[1 - \text{exp}(-\frac{k_2}{\theta_0})\right]^n &= 1 - \alpha/2 \\
+1 - \text{exp}(-\frac{k_2}{\theta_0}) &= (1-\alpha/2)^{1/n} \\
+\text{exp}(-\frac{k_2}{\theta_0}) &= 1 - (1-\alpha/2)^{1/n} \\
+-\frac{k_2}{\theta_0} &= \log(1 - (1-\alpha/2)^{1/n}) \\
+k_2 &= -\theta_0\log(1 - (1-\alpha/2)^{1/n})
+\end{split}
+\]
+
+
+Therefore, our test function is
+\[
+\phi(\bfX) = \begin{cases}
+1 & X_{(n)} < -\theta_0\log(1 - (\alpha/2)^{1/n}) \text{ or } X_{(n)} > -\theta_0\log(1 - (1-\alpha/2)^{1/n}) \\
+0 & \text{else}
+\end{cases}
+\]
+
+Therefore, our power function is
+\[
+\begin{split}
+\beta(\theta) &= Pr(\bfX \in RR)  \\
+&= 1 - Pr\left(X_{(n)} < -\theta_0\log(1 - (1-\alpha/2)^{1/n} \Big| \theta\right) + Pr\left(X_{(n)} < -\theta_0\log(1 - (\alpha/2)^{1/n}) \Big| \theta\right)\\
+&= 1 - \left[1 - \text{exp}\left(\frac{-\theta_0\log(1 - (1-\alpha/2)^{1/n})}{\theta}\right)\right]^n + \left[1 - \text{exp}\left(\frac{-\theta_0\log(1 - (\alpha/2)^{1/n})}{\theta}\right)\right]^n
+\end{split}
+\]
+
+\section{Normal Distribution}
+
+\subsection{Statistic: $\sum_{i=1}^n X_i$}
+
+\subsubsection{Alternative: Greater than}
+
+\subsubsection{Alternative: Less than}
+
+\subsubsection{Alternative: Not equal to}
+
+\subsection{Statistic: $X_{(1)}$}
+
+\subsubsection{Alternative: Greater than}
+
+\subsubsection{Alternative: Less than}
+
+\subsubsection{Alternative: Not equal to}
+
+\subsection{Statistic: $X_{(n)}$}
+
+\subsubsection{Alternative: Greater than}
+
+\subsubsection{Alternative: Less than}
+
+\subsubsection{Alternative: Not equal to}
+
+\section{Uniform Distribution}
+
+\subsection{Statistic: $\sum_{i=1}^n X_i$}
+
+\subsubsection{Alternative: Greater than}
+
+\subsubsection{Alternative: Less than}
+
+\subsubsection{Alternative: Not equal to}
+
+\subsection{Statistic: $X_{(1)}$}
+
+\subsubsection{Alternative: Greater than}
+
+\subsubsection{Alternative: Less than}
+
+\subsubsection{Alternative: Not equal to}
+
+\subsection{Statistic: $X_{(n)}$}
+
+\subsubsection{Alternative: Greater than}
+
+\subsubsection{Alternative: Less than}
+
+\subsubsection{Alternative: Not equal to}
+
+
+\end{document}
