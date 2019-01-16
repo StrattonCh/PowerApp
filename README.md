@@ -24,9 +24,9 @@
   - <s> Sum of X, less </s>
   - <s> Sum of X, not equal </s>
   
-  - Min, greater
-  - Min, less
-  - Min, not equal
+  - <s> Min, greater </s>
+  - <s> Min, less </s>
+  - <s> Min, not equal </s>
   
   - Max, greater
   - Max, less
