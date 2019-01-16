@@ -35,6 +35,28 @@ norm_samp_min_pwrfunc_noteqto <- function(theta, alpha, sigma, theta_not, n){
   1 - norm_min_cdf(k2, theta, sigma, n) + norm_min_cdf(k1, theta, sigma, n)
 }
 
+norm_max_cdf <- function(x, theta, sigma, n){
+  #function to calculate the cdf of the sample max from normal(theta, sigma^2)
+  (pnorm(x, theta, sigma))^n
+}
+norm_samp_max_pwrfunc_greater <- function(theta, alpha, sigma, theta_not, n){
+  #function to calculate power of sample max of normal(theta, sigma^2) distribution
+  k <- qnorm((1 - alpha)^(1/n), theta_not, sigma)
+  1 - norm_max_cdf(k, theta, sigma, n)
+}
+norm_samp_max_pwrfunc_less <- function(theta, alpha, sigma, theta_not, n){
+  #function to calculate power of sample max of normal(theta, sigma^2) distribution
+  k <- qnorm(alpha^(1/n), theta_not, sigma)
+  norm_max_cdf(k, theta, sigma, n)
+}
+norm_samp_max_pwrfunc_noteqto <- function(theta, alpha, sigma, theta_not, n){
+  #function to calculate power of sample max of normal(theta, sigma^2) distribution
+  k1 <- qnorm((alpha/2)^(1/n), theta_not, sigma)
+  k2 <- qnorm((1 -alpha/2)^(1/n), theta_not, sigma)
+  1 - norm_max_cdf(k2, theta, sigma, n) + norm_max_cdf(k1, theta, sigma, n)
+}
+
+
 # Define UI for application
 ui <- fluidPage(
   
@@ -497,10 +519,76 @@ server <- function(input, output, session) {
       }
       
       #max, greater than
+      if(input$distribution == "Normal" & input$statistic == "Sample Maximum" & input$alternative == "Greater than"){
+        n <- input$sample.size
+        theta.not <- input$theta.not
+        theta <- val$theta
+        alpha <- input$alpha
+        sigma <- input$sigma
+        
+        plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
+             xlim = c(theta.not - 3*sigma, theta.not + 3*sigma), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X[('n')]), las = 1)
+        
+        curve(norm_samp_max_pwrfunc_greater(theta = x, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), add = T, n = 1000)
+        abline(h = input$alpha, lty = 2, col = "red")
+        
+        points(x = theta, y = norm_samp_max_pwrfunc_greater(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), pch = 16)
+        abline(v = theta, col  = "gray")
+        abline(h = norm_samp_max_pwrfunc_greater(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), col  = "gray")
+        if(!is.na(val$theta)){
+          legend("topleft",
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(norm_samp_max_pwrfunc_greater(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), 2)))),
+                 pch = c(NA,NA), bty = "n")
+        }
+      }
       
       #max, less than
+      if(input$distribution == "Normal" & input$statistic == "Sample Maximum" & input$alternative == "Less than"){
+        n <- input$sample.size
+        theta.not <- input$theta.not
+        theta <- val$theta
+        alpha <- input$alpha
+        sigma <- input$sigma
+        
+        plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
+             xlim = c(theta.not - 3*sigma, theta.not + 3*sigma), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X[('n')]), las = 1)
+        
+        curve(norm_samp_max_pwrfunc_less(theta = x, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), add = T, n = 1000)
+        abline(h = input$alpha, lty = 2, col = "red")
+        
+        points(x = theta, y = norm_samp_max_pwrfunc_less(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), pch = 16)
+        abline(v = theta, col  = "gray")
+        abline(h = norm_samp_max_pwrfunc_less(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), col  = "gray")
+        if(!is.na(val$theta)){
+          legend("topleft",
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(norm_samp_max_pwrfunc_less(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), 2)))),
+                 pch = c(NA,NA), bty = "n")
+        }
+      }
       
       #max, not equal
+      if(input$distribution == "Normal" & input$statistic == "Sample Maximum" & input$alternative == "Not equal to"){
+        n <- input$sample.size
+        theta.not <- input$theta.not
+        theta <- val$theta
+        alpha <- input$alpha
+        sigma <- input$sigma
+        
+        plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
+             xlim = c(theta.not - 3*sigma, theta.not + 3*sigma), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X[('n')]), las = 1)
+        
+        curve(norm_samp_max_pwrfunc_noteqto(theta = x, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), add = T, n = 1000)
+        abline(h = input$alpha, lty = 2, col = "red")
+        
+        points(x = theta, y = norm_samp_max_pwrfunc_noteqto(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), pch = 16)
+        abline(v = theta, col  = "gray")
+        abline(h = norm_samp_max_pwrfunc_noteqto(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), col  = "gray")
+        if(!is.na(val$theta)){
+          legend("topleft",
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(norm_samp_max_pwrfunc_noteqto(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), 2)))),
+                 pch = c(NA,NA), bty = "n")
+        }
+      }
 
       
       ############################

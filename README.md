@@ -28,9 +28,9 @@
   - <s> Min, less </s>
   - <s> Min, not equal </s>
   
-  - Max, greater
-  - Max, less
-  - Max, not equal
+  - <s> Max, greater </s>
+  - <s> Max, less </s>
+  - <s> Max, not equal </s>
   
   <b> Uniform </b>:  
   
