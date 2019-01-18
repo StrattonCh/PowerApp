@@ -43,8 +43,8 @@
   - Min, not equal
   
   - <s> Max, greater </s>
-  - Max, less
-  - <s> Max, not equal </s>
+  - <s> Max, less </s>
+  - Max, not equal
   
 ### Sampling Distribution:  
 

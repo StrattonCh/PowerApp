@@ -8,11 +8,12 @@ exp_samp_max_pwrfunc_less <- function(theta, alpha, theta_not, n){
   #function to calculate power function of sample max from exponential(theta) distribution
   (1 - exp(theta_not*log(1 - (alpha)^(1/n)) / (theta) ))^n
 }
-
 exp_samp_max_pwrfunc_noteqto <- function(theta, alpha, theta_not, n){
   #function to calculate power function of sample max from exponential(theta) distribution
   1 - (1 - exp(theta_not*log(1 - (1 - alpha/2)^(1/n)) / (theta) ))^n + (1 - exp(theta_not*log(1 - (alpha/2)^(1/n)) / (theta) ))^n
 }
+
+
 norm_samp_min_pwrfunc_greater <- function(theta, alpha, sigma, theta_not, n){
   #function to calculate power of sample min of normal(theta, sigma^2) distribution
   k <- qnorm(1 - alpha^(1/n), theta_not, sigma)
@@ -23,7 +24,6 @@ norm_samp_min_pwrfunc_less <- function(theta, alpha, sigma, theta_not, n){
   k <- qnorm(1 - (1 - alpha)^(1/n), theta_not, sigma)
   1 - (1 - pnorm(k, theta, sigma))^n
 }
-
 norm_min_cdf <- function(x, theta, sigma, n){
   #function to calculate cdf of sample min from normal(theta, sigma^2)
   1 - (1 - pnorm(x, theta, sigma))^n
@@ -34,7 +34,6 @@ norm_samp_min_pwrfunc_noteqto <- function(theta, alpha, sigma, theta_not, n){
   k2 <- qnorm(1 - (alpha/2)^(1/n), theta_not, sigma)
   1 - norm_min_cdf(k2, theta, sigma, n) + norm_min_cdf(k1, theta, sigma, n)
 }
-
 norm_max_cdf <- function(x, theta, sigma, n){
   #function to calculate the cdf of the sample max from normal(theta, sigma^2)
   (pnorm(x, theta, sigma))^n
@@ -55,6 +54,34 @@ norm_samp_max_pwrfunc_noteqto <- function(theta, alpha, sigma, theta_not, n){
   k2 <- qnorm((1 -alpha/2)^(1/n), theta_not, sigma)
   1 - norm_max_cdf(k2, theta, sigma, n) + norm_max_cdf(k1, theta, sigma, n)
 }
+
+unif_samp_max_pwrfunc_greater <- Vectorize(function(theta, alpha, theta_not, n){
+  #function to calculate power of sample max of unif(0,theta)
+  k <- theta_not*(1 - alpha)^(1/n)
+  if(is.na(theta)){
+    return(NA)
+  }
+  if(theta < k){
+    return(0)
+  }
+  if(k <= theta){
+    return(1 - k^n/theta^n)
+  }
+})
+
+unif_samp_max_pwrfunc_less <- Vectorize(function(theta, alpha, theta_not, n){
+  #function to calculate power of sample max of unif(0,theta)
+  k <- theta_not*(alpha)^(1/n)
+  if(is.na(theta)){
+    return(NA)
+  }
+  if(theta < k){
+    return(1)
+  }
+  if(k <= theta){
+    return(k^n/theta^n)
+  }
+})
 
 
 # Define UI for application
@@ -613,49 +640,49 @@ server <- function(input, output, session) {
         theta.not <- input$theta.not
         alpha <- input$alpha
         theta <- val$theta
-        k <- (theta.not^n - theta.not^n * alpha) ^ (1/n)
-        
-        plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(0, 2*theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~Sigma(X[i])), las = 1)
-        curve(0/x, from = 0, to = k, add = T)
-        curve(1 - k^n/x^n, from = k, to = theta.not, add = T)
-        curve(1 - k^n/x^n, from = theta.not, to = 2*theta.not, add = T)
-      
 
+        plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
+             xlim = c(0, 2*theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~ X['(n)']), las = 1)
         
+        curve(unif_samp_max_pwrfunc_greater(theta = x, alpha = alpha, theta_not = theta.not, n = n), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
-        # if(!is.na(val$theta)){
-        #   if(theta < theta.not * alpha^(1/n) | theta == theta.not * alpha^(1/n)){
-        #     points(x = theta, y = 1, pch = 16)
-        #     abline(v = theta, col = "gray")
-        #     abline(h = 1, col = "gray")
-        #     legend("topleft",
-        #            legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(val$theta,2))), bquote(beta(theta)~"="~ .(round(1, 2)))),
-        #            pch = c(NA,NA), bty = "n")
-        #   }
-        #   
-        #   if(theta > theta.not * alpha^(1/n) & theta < theta.not){
-        #     points(x = theta, y = (theta.not * alpha^(1/n))^n/theta^n, pch = 16)
-        #     abline(v = theta, col = "gray")
-        #     abline(h = (theta.not * alpha^(1/n))^n/theta^n, col = "gray")
-        #     legend("topleft",
-        #            legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(val$theta,2))), bquote(beta(theta)~"="~ .(round((theta.not * alpha^(1/n))^n/theta^n, 2)))),
-        #            pch = c(NA,NA), bty = "n")
-        #   }
-        #   
-        #   if(theta > theta.not | theta == theta.not){
-        #     points(x = theta, y = 1 - (theta.not)^n/theta^n + (theta.not * alpha^(1/n))^n/theta^n, pch = 16)
-        #     abline(v = theta, col = "gray")
-        #     abline(h = 1 - (theta.not)^n/theta^n + (theta.not * alpha^(1/n))^n/theta^n, col = "gray")
-        #     legend("topleft",
-        #            legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(val$theta,2))), bquote(beta(theta)~"="~ .(round(1 - (theta.not)^n/theta^n + (theta.not * alpha^(1/n))^n/theta^n, 2)))),
-        #            pch = c(NA,NA), bty = "n")
-        #   }
-        # }
         
-      }
+        points(x = theta, y = unif_samp_max_pwrfunc_greater(theta = theta, alpha = alpha, theta_not = theta.not, n = n), pch = 16)
+        abline(v = theta, col  = "gray")
+        abline(h = unif_samp_max_pwrfunc_greater(theta = theta, alpha = alpha, theta_not = theta.not, n = n), col  = "gray")
+
+        if(!is.null(val$theta)){
+          legend("topleft",
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(unif_samp_max_pwrfunc_greater(theta = theta, alpha = alpha, theta_not = theta.not, n = n), 2)))),
+                 pch = c(NA,NA), bty = "n")
+        }
+        
+      }  
       
       #max, less than
+      if(input$distribution == "Uniform" & input$statistic == "Sample Maximum" & input$alternative == "Less than"){
+        n <- input$sample.size
+        theta.not <- input$theta.not
+        alpha <- input$alpha
+        theta <- val$theta
+
+        plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
+             xlim = c(0, 2*theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~ X['(n)']), las = 1)
+        
+        curve(unif_samp_max_pwrfunc_less(theta = x, alpha = alpha, theta_not = theta.not, n = n), add = T, n = 1000)
+        abline(h = input$alpha, lty = 2, col = "red")
+        
+        points(x = theta, y = unif_samp_max_pwrfunc_less(theta = theta, alpha = alpha, theta_not = theta.not, n = n), pch = 16)
+        abline(v = theta, col  = "gray")
+        abline(h = unif_samp_max_pwrfunc_less(theta = theta, alpha = alpha, theta_not = theta.not, n = n), col  = "gray")
+
+        if(!is.null(val$theta)){
+          legend("topleft",
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(unif_samp_max_pwrfunc_less(theta = theta, alpha = alpha, theta_not = theta.not, n = n), 2)))),
+                 pch = c(NA,NA), bty = "n")
+        }
+        
+      }  
       
       #max, not equal 
       if(input$distribution == "Uniform" & input$statistic == "Sample Maximum" & input$alternative == "Not equal to"){
