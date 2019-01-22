@@ -83,6 +83,24 @@ unif_samp_max_pwrfunc_less <- Vectorize(function(theta, alpha, theta_not, n){
   }
 })
 
+unif_samp_max_pwrfunc_noteqto <- Vectorize(function(theta, alpha, theta_not, n){
+  #function to calculate power of sample max of unif(0,theta)
+  k1 <- theta_not*(alpha/2)^(1/n)
+  k2 <- theta_not*(1 - alpha/2)^(1/n)
+  if(is.na(theta)){
+    return(NA)
+  }
+  if(theta <= k1){
+    return(1)
+  }
+  if(k1 < theta & theta <= k2){
+    return(alpha*theta_not^n / (2*theta^n))
+  }
+  if(k2 <= theta){
+    return(1 - theta_not^n * (1 - alpha/2) / theta^n + alpha*theta_not^n / (2*theta^n))
+  }
+})
+
 
 # Define UI for application
 ui <- fluidPage(
@@ -229,7 +247,7 @@ server <- function(input, output, session) {
         abline(h = 1 - pchisq(input$theta.not*qchisq(1 - input$alpha, 2*input$sample.size)/val$theta, 2*input$sample.size), col  = "gray")
         if(!is.na(val$theta)){
           legend("topleft",
-                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(val$theta,2))), bquote(beta(theta)~"="~ .(round(1 - pchisq(input$theta.not*qchisq(1 - input$alpha, 2*input$sample.size)/val$theta, 2*input$sample.size),2)))),
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(val$theta,2))), bquote(beta(theta)~"="~ .(round(1 - pchisq(input$theta.not*qchisq(1 - input$alpha, 2*input$sample.size)/val$theta, 2*input$sample.size),3)))),
                  pch = c(NA,NA), bty = "n")
         }
       }
@@ -244,7 +262,7 @@ server <- function(input, output, session) {
         abline(h = pchisq(input$theta.not*qchisq(input$alpha, 2*input$sample.size)/val$theta, 2*input$sample.size), col  = "gray")
         if(!is.na(val$theta)){
           legend("topright",
-                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(val$theta,2))), bquote(beta(theta)~"="~ .(round(pchisq(input$theta.not*qchisq(input$alpha, 2*input$sample.size)/val$theta, 2*input$sample.size),2)))),
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(val$theta,2))), bquote(beta(theta)~"="~ .(round(pchisq(input$theta.not*qchisq(input$alpha, 2*input$sample.size)/val$theta, 2*input$sample.size),3)))),
                  pch = c(NA,NA), bty = "n")
         }
       }
@@ -268,7 +286,7 @@ server <- function(input, output, session) {
           legend("topleft",
                  legend = c(expression(paste("Click Info")),
                             bquote(theta~"="~.(round(val$theta,2))),
-                            bquote(beta(theta)~"="~ .(round(1 - pgamma(qgamma(1 - alpha/2, n, 1/theta.not), n, 1/theta) + pgamma(qgamma(alpha/2, n, 1/theta.not), n, 1/theta),2)))),
+                            bquote(beta(theta)~"="~ .(round(1 - pgamma(qgamma(1 - alpha/2, n, 1/theta.not), n, 1/theta) + pgamma(qgamma(alpha/2, n, 1/theta.not), n, 1/theta),3)))),
                  pch = c(NA,NA), bty = "n")
         }
       }
@@ -285,7 +303,7 @@ server <- function(input, output, session) {
         abline(h = exp(input$theta.not*log(input$alpha)/val$theta), col  = "gray")
         if(!is.na(val$theta)){
           legend("topleft",
-                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(val$theta,2))), bquote(beta(theta)~"="~ .(round(exp(input$theta.not*log(input$alpha)/val$theta),2)))),
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(val$theta,2))), bquote(beta(theta)~"="~ .(round(exp(input$theta.not*log(input$alpha)/val$theta),3)))),
                  pch = c(NA,NA), bty = "n")
         }
       }
@@ -301,7 +319,7 @@ server <- function(input, output, session) {
         abline(h = 1 - exp(input$theta.not*log(1 - input$alpha)/val$theta), col  = "gray")
         if(!is.na(val$theta)){
           legend("topright",
-                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(val$theta,2))), bquote(beta(theta)~"="~ .(round(1 - exp(input$theta.not*log(1 - input$alpha)/val$theta),2)))),
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(val$theta,2))), bquote(beta(theta)~"="~ .(round(1 - exp(input$theta.not*log(1 - input$alpha)/val$theta),3)))),
                  pch = c(NA,NA), bty = "n")
         }
       }
@@ -325,7 +343,7 @@ server <- function(input, output, session) {
           legend("topleft",
                  legend = c(expression(paste("Click Info")),
                             bquote(theta~"="~.(round(val$theta,2))),
-                            bquote(beta(theta)~"="~ .(round(1 - pexp(qexp(1 - alpha/2, n/theta.not), n/theta) + pexp(qexp(alpha/2, n/theta.not), n/theta),2)))),
+                            bquote(beta(theta)~"="~ .(round(1 - pexp(qexp(1 - alpha/2, n/theta.not), n/theta) + pexp(qexp(alpha/2, n/theta.not), n/theta),3)))),
                  pch = c(NA,NA), bty = "n")
         }
       }
@@ -348,7 +366,7 @@ server <- function(input, output, session) {
         abline(h = exp(input$theta.not*log(input$alpha)/val$theta), col  = "gray")
         if(!is.na(val$theta)){
           legend("topleft",
-                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(exp_samp_max_pwrfunc_greater(theta = theta, alpha = alpha, theta_not = theta.not, n = n), 2)))),
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(exp_samp_max_pwrfunc_greater(theta = theta, alpha = alpha, theta_not = theta.not, n = n), 3)))),
                  pch = c(NA,NA), bty = "n")
         }
       }
@@ -371,7 +389,7 @@ server <- function(input, output, session) {
         abline(h = exp(input$theta.not*log(input$alpha)/val$theta), col  = "gray")
         if(!is.na(val$theta)){
           legend("topleft",
-                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(exp_samp_max_pwrfunc_less(theta = theta, alpha = alpha, theta_not = theta.not, n = n), 2)))),
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(exp_samp_max_pwrfunc_less(theta = theta, alpha = alpha, theta_not = theta.not, n = n), 3)))),
                  pch = c(NA,NA), bty = "n")
         }
       }
@@ -394,7 +412,7 @@ server <- function(input, output, session) {
         abline(h = exp(input$theta.not*log(input$alpha)/val$theta), col  = "gray")
         if(!is.na(val$theta)){
           legend("topleft",
-                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(exp_samp_max_pwrfunc_noteqto(theta = theta, alpha = alpha, theta_not = theta.not, n = n), 2)))),
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(exp_samp_max_pwrfunc_noteqto(theta = theta, alpha = alpha, theta_not = theta.not, n = n), 3)))),
                  pch = c(NA,NA), bty = "n")
         }
       }
@@ -436,7 +454,7 @@ server <- function(input, output, session) {
         abline(h = 1 - pnorm(qnorm(1 - input$alpha, mean = 0, sd = 1) + ((input$theta.not - val$theta)*sqrt(input$sample.size))/input$sigma), col  = "gray")
         if(!is.na(val$theta)){
           legend("topleft",
-                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(val$theta,2))), bquote(beta(theta)~"="~ .(round(1 - pnorm(qnorm(1 - input$alpha, mean = 0, sd = 1) + ((input$theta.not - val$theta)*sqrt(input$sample.size))/input$sigma), 2)))),
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(val$theta,2))), bquote(beta(theta)~"="~ .(round(1 - pnorm(qnorm(1 - input$alpha, mean = 0, sd = 1) + ((input$theta.not - val$theta)*sqrt(input$sample.size))/input$sigma), 3)))),
                  pch = c(NA,NA), bty = "n")
         }
       }
@@ -452,7 +470,7 @@ server <- function(input, output, session) {
         abline(h = pnorm(qnorm(1 - input$alpha, mean = 0, sd = 1) + ((input$theta.not - val$theta)*sqrt(input$sample.size))/input$sigma), col  = "gray")
         if(!is.na(val$theta)){
           legend("topleft",
-                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(val$theta,2))), bquote(beta(theta)~"="~ .(round(pnorm(qnorm(1 - input$alpha, mean = 0, sd = 1) + ((input$theta.not - val$theta)*sqrt(input$sample.size))/input$sigma), 2)))),
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(val$theta,2))), bquote(beta(theta)~"="~ .(round(pnorm(qnorm(1 - input$alpha, mean = 0, sd = 1) + ((input$theta.not - val$theta)*sqrt(input$sample.size))/input$sigma), 3)))),
                  pch = c(NA,NA), bty = "n")
         }
       }
@@ -468,7 +486,7 @@ server <- function(input, output, session) {
         abline(h = 1 - pnorm(qnorm(1 - input$alpha/2) - (input$theta.not - val$theta)*sqrt(input$sample.size)/input$sigma) + pnorm(-qnorm(1 - input$alpha/2) - (input$theta.not - val$theta)*sqrt(input$sample.size)/input$sigma), col  = "gray")
         if(!is.na(val$theta)){
           legend("topleft",
-                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(val$theta,2))), bquote(beta(theta)~"="~ .(round(1 - pnorm(qnorm(1 - input$alpha/2) - (input$theta.not - val$theta)*sqrt(input$sample.size)/input$sigma) + pnorm(-qnorm(1 - input$alpha/2) - (input$theta.not - val$theta)*sqrt(input$sample.size)/input$sigma), 2)))),
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(val$theta,2))), bquote(beta(theta)~"="~ .(round(1 - pnorm(qnorm(1 - input$alpha/2) - (input$theta.not - val$theta)*sqrt(input$sample.size)/input$sigma) + pnorm(-qnorm(1 - input$alpha/2) - (input$theta.not - val$theta)*sqrt(input$sample.size)/input$sigma), 3)))),
                  pch = c(NA,NA), bty = "n")
         }
       }
@@ -492,7 +510,7 @@ server <- function(input, output, session) {
         abline(h = norm_samp_min_pwrfunc_greater(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), col  = "gray")
         if(!is.na(val$theta)){
           legend("topleft",
-                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(norm_samp_min_pwrfunc_greater(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), 2)))),
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(norm_samp_min_pwrfunc_greater(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), 3)))),
                  pch = c(NA,NA), bty = "n")
         }
       }
@@ -516,7 +534,7 @@ server <- function(input, output, session) {
         abline(h = norm_samp_min_pwrfunc_less(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), col  = "gray")
         if(!is.na(val$theta)){
           legend("topleft",
-                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(norm_samp_min_pwrfunc_less(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), 2)))),
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(norm_samp_min_pwrfunc_less(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), 3)))),
                  pch = c(NA,NA), bty = "n")
         }
       }
@@ -540,7 +558,7 @@ server <- function(input, output, session) {
         abline(h = norm_samp_min_pwrfunc_noteqto(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), col  = "gray")
         if(!is.na(val$theta)){
           legend("topleft",
-                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(norm_samp_min_pwrfunc_noteqto(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), 2)))),
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(norm_samp_min_pwrfunc_noteqto(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), 3)))),
                  pch = c(NA,NA), bty = "n")
         }
       }
@@ -564,7 +582,7 @@ server <- function(input, output, session) {
         abline(h = norm_samp_max_pwrfunc_greater(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), col  = "gray")
         if(!is.na(val$theta)){
           legend("topleft",
-                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(norm_samp_max_pwrfunc_greater(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), 2)))),
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(norm_samp_max_pwrfunc_greater(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), 3)))),
                  pch = c(NA,NA), bty = "n")
         }
       }
@@ -588,7 +606,7 @@ server <- function(input, output, session) {
         abline(h = norm_samp_max_pwrfunc_less(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), col  = "gray")
         if(!is.na(val$theta)){
           legend("topleft",
-                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(norm_samp_max_pwrfunc_less(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), 2)))),
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(norm_samp_max_pwrfunc_less(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), 3)))),
                  pch = c(NA,NA), bty = "n")
         }
       }
@@ -612,7 +630,7 @@ server <- function(input, output, session) {
         abline(h = norm_samp_max_pwrfunc_noteqto(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), col  = "gray")
         if(!is.na(val$theta)){
           legend("topleft",
-                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(norm_samp_max_pwrfunc_noteqto(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), 2)))),
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(norm_samp_max_pwrfunc_noteqto(theta = theta, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), 3)))),
                  pch = c(NA,NA), bty = "n")
         }
       }
@@ -653,7 +671,7 @@ server <- function(input, output, session) {
 
         if(!is.null(val$theta)){
           legend("topleft",
-                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(unif_samp_max_pwrfunc_greater(theta = theta, alpha = alpha, theta_not = theta.not, n = n), 2)))),
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(unif_samp_max_pwrfunc_greater(theta = theta, alpha = alpha, theta_not = theta.not, n = n), 3)))),
                  pch = c(NA,NA), bty = "n")
         }
         
@@ -678,7 +696,7 @@ server <- function(input, output, session) {
 
         if(!is.null(val$theta)){
           legend("topleft",
-                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(unif_samp_max_pwrfunc_less(theta = theta, alpha = alpha, theta_not = theta.not, n = n), 2)))),
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(unif_samp_max_pwrfunc_less(theta = theta, alpha = alpha, theta_not = theta.not, n = n), 3)))),
                  pch = c(NA,NA), bty = "n")
         }
         
@@ -692,46 +710,22 @@ server <- function(input, output, session) {
         theta <- val$theta
         
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(0, 2*theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~Sigma(X[i])), las = 1)
+             xlim = c(0, 2*theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X['(n)']), las = 1)
         
-        curve(x/x, from = 0, to = theta.not * alpha^(1/n), add = T)
-        curve((theta.not * alpha^(1/n))^n/x^n, from = theta.not * alpha^(1/n), to = theta.not, add = T)
-        curve(1 - (theta.not)^n/x^n + (theta.not * alpha^(1/n))^n/x^n, from = theta.not, to = 2*theta.not, add = T)
-        
+        curve(unif_samp_max_pwrfunc_noteqto(theta = x, alpha = alpha, theta_not = theta.not, n = n), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
-        if(!is.na(val$theta)){
-          if(theta < theta.not * alpha^(1/n) | theta == theta.not * alpha^(1/n)){
-            points(x = theta, y = 1, pch = 16)
-            abline(v = theta, col = "gray")
-            abline(h = 1, col = "gray")
-            legend("topleft",
-                   legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(val$theta,2))), bquote(beta(theta)~"="~ .(round(1, 2)))),
-                   pch = c(NA,NA), bty = "n")
-          }
-
-          if(theta > theta.not * alpha^(1/n) & theta < theta.not){
-            points(x = theta, y = (theta.not * alpha^(1/n))^n/theta^n, pch = 16)
-            abline(v = theta, col = "gray")
-            abline(h = (theta.not * alpha^(1/n))^n/theta^n, col = "gray")
-            legend("topleft",
-                   legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(val$theta,2))), bquote(beta(theta)~"="~ .(round((theta.not * alpha^(1/n))^n/theta^n, 2)))),
-                   pch = c(NA,NA), bty = "n")
-          }
-
-          if(theta > theta.not | theta == theta.not){
-            points(x = theta, y = 1 - (theta.not)^n/theta^n + (theta.not * alpha^(1/n))^n/theta^n, pch = 16)
-            abline(v = theta, col = "gray")
-            abline(h = 1 - (theta.not)^n/theta^n + (theta.not * alpha^(1/n))^n/theta^n, col = "gray")
-            legend("topleft",
-                   legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(val$theta,2))), bquote(beta(theta)~"="~ .(round(1 - (theta.not)^n/theta^n + (theta.not * alpha^(1/n))^n/theta^n, 2)))),
-                   pch = c(NA,NA), bty = "n")
-          }
+        
+        points(x = theta, y = unif_samp_max_pwrfunc_noteqto(theta = theta, alpha = alpha, theta_not = theta.not, n = n), pch = 16)
+        abline(v = theta, col  = "gray")
+        abline(h = unif_samp_max_pwrfunc_noteqto(theta = theta, alpha = alpha, theta_not = theta.not, n = n), col  = "gray")
+        
+        if(!is.null(val$theta)){
+          legend("topleft",
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(unif_samp_max_pwrfunc_noteqto(theta = theta, alpha = alpha, theta_not = theta.not, n = n), 3)))),
+                 pch = c(NA,NA), bty = "n")
         }
         
       }
-      
-      
-
       
     })
 

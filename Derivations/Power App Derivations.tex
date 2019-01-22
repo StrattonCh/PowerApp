@@ -989,7 +989,7 @@ Suppose that $X_i \stackrel{iid}{\sim} \text{Unif}(0, \theta)$, and we take a ra
 \[
 \begin{split}
 \text{$H_0$: }& \theta = \theta_0 \\
-\text{$H_a$: }& \theta \geq \theta_0
+\text{$H_a$: }& \theta \neq \theta_0
 \end{split}
 \]
 
@@ -1038,8 +1038,16 @@ Therefore, our power function is piecewise and looks like:\\
 \textbf{For $k_1 < \theta \leq k_2$}
 \[
 \begin{split}
-\beta(\theta) &= Pr(\bfX \in RR) = Pr\left(X_{(n)} < \theta_0(1-\alpha/2)^{1/n} \Big| \theta\right) - Pr\left(X_{(n)} < \theta_0(1-\alpha/2)^{1/n} \Big| \theta\right)\\
-&= \frac{\theta_0^n\alpha}{\theta^n}
+\beta(\theta) &= Pr(\bfX \in RR) = Pr\left(X_{(n)} < \theta_0(\alpha/2)^{1/n} \Big| \theta\right) \\
+&= \frac{\theta_0^n\alpha}{2\theta^n}
+\end{split}
+\]
+\textbf{For $\theta > k_2$}
+\[
+\begin{split}
+\beta(\theta) &= Pr(\bfX \in RR) = Pr\left(X_{(n)} > \theta_0(1-\alpha/2)^{1/n} \Big| \theta\right) + Pr\left(X_{(n)} < \theta_0(\alpha/2)^{1/n} \Big| \theta\right) \\
+&= 1 - Pr\left(X_{(n)}\leq \theta_0(1-\alpha/2)^{1/n} \Big| \theta\right) + Pr\left(X_{(n)} < \theta_0(\alpha/2)^{1/n} \Big| \theta\right) \\
+&= 1 - \frac{\theta_0^n(1-\alpha/2)}{\theta^n} + \frac{\theta_0^n\alpha}{2\theta^n}
 \end{split}
 \]
 
