@@ -887,9 +887,117 @@ f_T(t) &= \frac{1}{\theta} f_Y\left(\frac{t}{\theta}\right)
 
 \subsubsection{Alternative: Greater than}
 
+Suppose that $X_i \stackrel{iid}{\sim} \text{Unif}(0, \theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
+\[
+\begin{split}
+\text{$H_0$: }& \theta \leq \theta_0 \\
+\text{$H_a$: }& \theta > \theta_0
+\end{split}
+\]
+
+Consider the following test function:
+\[
+\phi(\bfX) = \begin{cases}
+1 & \sum_{i=1}^n X_i > k \\
+0 & \text{else}
+\end{cases},
+\]
+
+where $k$ is chosen such that $Pr(\phi(\bfX) = 1|\theta_0) = \alpha$. That is, we seek $k$ such that
+\[
+Pr(\phi(\bfX) = 1|\theta_0) = Pr\left(\sum_{i=1}^n X_i > k |\theta_0\right) = \alpha
+\]
+
+The value of $k$ that satisfies this is the $1 - \alpha$ quantile of the general Irwin-Hall($n, \theta_0$) distribution. Letting $\eta_{1-\alpha, n, \theta_0}$ denote this quantity, our test function is
+
+\[
+\phi(\bfX) = \begin{cases}
+1 & \sum_{i=1}^n X_i > \eta_{1-\alpha, n, \theta_0}\\
+0 & \text{else}
+\end{cases}
+\]
+
+Therefore, our power function looks like
+\[
+\begin{split}
+\beta(\theta) &= Pr(\bfX \in RR) = Pr(\sum_{i=1}^n X_i > \eta_{1-\alpha, n, \theta}) \\
+&= 1 - Pr\left(\sum_{i=1}^n X_i \leq \eta_{1-\alpha, n, \theta_0}\right)
+\end{split}
+\]
+
 \subsubsection{Alternative: Less than}
 
+Suppose that $X_i \stackrel{iid}{\sim} \text{Unif}(0, \theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
+\[
+\begin{split}
+\text{$H_0$: }& \theta \geq \theta_0 \\
+\text{$H_a$: }& \theta < \theta_0
+\end{split}
+\]
+
+Consider the following test function:
+\[
+\phi(\bfX) = \begin{cases}
+1 & \sum_{i=1}^n X_i < k \\
+0 & \text{else}
+\end{cases},
+\]
+
+where $k$ is chosen such that $Pr(\phi(\bfX) = 1|\theta_0) = \alpha$. That is, we seek $k$ such that
+\[
+Pr(\phi(\bfX) = 1|\theta_0) = Pr\left(\sum_{i=1}^n X_i < k |\theta_0\right) = \alpha
+\]
+
+The value of $k$ that satisfies this is the $\alpha$ quantile of the general Irwin-Hall($n, \theta_0$) distribution. Letting $\eta_{\alpha, n, \theta_0}$ denote this quantity, our test function is
+
+\[
+\phi(\bfX) = \begin{cases}
+1 & \sum_{i=1}^n X_i < \eta_{\alpha, n, \theta_0}\\
+0 & \text{else}
+\end{cases}
+\]
+
+Therefore, our power function looks like
+\[
+\begin{split}
+\beta(\theta) &= Pr(\bfX \in RR) = Pr\left(\sum_{i=1}^n X_i < \eta_{\alpha, n, \theta_0}\right)
+\end{split}
+\]
+
+
 \subsubsection{Alternative: Not equal to}
+
+Suppose that $X_i \stackrel{iid}{\sim} \text{Unif}(0, \theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
+\[
+\begin{split}
+\text{$H_0$: }& \theta = \theta_0 \\
+\text{$H_a$: }& \theta \neq \theta_0
+\end{split}
+\]
+
+Consider the following test function:
+\[
+\phi(\bfX) = \begin{cases}
+1 & \sum_{i=1}^n X_i < k_1 \text{ or } \sum_{i=1}^n X_i > k_2 \\
+0 & \text{else}
+\end{cases},
+\]
+
+where $k_1$ and $k_2$ are chosen such that $Pr(\phi(\bfX) = 1|\theta_0) = \alpha$. We choose a symmetric test. Let $T = \sum_{i=1}^n X_i$. We seek $k_1$ and $k_2$ such that $Pr(T < k_1|\theta_0) = \alpha/2$ and $Pr(T < k_2|\theta_0) = \alpha/2$. The values of $k_1$ and $k_2$ that satisfy these equations are the $\alpha/2$ and $1 - \alpha/2$ quantiles of the general Irwin-Hall($n, \theta_0$) distribution. Letting $\eta_{\alpha/2, n, \theta_0}$ and $\eta_{\alpha/2, n, \theta_0}$ denote these quantities, our test function is
+
+\[
+\phi(\bfX) = \begin{cases}
+1 & \sum_{i=1}^n X_i < \eta_{\alpha, n, \theta}\\
+0 & \text{else}
+\end{cases}
+\]
+
+Therefore, our power function looks like
+\[
+\begin{split}
+\beta(\theta) &= Pr(\bfX \in RR) = 1 - Pr\left(\sum_{i=1}^n X_i < \eta_{1-\alpha/2, n, \theta_0}\right) + Pr\left(\sum_{i=1}^n X_i < \eta_{\alpha/2, n, \theta_0}\right) \\
+\end{split}
+\]
 
 \subsection{Statistic: $X_{(1)}$}
 

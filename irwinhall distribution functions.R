@@ -61,8 +61,6 @@ qirwinhall <- Vectorize(function(p, n, theta){
   
 })
 
-
-
 ################
 ### EXAMPLES ###
 ################
@@ -79,6 +77,10 @@ curve(dirwinhall(x, n, theta), add = T, n = 1001, col = 2, lwd = 2)
 tmp2 <- sample(tmp, 10000)
 plot(ecdf(tmp2))
 curve(pirwinhall(q = x, n, theta), add = T, n = 1001, col = 2, lwd = 2, lty = 2)
+
+# quantile function
+qirwinhall(p = .025, n = 4, theta = 2)
+pirwinhall(q = 1.760223, n = 4, theta = 2)
 
 
 

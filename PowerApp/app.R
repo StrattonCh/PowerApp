@@ -147,6 +147,97 @@ unif_samp_min_pwrfunc_noteqto <- Vectorize(function(theta, alpha, theta_not, n){
   }
 })
 
+dirwinhall <- Vectorize(function(x, n, theta){
+  # function to calculate density of sum of n unif(0, theta) RVs
+  # inputs  : x - value at which to calculate density
+  #         : n - number of unif RVs to sum
+  #         : theta - population maximum
+  # outputs : numeric value that is the density at x
+  
+  if(x/theta < 0) return(0)
+  if(x/theta > n) return(0)
+  if(x/theta >= 0 & x/theta <= n){
+    X  <-  floor(x/theta)
+    r <- seq(from = 0,  to = X)
+    s <-  (-1)^r * choose(n, r)*(x/theta-r)^(n-1)/factorial(n-1)
+    return(sum(s)/theta)
+  }
+})
+
+pirwinhall <- Vectorize(function(q, n, theta){
+  # function to calculate cumulative density of sum of n unif(0, theta) RVs
+  # inputs  : q - quantile
+  #         : n - number of unif RVs to sum
+  #         : theta - population maximum
+  # outputs : numeric value that is the cumulative density at x
+  
+  if(q/theta < 0) return(0)
+  if(q/theta > n) return(1)
+  if(q/theta >= 0 & q/theta <= n){
+    X  <-  floor(q/theta)
+    r <- seq(from = 0,  to = X)
+    s <-  (-1)^r * choose(n, r)*(q/theta-r)^(n)/factorial(n)
+    return(sum(s))
+  }
+})
+
+pirwinhall_zero <- Vectorize(function(q, n, theta, p){
+  # function to calculate cumulative density of sum of n unif(0, theta) RVs
+  # inputs  : q - quantile
+  #         : n - number of unif RVs to sum
+  #         : theta - population maximum
+  # outputs : numeric value that is the cumulative density at x
+  
+  if(q/theta < 0) return(0)
+  if(q/theta > n) return(1)
+  if(q/theta >= 0 & q/theta <= n){
+    X  <-  floor(q/theta)
+    r <- seq(from = 0,  to = X)
+    s <-  (-1)^r * choose(n, r)*(q/theta-r)^(n)/factorial(n)
+    return(sum(s) - p)
+  }
+})
+
+qirwinhall <- Vectorize(function(p, n, theta){
+  # function to calculate quantile of sum of n unif(0, theta) RVs
+  # inputs  : x - probability
+  #         : n - number of unif RVs to sum
+  #         : theta - population maximum
+  # outputs : numeric value that is the cumulative density at x
+  
+  tmp <- uniroot(pirwinhall_zero, n = n, theta = theta, p = p, lower = 0, upper = n*theta, tol = .000000001)
+  return(tmp[[1]])
+  
+})
+
+unif_sum_pwrfunc_greater <- function(theta, alpha, theta_not, n){
+  
+  if(is.na(theta[length(theta)])){
+    return(NA)
+  }
+  k <- qirwinhall(p = 1 - alpha, n = n, theta = theta_not)
+  return(1 - pirwinhall(q = k, n = n, theta = theta))
+}
+
+unif_sum_pwrfunc_less <- function(theta, alpha, theta_not, n){
+  
+  if(is.na(theta[length(theta)])){
+    return(NA)
+  }
+  k <- qirwinhall(p = alpha, n = n, theta = theta_not)
+  return(pirwinhall(q = k, n = n, theta = theta))
+}
+
+unif_sum_pwrfunc_noteqto <- function(theta, alpha, theta_not, n){
+  
+  if(is.na(theta[length(theta)])){
+    return(NA)
+  }
+  k1 <- qirwinhall(p = alpha/2, n = n, theta = theta_not)
+  k2 <- qirwinhall(p = 1 - alpha/2, n = n, theta = theta_not)
+  return(1 - pirwinhall(q = k2, n = n, theta = theta) + pirwinhall(q = k1, n = n, theta = theta))
+}
+
 
 # Define UI for application
 ui <- fluidPage(
@@ -687,10 +778,79 @@ server <- function(input, output, session) {
       ############################
       
       #sum, greater than
+      if(input$distribution == "Uniform" & input$statistic == "Sum of the X's" & input$alternative == "Greater than"){
+        n <- input$sample.size
+        theta.not <- input$theta.not
+        alpha <- input$alpha
+        theta <- val$theta
+        
+        plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
+             xlim = c(0, 2*theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~ Sigma(X['i'])), las = 1)
+        
+        curve(unif_sum_pwrfunc_greater(theta = x, alpha = alpha, theta_not = theta.not, n = n), add = T, n = 1000)
+        abline(h = input$alpha, lty = 2, col = "red")
+        
+        points(x = theta, y = unif_sum_pwrfunc_greater(theta = theta, alpha = alpha, theta_not = theta.not, n = n), pch = 16)
+        abline(v = theta, col  = "gray")
+        abline(h = unif_sum_pwrfunc_greater(theta = theta, alpha = alpha, theta_not = theta.not, n = n), col  = "gray")
+
+        if(!is.null(val$theta)){
+          legend("topleft",
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(unif_sum_pwrfunc_greater(theta = theta, alpha = alpha, theta_not = theta.not, n = n), 3)))),
+                 pch = c(NA,NA), bty = "n")
+        }
+        
+      }  
       
       #sum, less than
+      if(input$distribution == "Uniform" & input$statistic == "Sum of the X's" & input$alternative == "Less than"){
+        n <- input$sample.size
+        theta.not <- input$theta.not
+        alpha <- input$alpha
+        theta <- val$theta
+        
+        plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
+             xlim = c(0, 2*theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~ Sigma(X['i'])), las = 1)
+        
+        curve(unif_sum_pwrfunc_less(theta = x, alpha = alpha, theta_not = theta.not, n = n), add = T, n = 1000)
+        abline(h = input$alpha, lty = 2, col = "red")
+        
+        points(x = theta, y = unif_sum_pwrfunc_less(theta = theta, alpha = alpha, theta_not = theta.not, n = n), pch = 16)
+        abline(v = theta, col  = "gray")
+        abline(h = unif_sum_pwrfunc_less(theta = theta, alpha = alpha, theta_not = theta.not, n = n), col  = "gray")
+        
+        if(!is.null(val$theta)){
+          legend("topleft",
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(unif_sum_pwrfunc_less(theta = theta, alpha = alpha, theta_not = theta.not, n = n), 3)))),
+                 pch = c(NA,NA), bty = "n")
+        }
+        
+      }  
       
       #sum, not equal
+      if(input$distribution == "Uniform" & input$statistic == "Sum of the X's" & input$alternative == "Not equal to"){
+        n <- input$sample.size
+        theta.not <- input$theta.not
+        alpha <- input$alpha
+        theta <- val$theta
+        
+        plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
+             xlim = c(0, 2*theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~ Sigma(X['i'])), las = 1)
+        
+        curve(unif_sum_pwrfunc_noteqto(theta = x, alpha = alpha, theta_not = theta.not, n = n), add = T, n = 1000)
+        abline(h = input$alpha, lty = 2, col = "red")
+        
+        points(x = theta, y = unif_sum_pwrfunc_noteqto(theta = theta, alpha = alpha, theta_not = theta.not, n = n), pch = 16)
+        abline(v = theta, col  = "gray")
+        abline(h = unif_sum_pwrfunc_noteqto(theta = theta, alpha = alpha, theta_not = theta.not, n = n), col  = "gray")
+        
+        if(!is.null(val$theta)){
+          legend("topleft",
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(unif_sum_pwrfunc_noteqto(theta = theta, alpha = alpha, theta_not = theta.not, n = n), 3)))),
+                 pch = c(NA,NA), bty = "n")
+        }
+        
+      }  
       
       #min, greater than
       if(input$distribution == "Uniform" & input$statistic == "Sample Minimum" & input$alternative == "Greater than"){

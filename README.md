@@ -34,9 +34,9 @@
   
   <b> Uniform </b>:  
   
-  - Sum of X, greater
-  - Sum of X, less
-  - Sum of X, not equal
+  - <s> Sum of X, greater </s>
+  - <s> Sum of X, less </s>
+  - <s> Sum of X, not equal </s>
   
   - <s> Min, greater </s>
   - <s> Min, less </s>
