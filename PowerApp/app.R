@@ -293,16 +293,6 @@ ui <- fluidPage(
         step = 10,
         min = 0
       ),
-      # conditionalPanel(
-      #   condition = "typeof input.plot_click != 'undefined'",
-      #   numericInput(
-      #     inputId = "theta",
-      #     label = h3("Theta"),
-      #     value = NULL,
-      #     step = 1,
-      #     min = 0
-      #   )
-      # )
       numericInput(
         inputId = 'theta',
         label = h3("Theta"),
@@ -316,16 +306,27 @@ ui <- fluidPage(
       withMathJax(),
       h1("Introduction"),
       p("Hello! This application is meant to help visualize power curves, sampling distributions, and the relationship
-        between the two. It is meant to accompany the mean annual loss due to theft example in the notes. In this example,
-        we consider a random sample from an Exponential(", HTML('&theta;'), ") distribution. The panel to the left will allow 
-        you to explore the power curve for each of two different statistics, as well as how that curve changes based on 
-        significance level, sample size and null value."),
+        between the two. The panel to the left will allow you to explore the power curve for each of three different statistics,
+        three different alternative hypotheses, and three different test statistics, as well as how that curve changes based on 
+        the significance level, sample size and null value."),
       br(),
       p("This application will also allow you to explore how power is related to the sampling distribution of a test 
         statistic under the null and alternative hypotheses. To visualize these distributions for a specific value of",
         HTML('&theta;,'), "simply click the power curve at the desired value of", HTML('&theta;.'), "Have fun!"),
       br(),
       h3("Power Curve"),
+      conditionalPanel(
+        condition = "input.distribution == 'Exponential'",
+        h4("Exponential Distribution")
+      ),
+      conditionalPanel(
+        condition = "input.distribution == 'Normal'",
+        h4("Normal Distribution")
+      ),
+      conditionalPanel(
+        condition = "input.distribution == 'Uniform'",
+        h4("Uniform Distribution")
+      ),
       p(""),
       plotOutput(outputId = "powerPlot",
                  click = "plot_click",
@@ -334,18 +335,35 @@ ui <- fluidPage(
       br(),
       
       #add sampling distribution text for exponential
+      h3('Sampling Distribution'),
       conditionalPanel(
         condition = "input.distribution == 'Exponential'",
-        h3("Sampling Distributions"),
         p("It can be shown that if \\(X_{i}\\) \\(\\overset{\\scriptscriptstyle \\text{iid}}{\\sim}\\) \\(Exp(\\)\\(\\theta)\\), 
         then \\(\\Sigma(X_{i})\\) ~ \\(Gamma(n, \\theta)\\) and \\(X_{(1)}\\) ~ \\(Exp(\\)\\(\\frac{\\theta}{n})\\). 
         These results are used to plot the sampling distributions for each statistic both under the null hypothesis and
         the true value of", HTML('&theta;.'), "The red area corresponds to the significance level and the gray area corresponds
         to the power; note the relationship between the sampling distribution under", HTML('&theta;<sub>0</sub>,'), "sampling
-        distribution under", HTML('&theta;,') ,"significance level and power!"),
-        conditionalPanel(condition = "typeof input.plot_click != 'undefined'",
-                         plotOutput(outputId = "sampDist")
-                         )
+        distribution under", HTML('&theta;,') ,"significance level and power!")
+      ),
+      conditionalPanel(
+        condition = "input.distribution == 'Normal'",
+        p("It can be shown that normal stuff. 
+        These results are used to plot the sampling distributions for each statistic both under the null hypothesis and
+        the true value of", HTML('&theta;.'), "The red area corresponds to the significance level and the gray area corresponds
+        to the power; note the relationship between the sampling distribution under", HTML('&theta;<sub>0</sub>,'), "sampling
+        distribution under", HTML('&theta;,') ,"significance level and power!")
+      ),
+      conditionalPanel(
+        condition = "input.distribution == 'Uniform'",
+        p("It can be shown that uniform stuff. 
+        These results are used to plot the sampling distributions for each statistic both under the null hypothesis and
+        the true value of", HTML('&theta;.'), "The red area corresponds to the significance level and the gray area corresponds
+        to the power; note the relationship between the sampling distribution under", HTML('&theta;<sub>0</sub>,'), "sampling
+        distribution under", HTML('&theta;,') ,"significance level and power!")
+      ),
+      conditionalPanel(
+        condition = "!is.na(val$theta)",
+        plotOutput(outputId = "sampDist")
       )
       )
       )
@@ -363,8 +381,6 @@ server <- function(input, output, session) {
   observeEvent(input$theta, {
     val$theta <- input$theta
   })
-  
-  
   
     #Produce First Graph of Power Function
     output$powerPlot <- renderPlot({
@@ -867,7 +883,7 @@ server <- function(input, output, session) {
         
         points(x = theta, y = unif_samp_min_pwrfunc_greater(theta = theta, alpha = alpha, theta_not = theta.not, n = n), pch = 16)
         abline(v = theta, col  = "gray")
-        abline(h = unif_samp_max_pwrfunc_greater(theta = theta, alpha = alpha, theta_not = theta.not, n = n), col  = "gray")
+        abline(h = unif_samp_min_pwrfunc_greater(theta = theta, alpha = alpha, theta_not = theta.not, n = n), col  = "gray")
         
         if(!is.null(val$theta)){
           legend("topleft",
@@ -1219,5 +1235,5 @@ server <- function(input, output, session) {
 }
 
 # Run the application 
-shinyApp(ui = ui, server = server, options = list(launch.browser = T))
+shinyApp(ui = ui, server = server, options = list(launch.browser = F))
 
