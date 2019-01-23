@@ -15,22 +15,53 @@ dirwinhall <- Vectorize(function(x, n, theta){
   }
 })
 
-pirwinhall <- Vectorize(function(x, n, theta){
+pirwinhall <- Vectorize(function(q, n, theta){
   # function to calculate cumulative density of sum of n unif(0, theta) RVs
-  # inputs  : x - value at which to calculate density
+  # inputs  : q - quantile
   #         : n - number of unif RVs to sum
   #         : theta - population maximum
   # outputs : numeric value that is the cumulative density at x
   
-  if(x/theta < 0) return(0)
-  if(x/theta > n) return(1)
-  if(x/theta >= 0 & x/theta <= n){
-    X  <-  floor(x/theta)
+  if(q/theta < 0) return(0)
+  if(q/theta > n) return(1)
+  if(q/theta >= 0 & q/theta <= n){
+    X  <-  floor(q/theta)
     r <- seq(from = 0,  to = X)
-    s <-  (-1)^r * choose(n, r)*(x/theta-r)^(n)/factorial(n)
+    s <-  (-1)^r * choose(n, r)*(q/theta-r)^(n)/factorial(n)
     return(sum(s))
   }
 })
+
+pirwinhall_zero <- Vectorize(function(q, n, theta, p){
+  # function to calculate cumulative density of sum of n unif(0, theta) RVs
+  # inputs  : q - quantile
+  #         : n - number of unif RVs to sum
+  #         : theta - population maximum
+  # outputs : numeric value that is the cumulative density at x
+  
+  if(q/theta < 0) return(0)
+  if(q/theta > n) return(1)
+  if(q/theta >= 0 & q/theta <= n){
+    X  <-  floor(q/theta)
+    r <- seq(from = 0,  to = X)
+    s <-  (-1)^r * choose(n, r)*(q/theta-r)^(n)/factorial(n)
+    return(sum(s) - p)
+  }
+})
+
+qirwinhall <- Vectorize(function(p, n, theta){
+  # function to calculate quantile of sum of n unif(0, theta) RVs
+  # inputs  : x - probability
+  #         : n - number of unif RVs to sum
+  #         : theta - population maximum
+  # outputs : numeric value that is the cumulative density at x
+  
+  tmp <- uniroot(pirwinhall_zero, n = n, theta = theta, p = p, lower = 0, upper = n*theta, tol = .000000001)
+  return(tmp[[1]])
+  
+})
+
+
 
 ################
 ### EXAMPLES ###
@@ -47,7 +78,7 @@ curve(dirwinhall(x, n, theta), add = T, n = 1001, col = 2, lwd = 2)
 # distribution function
 tmp2 <- sample(tmp, 10000)
 plot(ecdf(tmp2))
-curve(pirwinhall(x, n, theta), add = T, n = 1001, col = 2, lwd = 2, lty = 2)
+curve(pirwinhall(q = x, n, theta), add = T, n = 1001, col = 2, lwd = 2, lty = 2)
 
 
 
