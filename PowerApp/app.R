@@ -101,6 +101,52 @@ unif_samp_max_pwrfunc_noteqto <- Vectorize(function(theta, alpha, theta_not, n){
   }
 })
 
+unif_samp_min_pwrfunc_greater <- Vectorize(function(theta, alpha, theta_not, n){
+  #function to calculate power of sample min of unif(0,theta)
+  k <- theta_not*(1 - alpha^(1/n))
+  if(is.na(theta)){
+    return(NA)
+  }
+  if(theta <= k){
+    return(0)
+  }
+  if(theta > k){
+    return((1 - k/theta)^n)
+  }
+})
+
+unif_samp_min_pwrfunc_less <- Vectorize(function(theta, alpha, theta_not, n){
+  #function to calculate power of sample min of unif(0,theta)
+  k <- theta_not*(1 - (1 - alpha)^(1/n))
+  if(is.na(theta)){
+    return(NA)
+  }
+  if(theta <= k){
+    return(1)
+  }
+  if(theta > k){
+    return(1 - (1 - k/theta)^n)
+  }
+})
+
+unif_samp_min_pwrfunc_noteqto <- Vectorize(function(theta, alpha, theta_not, n){
+  #function to calculate power of sample min of unif(0,theta)
+  k1 <- theta_not*(1 - (1 - alpha/2)^(1/n))
+  k2 <- theta_not*(1 - (alpha/2)^(1/n))
+  if(is.na(theta)){
+    return(NA)
+  }
+  if(theta <= k1){
+    return(1)
+  }
+  if(k1 < theta & theta <= k2){
+    return(1 - (1 - k1/theta)^n)
+  }
+  if(theta > k2){
+    return(1 + (1 - k2/theta)^n - (1 - k1/theta)^n)
+  }
+})
+
 
 # Define UI for application
 ui <- fluidPage(
@@ -647,10 +693,79 @@ server <- function(input, output, session) {
       #sum, not equal
       
       #min, greater than
+      if(input$distribution == "Uniform" & input$statistic == "Sample Minimum" & input$alternative == "Greater than"){
+        n <- input$sample.size
+        theta.not <- input$theta.not
+        alpha <- input$alpha
+        theta <- val$theta
+        
+        plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
+             xlim = c(0, 2*theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~ X['(1)']), las = 1)
+        
+        curve(unif_samp_min_pwrfunc_greater(theta = x, alpha = alpha, theta_not = theta.not, n = n), add = T, n = 1000)
+        abline(h = input$alpha, lty = 2, col = "red")
+        
+        points(x = theta, y = unif_samp_min_pwrfunc_greater(theta = theta, alpha = alpha, theta_not = theta.not, n = n), pch = 16)
+        abline(v = theta, col  = "gray")
+        abline(h = unif_samp_max_pwrfunc_greater(theta = theta, alpha = alpha, theta_not = theta.not, n = n), col  = "gray")
+        
+        if(!is.null(val$theta)){
+          legend("topleft",
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(unif_samp_min_pwrfunc_greater(theta = theta, alpha = alpha, theta_not = theta.not, n = n), 3)))),
+                 pch = c(NA,NA), bty = "n")
+        }
+        
+      }  
       
       #min, less than
+      if(input$distribution == "Uniform" & input$statistic == "Sample Minimum" & input$alternative == "Less than"){
+        n <- input$sample.size
+        theta.not <- input$theta.not
+        alpha <- input$alpha
+        theta <- val$theta
+        
+        plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
+             xlim = c(0, 2*theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~ X['(1)']), las = 1)
+        
+        curve(unif_samp_min_pwrfunc_less(theta = x, alpha = alpha, theta_not = theta.not, n = n), add = T, n = 1000)
+        abline(h = input$alpha, lty = 2, col = "red")
+        
+        points(x = theta, y = unif_samp_min_pwrfunc_less(theta = theta, alpha = alpha, theta_not = theta.not, n = n), pch = 16)
+        abline(v = theta, col  = "gray")
+        abline(h = unif_samp_max_pwrfunc_less(theta = theta, alpha = alpha, theta_not = theta.not, n = n), col  = "gray")
+        
+        if(!is.null(val$theta)){
+          legend("topleft",
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(unif_samp_min_pwrfunc_less(theta = theta, alpha = alpha, theta_not = theta.not, n = n), 3)))),
+                 pch = c(NA,NA), bty = "n")
+        }
+        
+      }  
       
       #min, not equal
+      if(input$distribution == "Uniform" & input$statistic == "Sample Minimum" & input$alternative == "Not equal to"){
+        n <- input$sample.size
+        theta.not <- input$theta.not
+        alpha <- input$alpha
+        theta <- val$theta
+        
+        plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
+             xlim = c(0, 2*theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X['(1)']), las = 1)
+        
+        curve(unif_samp_min_pwrfunc_noteqto(theta = x, alpha = alpha, theta_not = theta.not, n = n), add = T, n = 1000)
+        abline(h = input$alpha, lty = 2, col = "red")
+        
+        points(x = theta, y = unif_samp_min_pwrfunc_noteqto(theta = theta, alpha = alpha, theta_not = theta.not, n = n), pch = 16)
+        abline(v = theta, col  = "gray")
+        abline(h = unif_samp_min_pwrfunc_noteqto(theta = theta, alpha = alpha, theta_not = theta.not, n = n), col  = "gray")
+        
+        if(!is.null(val$theta)){
+          legend("topleft",
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(unif_samp_min_pwrfunc_noteqto(theta = theta, alpha = alpha, theta_not = theta.not, n = n), 3)))),
+                 pch = c(NA,NA), bty = "n")
+        }
+        
+      }
       
       #max, greater than
       if(input$distribution == "Uniform" & input$statistic == "Sample Maximum" & input$alternative == "Greater than"){

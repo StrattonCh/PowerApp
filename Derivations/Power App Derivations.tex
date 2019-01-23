@@ -863,9 +863,185 @@ Therefore, our power function is
 
 \subsubsection{Alternative: Greater than}
 
+Suppose that $X_i \stackrel{iid}{\sim} \text{Unif}(0, \theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
+\[
+\begin{split}
+\text{$H_0$: }& \theta \leq \theta_0 \\
+\text{$H_a$: }& \theta > \theta_0
+\end{split}
+\]
+
+Consider the following test function:
+\[
+\phi(\bfX) = \begin{cases}
+1 & X_{(1)} > k \\
+0 & \text{else}
+\end{cases},
+\]
+
+where $k$ is chosen such that $Pr(\phi(\bfX) = 1|\theta_0) = \alpha$. To find this value of $k$, we need to know the distribution of the sample min. By definition, 
+\[
+F_{X_{(1)}}(x) = 1 - \left[1 - F_X(x)\right]^n = 1 - \left[1 - \frac{x}{\theta}\right]^n
+\]
+
+Let $T = X_{(1)}$. To define our test, we seek the value $k$ such that 
+\[
+Pr(T > k | \theta_0) = 1 - Pr(T \leq k | \theta_0) = \alpha
+\]
+
+Using the distribution function derived above, we have
+\[
+\begin{split}
+\left[1 - \frac{k}{\theta_0}\right]^n &= \alpha \\
+1 - \frac{k}{\theta_0} &= \alpha^{1/n} \\
+k &= \theta_0(1 - \alpha^{1/n})
+\end{split}
+\]
+
+Therefore, our test function is
+\[
+\phi(\bfX) = \begin{cases}
+1 & X_{(1)} > \theta_0(1-\alpha^{1/n}) \\
+0 & \text{else}
+\end{cases}
+\]
+
+Therefore, our power function is piecewise and looks like the following:\\
+\textbf{For $\theta \leq k$:}
+\[
+\beta(\theta) = 0
+\]
+\textbf{For $\theta > k$:}
+\[
+\begin{split}
+\beta(\theta) &= Pr(\bfX \in RR) = Pr\left(X_{(1)} > \theta_0(1-\alpha^{1/n}) \Big| \theta\right) \\
+&= 1 - Pr\left(X_{(1)}\leq \theta_0(1-\alpha^{1/n}) \Big| \theta\right) \\
+&= \left[1 - \frac{\theta_0(1-\alpha^{1/n})}{\theta}\right]^n
+\end{split}
+\]
+
 \subsubsection{Alternative: Less than}
 
+Suppose that $X_i \stackrel{iid}{\sim} \text{Unif}(0, \theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
+\[
+\begin{split}
+\text{$H_0$: }& \theta \geq \theta_0 \\
+\text{$H_a$: }& \theta < \theta_0
+\end{split}
+\]
+
+Consider the following test function:
+\[
+\phi(\bfX) = \begin{cases}
+1 & X_{(1)} < k \\
+0 & \text{else}
+\end{cases},
+\]
+
+where $k$ is chosen such that $Pr(\phi(\bfX) = 1|\theta_0) = \alpha$. Let $T = X_{(1)}$. To define our test, we seek the value $k$ such that 
+\[
+Pr(T < k | \theta_0) = \alpha
+\]
+
+Using the distribution function derived above, we have
+\[
+\begin{split}
+1 - \left[1 - \frac{k}{\theta_0}\right]^n &= \alpha \\
+1 - \frac{k}{\theta_0} &= (1 - \alpha)^{1/n} \\
+k &= \theta_0(1 - (1 - \alpha)^{1/n})
+\end{split}
+\]
+
+Therefore, our test function is
+\[
+\phi(\bfX) = \begin{cases}
+1 & X_{(1)} < \theta_0(1 - (1 - \alpha)^{1/n}) \\
+0 & \text{else}
+\end{cases}
+\]
+
+Therefore, our power function is piecewise and looks like the following:\\
+\textbf{For $\theta \leq k$:}
+\[
+\beta(\theta) = 1
+\]
+\textbf{For $\theta > k$:}
+\[
+\begin{split}
+\beta(\theta) &= Pr(\bfX \in RR) = Pr\left(X_{(1)} < \theta_0(1 - (1 - \alpha)^{1/n}) \Big| \theta\right) \\
+&= 1 - \left[1 - \frac{\theta_0(1 - (1 - \alpha)^{1/n})}{\theta}\right]^n
+\end{split}
+\]
+
 \subsubsection{Alternative: Not equal to}
+
+Suppose that $X_i \stackrel{iid}{\sim} \text{Unif}(0, \theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
+\[
+\begin{split}
+\text{$H_0$: }& \theta = \theta_0 \\
+\text{$H_a$: }& \theta \neq \theta_0
+\end{split}
+\]
+
+Consider the following test function:
+\[
+\phi(\bfX) = \begin{cases}
+1 & X_{(1)} < k_1 \text{ or } X_{(1)} > k_2 \\
+0 & \text{else}
+\end{cases},
+\]
+
+where $k_1$ and $k_2$ are chosen such that $Pr(\phi(\bfX) = 1|\theta_0) = \alpha$. We choose a symmetric test here. Let $T = X_{(1)}$. To define our test, we seek the values $k_1$ and $k_2$ such that $Pr(T < k_1) = \alpha/2$ and $Pr(T > k_2) = \alpha/2$.
+
+Using the distribution function derived above, we have
+\[
+\begin{split}
+1 - \left[1 - \frac{k_1}{\theta_0}\right]^n &= \alpha/2 \\
+\left[1 - \frac{k_1}{\theta_0}\right]^n &= 1 - \alpha/2 \\
+1 - \frac{k_1}{\theta_0} &= (1 - \alpha/2)^{1/n} \\
+\frac{k_1}{\theta_0} &= 1 - (1 - \alpha/2)^{1/n} \\
+k_1 &= \theta_0(1 - (1 - \alpha/2)^{1/n}) \\
+\end{split}
+\]
+
+Similarly, 
+\[
+\begin{split}
+\left[1 - \frac{k_2}{\theta_0}\right]^n &= \alpha/2 \\
+1 - \frac{k_2}{\theta_0} &= (\alpha/2)^{1/n} \\
+\frac{k_2}{\theta_0} &= 1 - (\alpha/2)^{1/n} \\
+k_2 &= \theta_0(1 - (\alpha/2)^{1/n})
+\end{split}
+\]
+
+Therefore, our test function is
+\[
+\phi(\bfX) = \begin{cases}
+1 & X_{(1)} < \theta_0(1 - (1 - \alpha/2)^{1/n}) \text{ or } X_{(1)} >  \theta_0(1 - (\alpha/2)^{1/n}) \\
+0 & \text{else}
+\end{cases}
+\]
+
+Therefore, our power function is piecewise and looks like:\\
+\textbf{For $0 < \theta \leq k_1$}
+\[
+\beta(\theta) = 1
+\]
+\textbf{For $k_1 < \theta \leq k_2$}
+\[
+\begin{split}
+\beta(\theta) &= Pr(\bfX \in RR) = Pr\left(X_{(1)} < \theta_0(1 - (1 - \alpha/2)^{1/n}) \Big| \theta\right) \\
+&= 1 - \left[1 - \frac{\theta_0(1 - (1 - \alpha/2)^{1/n}) }{\theta}\right]^n
+\end{split}
+\]
+\textbf{For $\theta > k_2$}
+\[
+\begin{split}
+\beta(\theta) &= Pr(\bfX \in RR) = Pr\left(X_{(1)} > \theta_0(1 - (\alpha/2)^{1/n}) \Big| \theta\right) + Pr\left(X_{(1)} < \theta_0(1 - (1 - \alpha/2)^{1/n}) \Big| \theta\right) \\
+&= 1 - Pr\left(X_{(n)}\leq  \theta_0(1 - (\alpha/2)^{1/n}) \Big| \theta\right) + Pr\left(X_{(n)} < \theta_0(1 - (1 - \alpha/2)^{1/n}) \Big| \theta\right) \\
+&= 1 + \left[1 - \frac{\theta_0(1 - (\alpha/2)^{1/n})}{\theta}\right]^n - \left[1 - \frac{\theta_0(1 - (1 - \alpha/2)^{1/n})}{\theta}\right]^n
+\end{split}
+\]
 
 \subsection{Statistic: $X_{(n)}$}
 
@@ -1050,5 +1226,7 @@ Therefore, our power function is piecewise and looks like:\\
 &= 1 - \frac{\theta_0^n(1-\alpha/2)}{\theta^n} + \frac{\theta_0^n\alpha}{2\theta^n}
 \end{split}
 \]
+
+\textcolor{blue}{\textbf{SAME AS SAMPLE MIN ?!?!?! ?!?!?!}}
 
 \end{document}

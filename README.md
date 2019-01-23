@@ -38,13 +38,13 @@
   - Sum of X, less
   - Sum of X, not equal
   
-  - Min, greater
-  - Min, less
-  - Min, not equal
+  - <s> Min, greater </s>
+  - <s> Min, less </s>
+  - <s> Min, not equal </s>
   
   - <s> Max, greater </s>
   - <s> Max, less </s>
-  - Max, not equal
+  - <s> Max, not equal </s>
   
 ### Sampling Distribution:  
 
