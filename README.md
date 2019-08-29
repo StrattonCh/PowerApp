@@ -7,88 +7,111 @@
   <b> Exponential </b>:  
   
   - Sum of X, greater
-    * $-\theta$
-    * $\theta >> \text{xlims}$
-    * $-\theta_0$
-    * $\theta_0 >> 3$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
-  - Sum of X, less 
-    * $-\theta$
-    * $\theta >> \text{xlims}$
-    * $-\theta_0$
-    * $\theta_0 >> 3$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
+    * <s> title, labels and power match </s>
+    * <s> non-integer n </s>
+    * <s> negative &theta; </s>
+    * <s> &theta; >> max x limit </s>
+    * <s> negative &theta; not </s>
+    * <s> large &theta; not </s>
+    * <s> n = 1 </s>
+    * <s> n = 100 </s>
+    * <s> negative n </s>
+    * <s> alpha not in (0,1) </s>
+  - Sum of X, less
+    * <s> title, labels and power match </s>
+    * <s> non-integer n </s>
+    * <s> negative &theta; </s>
+    * <s> &theta; >> max x limit </s>
+    * <s> negative &theta; not </s>
+    * <s> large &theta; not </s>
+    * <s> n = 1 </s>
+    * <s> n = 100 </s>
+    * <s> negative n </s>
+    * <s> alpha not in (0,1) </s>
   - Sum of X, not equal
-    * $-\theta$
-    * $\theta >> \text{xlims}$
-    * $-\theta_0$
-    * $\theta_0 >> 3$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
+    * <s> title, labels and power match </s>
+    * <s> non-integer n </s>
+    * <s> negative &theta; </s>
+    * <s> &theta; >> max x limit </s>
+    * <s> negative &theta; not </s>
+    * <s> large &theta; not </s>
+    * <s> n = 1 </s>
+    * <s> n = 100 </s>
+    * <s> negative n </s>
+    * <s> alpha not in (0,1) </s>
+  
   
   - Min, greater
-    * $-\theta$
-    * $\theta >> \text{xlims}$
-    * $-\theta_0$
-    * $\theta_0 >> 3$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
+    * <s> title, labels and power match </s>
+    * <s> non-integer n </s>
+    * <s> negative &theta; </s>
+    * <s> &theta; >> max x limit </s>
+    * <s> negative &theta; not </s>
+    * <s> large &theta; not </s>
+    * <s> n = 1 </s>
+    * <s> n = 100 </s>
+    * <s> negative n </s>
+    * <s> alpha not in (0,1) </s>
+  
   - Min, less
-    * $-\theta$
-    * $\theta >> \text{xlims}$
-    * $-\theta_0$
-    * $\theta_0 >> 3$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
+    * <s> title, labels and power match </s>
+    * <s> non-integer n </s>
+    * <s> negative &theta; </s>
+    * <s> &theta; >> max x limit </s>
+    * <s> negative &theta; not </s>
+    * <s> large &theta; not </s>
+    * <s> n = 1 </s>
+    * <s> n = 100 </s>
+    * <s> negative n </s>
+    * <s> alpha not in (0,1) </s>
+  
   - Min, not equal
-    * $-\theta$
-    * $\theta >> \text{xlims}$
-    * $-\theta_0$
-    * $\theta_0 >> 3$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
+    * <s> title, labels and power match </s>
+    * <s> non-integer n </s>
+    * <s> negative &theta; </s>
+    * <s> &theta; >> max x limit </s>
+    * <s> negative &theta; not </s>
+    * <s> large &theta; not </s>
+    * <s> n = 1 </s>
+    * <s> n = 100 </s>
+    * <s> negative n </s>
+    * <s> alpha not in (0,1) </s>
   
   - Max, greater
-    * $-\theta$
-    * $\theta >> \text{xlims}$
-    * $-\theta_0$
-    * $\theta_0 >> 3$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
+    * <s> title, labels and power match </s>
+    * <s> non-integer n </s>
+    * <s> negative &theta; </s>
+    * <s> &theta; >> max x limit </s>
+    * <s> negative &theta; not </s>
+    * <s> large &theta; not </s>
+    * <s> n = 1 </s>
+    * <s> n = 100 </s>
+    * <s> negative n </s>
+    * <s> alpha not in (0,1) </s>
+  
   - Max, less
-    * $-\theta$
-    * $\theta >> \text{xlims}$
-    * $-\theta_0$
-    * $\theta_0 >> 3$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
+    * <s> title, labels and power match </s>
+    * <s> non-integer n </s>
+    * <s> negative &theta; </s>
+    * <s> &theta; >> max x limit </s>
+    * <s> negative &theta; not </s>
+    * <s> large &theta; not </s>
+    * <s> n = 1 </s>
+    * <s> n = 100 </s>
+    * <s> negative n </s>
+    * <s> alpha not in (0,1) </s>
+  
   - Max, not equal
-    * $-\theta$
-    * $\theta >> \text{xlims}$
-    * $-\theta_0$
-    * $\theta_0 >> 3$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
+    * <s> title, labels and power match </s>
+    * <s> non-integer n </s>
+    * <s> negative &theta; </s>
+    * <s> &theta; >> max x limit </s>
+    * <s> negative &theta; not </s>
+    * <s> large &theta; not </s>
+    * <s> n = 1 </s>
+    * <s> n = 100 </s>
+    * <s> negative n </s>
+    * <s> alpha not in (0,1) </s>
   
   <b> Normal </b>:
   
