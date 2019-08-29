@@ -1,0 +1,116 @@
+<h2>Distribution: Exponential</h2>
+
+<h3>Statistic: $\sum_{i=1}^n X_i$</h3> 
+
+<h4>Alternative: Greater than</h4>
+
+Suppose that $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
+\[
+\begin{split}
+\text{$H_0$: }& \theta \leq \theta_0 \\
+\text{$H_a$: }& \theta > \theta_0
+\end{split}
+\]
+
+Consider the following test function:
+\[
+\phi(X) = \begin{cases}
+1 & \sum_{i=1}^n X_i > k \\
+0 & \text{else}
+\end{cases},
+\]
+
+where $k$ is chosen such that $Pr(\phi(X) = 1|\theta_0) = \alpha$. It can be shown that if $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, then $\sum_{i=1}^{n} X_i \sim \text{Gamma}(n, \theta)$. Using this relationship, we derive the test. 
+\[
+\begin{split}
+Pr(\phi(X) = 1|\theta_0) = Pr\left(\sum_{i=1}^n X_i > k\Big|\theta_0\right) = \alpha 
+\end{split}
+\]
+
+Let $T = \sum_{i=1}^n X_i \sim \text{Gamma}(n, \theta)$. To define our test, we seek the value $k$ such that 
+\[
+Pr(T > k | \theta_0) = 1 - Pr(T \leq k | \theta_0) = \alpha
+\]
+
+The value of $k$ that satisfies this equation is the $(1 - \alpha)^{th}$ quantile of the $\text{Gamma}(n, \theta_0)$ distribution. Letting $\Gamma_{n, \theta_0, 1-\alpha}$ denote this value, our test functions becomes
+\[
+\phi(X) = \begin{cases}
+1 & \sum_{i=1}^n X_i > \Gamma_{n, \theta_0, 1-\alpha} \\
+0 & \text{else}
+\end{cases}
+\]
+
+Therefore, our power function is
+\[
+\beta(\theta) = Pr(X \in RR) = Pr\left(\sum_{i=1}^n X_i > \Gamma_{n, \theta_0, 1-\alpha} \Big| \theta\right) = 1 - Pr\left(\sum_{i=1}^n X_i \leq \Gamma_{n, \theta_0, 1-\alpha} \Big| \theta\right)
+\]
+
+<h4>Alternative: Less than</h4>
+
+Suppose that $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
+\[
+\begin{split}
+\text{$H_0$: }& \theta \geq \theta_0 \\
+\text{$H_a$: }& \theta < \theta_0
+\end{split}
+\]
+
+Consider the following test function:
+\[
+\phi(X) = \begin{cases}
+1 & \sum_{i=1}^n X_i < k \\
+0 & \text{else}
+\end{cases},
+\]
+
+where $k$ is chosen such that $Pr(\phi(X) = 1|\theta_0) = \alpha$. Let $T = \sum_{i=1}^n X_i \sim \text{Gamma}(n, \theta)$. To define our test, we seek the value $k$ such that 
+\[
+Pr(T < k | \theta_0) = \alpha
+\]
+
+The value of $k$ that satisfies this equation is the $\alpha^{th}$ quantile of the $\text{Gamma}{n, \theta_0}$ distribution. Letting $\Gamma_{n, \theta_0, \alpha}$ denote this value, our test functions becomes
+\[
+\phi(X) = \begin{cases}
+1 & \sum_{i=1}^n X_i < \Gamma_{n, \theta_0, \alpha} \\
+0 & \text{else}
+\end{cases}
+\]
+
+Therefore, our power function is
+\[
+\beta(\theta) = Pr(X \in RR) = Pr\left(\sum_{i=1}^n X_i < \Gamma_{n, \theta_0, \alpha} \Big| \theta\right) 
+\]
+
+<h4>Alternative: Not equal to</h4>
+
+Suppose that $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
+\[
+\begin{split}
+\text{$H_0$: }& \theta = \theta_0 \\
+\text{$H_a$: }& \theta \neq \theta_0
+\end{split}
+\]
+
+Consider the following test function:
+\[
+\phi(X) = \begin{cases}
+1 & \sum_{i=1}^n X_i < k_1 \text{ or } \sum_{i=1}^n X_i > k_2 \\
+0 & \text{else}
+\end{cases},
+\]
+
+where $k_1$ and $k_2$ are chosen such that $Pr(\phi(X) = 1|\theta_0) = \alpha$. In this case, we assume a symmetric test function in that $k_1$ and $k_2$ are chosen such that $Pr(\sum_{i=1}^n X_i < k_1) = \alpha/2$ and $Pr(\sum_{i=1}^n X_i > k_2) = \alpha/2$. Let $T = \sum_{i=1}^n X_i \sim \text{Gamma}(n, \theta)$. 
+
+The values of $k_1$ and $k_2$ that satisfy these equations are the $(\alpha/2)^{th}$ and $(1 - \alpha/2)^{th}$ quantiles of the $\text{Gamma}{n, \theta_0}$ distribution. Letting $\Gamma_{n, \theta_0, \alpha/2}$ and $\Gamma_{n, \theta_0, 1- \alpha/2}$ denote these values, our test functions becomes
+\[
+\phi(X) = \begin{cases}
+1 & \sum_{i=1}^n X_i < \Gamma_{n, \theta_0, \alpha/2} \text{ or } \sum_{i=1}^n X_i > \Gamma_{n, \theta_0, 1 - \alpha/2}\\
+0 & \text{else}
+\end{cases}
+\]
+
+Therefore, our power function is
+\[
+\beta(\theta) = Pr(X \in RR) = 1 - Pr\left(\sum_{i=1}^n X_i < \Gamma_{n, \theta_0, 1 - \alpha/2}\right) +  Pr\left(\sum_{i=1}^n X_i < \Gamma_{n, \theta_0, \alpha/2} \Big| \theta\right) 
+\]
+

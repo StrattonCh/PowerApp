@@ -1,0 +1,13 @@
+name: PowerApp
+title: PowerApp
+username:
+account: christianstratton
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 819181
+bundleId: 1973977
+url: https://christianstratton.shinyapps.io/PowerApp/
+when: 1553878359.47905
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: functions.Rdata
