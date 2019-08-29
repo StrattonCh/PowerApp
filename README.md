@@ -1,93 +1,288 @@
 # PowerApp
 
-## To Do:  
+## To-do
 
-### Power Plot:  
+### Proofread and bug test:  
 
   <b> Exponential </b>:  
   
-  - <s> Sum of X, greater </s>
-  - <s> Sum of X, less </s>
-  - <s> Sum of X, not equal </s>
+  - Sum of X, greater
+    * $-\theta$
+    * $\theta >> \text{xlims}$
+    * $-\theta_0$
+    * $\theta_0 >> 3$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
+  - Sum of X, less 
+    * $-\theta$
+    * $\theta >> \text{xlims}$
+    * $-\theta_0$
+    * $\theta_0 >> 3$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
+  - Sum of X, not equal
+    * $-\theta$
+    * $\theta >> \text{xlims}$
+    * $-\theta_0$
+    * $\theta_0 >> 3$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
   
-  - <s> Min, greater </s>
-  - <s> Min, less </s>
-  - <s> Min, not equal </s>
+  - Min, greater
+    * $-\theta$
+    * $\theta >> \text{xlims}$
+    * $-\theta_0$
+    * $\theta_0 >> 3$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
+  - Min, less
+    * $-\theta$
+    * $\theta >> \text{xlims}$
+    * $-\theta_0$
+    * $\theta_0 >> 3$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
+  - Min, not equal
+    * $-\theta$
+    * $\theta >> \text{xlims}$
+    * $-\theta_0$
+    * $\theta_0 >> 3$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
   
-  - <s> Max, greater </s>
-  - <s> Max, less </s>
-  - <s> Max, not equal </s>
+  - Max, greater
+    * $-\theta$
+    * $\theta >> \text{xlims}$
+    * $-\theta_0$
+    * $\theta_0 >> 3$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
+  - Max, less
+    * $-\theta$
+    * $\theta >> \text{xlims}$
+    * $-\theta_0$
+    * $\theta_0 >> 3$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
+  - Max, not equal
+    * $-\theta$
+    * $\theta >> \text{xlims}$
+    * $-\theta_0$
+    * $\theta_0 >> 3$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
   
   <b> Normal </b>:
   
-  - <s> Sum of X, greater </s>
-  - <s> Sum of X, less </s>
-  - <s> Sum of X, not equal </s>
-  
-  - <s> Min, greater </s>
-  - <s> Min, less </s>
-  - <s> Min, not equal </s>
-  
-  - <s> Max, greater </s>
-  - <s> Max, less </s>
-  - <s> Max, not equal </s>
-  
-  <b> Uniform </b>:  
-  
-  - <s> Sum of X, greater </s>
-  - <s> Sum of X, less </s>
-  - <s> Sum of X, not equal </s>
-  
-  - <s> Min, greater </s>
-  - <s> Min, less </s>
-  - <s> Min, not equal </s>
-  
-  - <s> Max, greater </s>
-  - <s> Max, less </s>
-  - <s> Max, not equal </s>
-  
-### Sampling Distribution:  
-
-  <b> Exponential </b>:  
-  
-  - <s> Sum of X, greater </s>
-  - <s> Sum of X, less </s>
+  - Sum of X, greater
+    * $\theta >> \text{xlims}$
+    * $\theta << \text{xlims}$
+    * $\theta_0 >> 3$
+    * $\theta_0 << 3$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
+    * $-\sigma$
+  - Sum of X, less
+    * $\theta >> \text{xlims}$
+    * $\theta << \text{xlims}$
+    * $\theta_0 >> 3$
+    * $\theta_0 << 3$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
+    * $-\sigma$
   - Sum of X, not equal
+    * $\theta >> \text{xlims}$
+    * $\theta << \text{xlims}$
+    * $\theta_0 >> 3$
+    * $\theta_0 << 3$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
+    * $-\sigma$
   
-  - <s> Min, greater </s>
-  - <s> Min, less </s>
-  - Min, not equal 
+  - Min, greater
+    * $\theta >> \text{xlims}$
+    * $\theta << \text{xlims}$
+    * $\theta_0 >> 3$
+    * $\theta_0 << 3$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
+    * $-\sigma$
+  - Min, less
+    * $\theta >> \text{xlims}$
+    * $\theta << \text{xlims}$
+    * $\theta_0 >> 3$
+    * $\theta_0 << 3$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
+    * $-\sigma$
+  - Min, not equal
+    * $\theta >> \text{xlims}$
+    * $\theta << \text{xlims}$
+    * $\theta_0 >> 3$
+    * $\theta_0 << 3$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
+    * $-\sigma$
   
-  - Max, greater 
+  - Max, greater
+    * $\theta >> \text{xlims}$
+    * $\theta << \text{xlims}$
+    * $\theta_0 >> 3$
+    * $\theta_0 << 3$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
+    * $-\sigma$
   - Max, less 
+    * $\theta >> \text{xlims}$
+    * $\theta << \text{xlims}$
+    * $\theta_0 >> 3$
+    * $\theta_0 << 3$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
+    * $-\sigma$
   - Max, not equal 
-  
-  <b> Normal </b>:
-  
-  - Sum of X, greater
-  - Sum of X, less
-  - Sum of X, not equal
-  
-  - Min, greater
-  - Min, less
-  - Min, not equal
-  
-  - Max, greater
-  - Max, less
-  - Max, not equal
+    * $\theta >> \text{xlims}$
+    * $\theta << \text{xlims}$
+    * $\theta_0 >> 3$
+    * $\theta_0 << 3$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
+    * $-\sigma$
   
   <b> Uniform </b>:  
   
-  - Sum of X, greater
+  - Sum of X, greater 
+    * $-\theta$
+    * $\theta >> \text{xlims}$
+    * $-\theta_0$
+    * $\theta_0 >> \text{xlims}$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
   - Sum of X, less
+    * $-\theta$
+    * $\theta >> \text{xlims}$
+    * $-\theta_0$
+    * $\theta_0 >> \text{xlims}$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
   - Sum of X, not equal
+    * $-\theta$
+    * $\theta >> \text{xlims}$
+    * $-\theta_0$
+    * $\theta_0 >> \text{xlims}$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
   
-  - Min, greater
-  - Min, less
-  - Min, not equal
-  
+  - Min, greater 
+    * $-\theta$
+    * $\theta >> \text{xlims}$
+    * $-\theta_0$
+    * $\theta_0 >> \text{xlims}$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
+  - Min, less 
+    * $-\theta$
+    * $\theta >> \text{xlims}$
+    * $-\theta_0$
+    * $\theta_0 >> \text{xlims}$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
+  - Min, not equal 
+    * $-\theta$
+    * $\theta >> \text{xlims}$
+    * $-\theta_0$
+    * $\theta_0 >> \text{xlims}$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
+    
   - Max, greater
+    * $\theta < \theta_0$
+    * $-\theta$
+    * $\theta >> \text{xlims}$
+    * $-\theta_0$
+    * $\theta_0 >> \text{xlims}$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
   - Max, less
+    * $\theta < \theta_0$
+    * $-\theta$
+    * $\theta >> \text{xlims}$
+    * $-\theta_0$
+    * $\theta_0 >> \text{xlims}$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
   - Max, not equal
+    * $\theta < \theta_0$
+    * $-\theta$
+    * $\theta >> \text{xlims}$
+    * $-\theta_0$
+    * $\theta_0 >> \text{xlims}$
+    * $n = 1$
+    * $n = 100$
+    * $n = -1$
+    * $-\alpha$
   
-###
+### Proofread derivations
+
+  - Exp, sum of x
+  - Exp, sample min
+  - Exp, sample max
+  - Norm, sum of x
+  - Norm, sample min
+  - Norm, sample max
+  - Unif, sum of x
+  - Unif, sample min
+  - Unif, sample max
+

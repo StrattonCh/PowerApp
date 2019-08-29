@@ -7,6 +7,7 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -254,9 +255,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type="text/css">
 .main-container {
@@ -287,8 +286,6 @@ summary {
 </style>
 
 
-
-<div class="container-fluid main-container">
 
 <!-- tabsets -->
 
@@ -346,20 +343,17 @@ summary {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -375,83 +369,340 @@ $(document).ready(function () {
 <div id="powerapp" class="section level1">
 <h1>PowerApp</h1>
 <div id="to-do" class="section level2">
-<h2>To Do:</h2>
-<div id="power-plot" class="section level3">
-<h3>Power Plot:</h3>
+<h2>To-do</h2>
+<div id="proofread-and-bug-test" class="section level3">
+<h3>Proofread and bug test:</h3>
 <p><b> Exponential </b>:</p>
 <ul>
-<li><s> Sum of X, greater </s></li>
-<li><s> Sum of X, less </s></li>
-<li><p><s> Sum of X, not equal </s></p></li>
-<li><s> Min, greater </s></li>
-<li><s> Min, less </s></li>
-<li><p><s> Min, not equal </s></p></li>
-<li><s> Max, greater </s></li>
-<li><s> Max, less </s></li>
-<li><p><s> Max, not equal </s></p></li>
+<li>Sum of X, greater
+<ul>
+<li><span class="math inline">\(-\theta\)</span></li>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(-\theta_0\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; 3\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+</ul></li>
+<li>Sum of X, less
+<ul>
+<li><span class="math inline">\(-\theta\)</span></li>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(-\theta_0\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; 3\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+</ul></li>
+<li>Sum of X, not equal
+<ul>
+<li><span class="math inline">\(-\theta\)</span></li>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(-\theta_0\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; 3\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+</ul></li>
+<li>Min, greater
+<ul>
+<li><span class="math inline">\(-\theta\)</span></li>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(-\theta_0\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; 3\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+</ul></li>
+<li>Min, less
+<ul>
+<li><span class="math inline">\(-\theta\)</span></li>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(-\theta_0\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; 3\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+</ul></li>
+<li>Min, not equal
+<ul>
+<li><span class="math inline">\(-\theta\)</span></li>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(-\theta_0\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; 3\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+</ul></li>
+<li>Max, greater
+<ul>
+<li><span class="math inline">\(-\theta\)</span></li>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(-\theta_0\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; 3\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+</ul></li>
+<li>Max, less
+<ul>
+<li><span class="math inline">\(-\theta\)</span></li>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(-\theta_0\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; 3\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+</ul></li>
+<li>Max, not equal
+<ul>
+<li><span class="math inline">\(-\theta\)</span></li>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(-\theta_0\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; 3\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+</ul></li>
 </ul>
 <p><b> Normal </b>:</p>
 <ul>
-<li><s> Sum of X, greater </s></li>
-<li><s> Sum of X, less </s></li>
-<li><p><s> Sum of X, not equal </s></p></li>
-<li><s> Min, greater </s></li>
-<li><s> Min, less </s></li>
-<li><p><s> Min, not equal </s></p></li>
-<li><s> Max, greater </s></li>
-<li><s> Max, less </s></li>
-<li><p><s> Max, not equal </s></p></li>
+<li>Sum of X, greater
+<ul>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(\theta &lt;&lt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; 3\)</span></li>
+<li><span class="math inline">\(\theta_0 &lt;&lt; 3\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+<li><span class="math inline">\(-\sigma\)</span></li>
+</ul></li>
+<li>Sum of X, less
+<ul>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(\theta &lt;&lt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; 3\)</span></li>
+<li><span class="math inline">\(\theta_0 &lt;&lt; 3\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+<li><span class="math inline">\(-\sigma\)</span></li>
+</ul></li>
+<li>Sum of X, not equal
+<ul>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(\theta &lt;&lt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; 3\)</span></li>
+<li><span class="math inline">\(\theta_0 &lt;&lt; 3\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+<li><span class="math inline">\(-\sigma\)</span></li>
+</ul></li>
+<li>Min, greater
+<ul>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(\theta &lt;&lt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; 3\)</span></li>
+<li><span class="math inline">\(\theta_0 &lt;&lt; 3\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+<li><span class="math inline">\(-\sigma\)</span></li>
+</ul></li>
+<li>Min, less
+<ul>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(\theta &lt;&lt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; 3\)</span></li>
+<li><span class="math inline">\(\theta_0 &lt;&lt; 3\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+<li><span class="math inline">\(-\sigma\)</span></li>
+</ul></li>
+<li>Min, not equal
+<ul>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(\theta &lt;&lt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; 3\)</span></li>
+<li><span class="math inline">\(\theta_0 &lt;&lt; 3\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+<li><span class="math inline">\(-\sigma\)</span></li>
+</ul></li>
+<li>Max, greater
+<ul>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(\theta &lt;&lt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; 3\)</span></li>
+<li><span class="math inline">\(\theta_0 &lt;&lt; 3\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+<li><span class="math inline">\(-\sigma\)</span></li>
+</ul></li>
+<li>Max, less
+<ul>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(\theta &lt;&lt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; 3\)</span></li>
+<li><span class="math inline">\(\theta_0 &lt;&lt; 3\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+<li><span class="math inline">\(-\sigma\)</span></li>
+</ul></li>
+<li>Max, not equal
+<ul>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(\theta &lt;&lt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; 3\)</span></li>
+<li><span class="math inline">\(\theta_0 &lt;&lt; 3\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+<li><span class="math inline">\(-\sigma\)</span></li>
+</ul></li>
 </ul>
 <p><b> Uniform </b>:</p>
 <ul>
-<li><s> Sum of X, greater </s></li>
-<li><s> Sum of X, less </s></li>
-<li><p><s> Sum of X, not equal </s></p></li>
-<li><s> Min, greater </s></li>
-<li><s> Min, less </s></li>
-<li><p><s> Min, not equal </s></p></li>
-<li><s> Max, greater </s></li>
-<li><s> Max, less </s></li>
-<li><p><s> Max, not equal </s></p></li>
+<li>Sum of X, greater
+<ul>
+<li><span class="math inline">\(-\theta\)</span></li>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(-\theta_0\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+</ul></li>
+<li>Sum of X, less
+<ul>
+<li><span class="math inline">\(-\theta\)</span></li>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(-\theta_0\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+</ul></li>
+<li>Sum of X, not equal
+<ul>
+<li><span class="math inline">\(-\theta\)</span></li>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(-\theta_0\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+</ul></li>
+<li>Min, greater
+<ul>
+<li><span class="math inline">\(-\theta\)</span></li>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(-\theta_0\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+</ul></li>
+<li>Min, less
+<ul>
+<li><span class="math inline">\(-\theta\)</span></li>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(-\theta_0\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+</ul></li>
+<li>Min, not equal
+<ul>
+<li><span class="math inline">\(-\theta\)</span></li>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(-\theta_0\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+</ul></li>
+<li>Max, greater
+<ul>
+<li><span class="math inline">\(\theta &lt; \theta_0\)</span></li>
+<li><span class="math inline">\(-\theta\)</span></li>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(-\theta_0\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+</ul></li>
+<li>Max, less
+<ul>
+<li><span class="math inline">\(\theta &lt; \theta_0\)</span></li>
+<li><span class="math inline">\(-\theta\)</span></li>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(-\theta_0\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+</ul></li>
+<li>Max, not equal
+<ul>
+<li><span class="math inline">\(\theta &lt; \theta_0\)</span></li>
+<li><span class="math inline">\(-\theta\)</span></li>
+<li><span class="math inline">\(\theta &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(-\theta_0\)</span></li>
+<li><span class="math inline">\(\theta_0 &gt;&gt; \text{xlims}\)</span></li>
+<li><span class="math inline">\(n = 1\)</span></li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(n = -1\)</span></li>
+<li><span class="math inline">\(-\alpha\)</span></li>
+</ul></li>
 </ul>
 </div>
-<div id="sampling-distribution" class="section level3">
-<h3>Sampling Distribution:</h3>
-<p><b> Exponential </b>:</p>
+<div id="proofread-derivations" class="section level3">
+<h3>Proofread derivations</h3>
 <ul>
-<li><s> Sum of X, greater </s></li>
-<li><s> Sum of X, less </s></li>
-<li><p>Sum of X, not equal</p></li>
-<li><s> Min, greater </s></li>
-<li><s> Min, less </s></li>
-<li><p>Min, not equal</p></li>
-<li>Max, greater</li>
-<li>Max, less</li>
-<li><p>Max, not equal</p></li>
-</ul>
-<p><b> Normal </b>:</p>
-<ul>
-<li>Sum of X, greater</li>
-<li>Sum of X, less</li>
-<li><p>Sum of X, not equal</p></li>
-<li>Min, greater</li>
-<li>Min, less</li>
-<li><p>Min, not equal</p></li>
-<li>Max, greater</li>
-<li>Max, less</li>
-<li><p>Max, not equal</p></li>
-</ul>
-<p><b> Uniform </b>:</p>
-<ul>
-<li>Sum of X, greater</li>
-<li>Sum of X, less</li>
-<li><p>Sum of X, not equal</p></li>
-<li>Min, greater</li>
-<li>Min, less</li>
-<li><p>Min, not equal</p></li>
-<li>Max, greater</li>
-<li>Max, less</li>
-<li><p>Max, not equal</p></li>
+<li>Exp, sum of x</li>
+<li>Exp, sample min</li>
+<li>Exp, sample max</li>
+<li>Norm, sum of x</li>
+<li>Norm, sample min</li>
+<li>Norm, sample max</li>
+<li>Unif, sum of x</li>
+<li>Unif, sample min</li>
+<li>Unif, sample max</li>
 </ul>
 </div>
 </div>
@@ -474,6 +725,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
