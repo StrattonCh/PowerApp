@@ -204,7 +204,7 @@ qirwinhall <- Vectorize(function(p, n, theta){
   #         : theta - population maximum
   # outputs : numeric value that is the cumulative density at x
   
-  tmp <- uniroot(pirwinhall_zero, n = n, theta = theta, p = p, lower = 0, upper = n*theta, tol = .0001)
+  tmp <- uniroot(pirwinhall_zero, n = n, theta = theta, p = p, lower = 0, upper = n*theta, tol = .0001, extendInt = "yes")
   return(tmp[[1]])
   
 })
@@ -244,6 +244,7 @@ unif_sum_pwrfunc_noteqto <- function(theta, alpha, theta_not, n){
 
 # exponential
 exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
+
   if(statistic == "Sum of the X's"){
     if(alternative == 'Not equal to'){
       k1 <- qgamma(alpha/2, n, 1/theta.not)
@@ -252,8 +253,11 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
       upper.power <- power - pgamma(k1, n, 1/theta)
       lower.power <- pgamma(k1, n, 1/theta)
       
+      
+      upper.x <- max(c(2*n*theta, 2*n*theta.not, k2 + 1))
+      
       plot(1, type = "n", las = 1,
-           xlim = c(0.001, max(c(2*n*theta, 2*n*theta.not))),
+           xlim = c(0.001, upper.x),
            ylim = c(0, max(
              c(max(dgamma(seq(0, 2*n*theta), n, 1 / theta)),
                max(dgamma(seq(0, 2*n*theta.not), n, 1 / theta.not)))
@@ -279,11 +283,11 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
                 col = "grey")
         text(x = k1, y = dgamma(k1, n, 1/theta.not), labels = bquote('crit val'~'='~.(round(k1, 2))), col = "red", pos = 2)
         
-        polygon(x = c(k2, k2, alt.curve$x[which(alt.curve$x > k2)], k2),
+        polygon(x = c(k2, k2, alt.curve$x[which(alt.curve$x > k2)], upper.x),
                 y = c(0, dgamma(k2, n, 1/theta),
                       dgamma(alt.curve$x[which(alt.curve$x > k2)], n, 1/theta), 0),
                 col = "grey")
-        polygon(x = c(k2, k2, null.curve$x[which(null.curve$x > k2)], k2),
+        polygon(x = c(k2, k2, null.curve$x[which(null.curve$x > k2)], upper.x),
                 y = c(0, dgamma(k2, n, 1/theta.not),
                       dgamma(null.curve$x[which(null.curve$x > k2)], n, 1/theta.not), 0),
                 col = "red")
@@ -314,8 +318,12 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
              legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(round(power, 3)))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
     } else if(alternative == 'Greater than'){
+      
+      g.star <- qgamma(alpha, n, 1 / theta.not, lower.tail = F)
+      upper.x <- max(c(2*n*theta, 2*n*theta.not, g.star + 1))
+      
       plot(1, type = "n", las = 1,
-           xlim = c(0.001, max(c(2*n*theta, 2*n*theta.not))),
+           xlim = c(0.001, upper.x),
            ylim = c(0, max(
              c(max(dgamma(seq(0, 2*n*theta), n, 1 / theta)),
                max(dgamma(seq(0, 2*n*theta.not), n, 1 / theta.not)))
@@ -325,23 +333,22 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
            main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
       (alt.curve <- curve(dgamma(x, n, 1 / theta), add = T, n = 1000))
       (null.curve <- curve(dgamma(x, n, 1 / theta.not), add = T, lty = 2, n = 1000))
-      g.star <- qgamma(alpha, n, 1 / theta.not, lower.tail = F)
       abline(v = g.star, lty = 4, col = "red")
       if(1 - pchisq(theta.not*qchisq(1 - alpha, 2*n)/theta, 2*n) >= alpha ) {
-        polygon(x = c(g.star, g.star, alt.curve$x[which(alt.curve$x > g.star)], g.star),
+        polygon(x = c(g.star, g.star, alt.curve$x[which(alt.curve$x > g.star)], upper.x),
                 y = c(0, dgamma(g.star, n, 1 / theta),
                       dgamma(alt.curve$x[which(alt.curve$x > g.star)], n, 1/theta), 0),
                 col = "grey")
-        polygon(x = c(g.star, g.star, null.curve$x[which(null.curve$x > g.star)], g.star),
+        polygon(x = c(g.star, g.star, null.curve$x[which(null.curve$x > g.star)], upper.x),
                 y = c(0, dgamma(g.star, n, 1 / theta.not),
                       dgamma(null.curve$x[which(null.curve$x > g.star)], n, 1/theta.not), 0),
                 col = "red")
       } else {
-        polygon(x = c(g.star, g.star, null.curve$x[which(null.curve$x > g.star)], g.star),
+        polygon(x = c(g.star, g.star, null.curve$x[which(null.curve$x > g.star)], upper.x),
                 y = c(0, dgamma(g.star, n, 1 / theta.not),
                       dgamma(null.curve$x[which(null.curve$x > g.star)], n, 1/theta.not), 0),
                 col = "red")
-        polygon(x = c(g.star, g.star, alt.curve$x[which(alt.curve$x > g.star)], g.star),
+        polygon(x = c(g.star, g.star, alt.curve$x[which(alt.curve$x > g.star)], upper.x),
                 y = c(0, dgamma(g.star, n, 1 / theta),
                       dgamma(alt.curve$x[which(alt.curve$x > g.star)], n, 1/theta), 0),
                 col = "grey")
@@ -367,20 +374,20 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
       g.star <- qgamma(alpha, n, 1 / theta.not, lower.tail = T)
       abline(v = g.star, lty = 4, col = "red")
       if(pchisq(theta.not*qchisq(alpha, 2*n)/theta, 2*n) >= alpha ) {
-        polygon(x = c(g.star, alt.curve$x[which(alt.curve$x < g.star)], g.star, g.star),
+        polygon(x = c(0, alt.curve$x[which(alt.curve$x < g.star)], g.star, g.star),
                 y = c(0, dgamma(alt.curve$x[which(alt.curve$x < g.star)], n, 1/theta),
                       dgamma(g.star, n, 1 / theta), 0),
                 col = "grey")
-        polygon(x = c(g.star, null.curve$x[which(null.curve$x < g.star)], g.star, g.star),
+        polygon(x = c(0, null.curve$x[which(null.curve$x < g.star)], g.star, g.star),
                 y = c(0, dgamma(null.curve$x[which(null.curve$x < g.star)], n, 1/theta.not),
                       dgamma(g.star, n, 1 / theta.not), 0),
                 col = "red")
       } else {
-        polygon(x = c(g.star, null.curve$x[which(null.curve$x < g.star)], g.star, g.star),
+        polygon(x = c(0, null.curve$x[which(null.curve$x < g.star)], g.star, g.star),
                 y = c(0, dgamma(null.curve$x[which(null.curve$x < g.star)], n, 1/theta.not),
                       dgamma(g.star, n, 1 / theta.not), 0),
                 col = "red")
-        polygon(x = c(g.star, alt.curve$x[which(alt.curve$x < g.star)], g.star, g.star),
+        polygon(x = c(0, alt.curve$x[which(alt.curve$x < g.star)], g.star, g.star),
                 y = c(0, dgamma(alt.curve$x[which(alt.curve$x < g.star)], n, 1/theta),
                       dgamma(g.star, n, 1 / theta), 0),
                 col = "grey")
@@ -437,7 +444,7 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
                 y = c(0, dexp(k2, n/theta.not),
                       dexp(null.curve$x[which(null.curve$x > k2)], n/theta.not), 0),
                 col = "red")
-        text(x = k2, y = dexp(k2, n/theta), labels = bquote('crit val'~'='~.(round(k2, 2))), col = "red", pos = 4)
+        text(x = k2, y = dexp(k2, n/theta), labels = bquote('crit val'~'='~.(round(k2, 4))), col = "red", pos = 4)
       } else{
         polygon(x = c(0.001, 0.001, alt.curve$x[which(alt.curve$x < k1)], k1),
                 y = c(0, 0,
@@ -457,7 +464,7 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
                 y = c(0, dexp(k2, n/theta),
                       dexp(alt.curve$x[which(alt.curve$x > k2)], n/theta), 0),
                 col = "grey")
-        text(x = k2, y = dexp(k2, n/theta), labels = bquote('crit val'~'='~.(round(k2, 2))), col = "red", pos = 4)
+        text(x = k2, y = dexp(k2, n/theta), labels = bquote('crit val'~'='~.(round(k2, 4))), col = "red", pos = 4)
       }
       
       legend("topright",
@@ -483,21 +490,21 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
         polygon(x = c(0, 0, alt.curve$x[which(alt.curve$x < g.star)], g.star, g.star),
                 y = c(0, dexp(0, n/ theta), dexp(alt.curve$x[which(alt.curve$x < g.star)], n /theta),
                       dexp(g.star, n/ theta), 0), col = "grey")
-        polygon(x = c(0, null.curve$x[which(null.curve$x < g.star)], g.star, g.star),
-                y = c(0, dexp(null.curve$x[which(null.curve$x < g.star)], n / theta.not),
+        polygon(x = c(0, 0, null.curve$x[which(null.curve$x < g.star)], g.star, g.star),
+                y = c(0, dexp(0, n/theta.not), dexp(null.curve$x[which(null.curve$x < g.star)], n / theta.not),
                       dexp(g.star, n / theta.not), 0), col = "red")
       } else {
-        polygon(x = c(0, null.curve$x[which(null.curve$x < g.star)], g.star, g.star),
-                y = c(0, dexp(null.curve$x[which(null.curve$x < g.star)], n / theta.not),
+        polygon(x = c(0, 0, null.curve$x[which(null.curve$x < g.star)], g.star, g.star),
+                y = c(0, dexp(0, n/theta.not), dexp(null.curve$x[which(null.curve$x < g.star)], n / theta.not),
                       dexp(g.star, n / theta.not), 0), col = "red")
         polygon(x = c(0, 0, alt.curve$x[which(alt.curve$x < g.star)], g.star, g.star),
                 y = c(0, dexp(0, n/ theta), dexp(alt.curve$x[which(alt.curve$x < g.star)], n /theta),
                       dexp(g.star, n/ theta), 0), col = "grey")
       }
       legend("topright",
-             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(round(1 - exp(theta.not*log(1 - alpha)/theta), 2)))),
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(round(1 - exp(theta.not*log(1 - alpha)/theta), 3)))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
-      text(x = g.star, y = dgamma(g.star, n, 1 / theta.not), labels =  bquote('crit val'~'='~.(round(g.star, 2))), col = "red", pos = 4)
+      text(x = g.star, y = dgamma(g.star, n, 1 / theta.not), labels =  bquote('crit val'~'='~.(round(g.star, 4))), col = "red", pos = 4)
     } else if(alternative == 'Greater than'){
       plot(1, type = "n", las = 1,
            xlim = c(0.001, max(c(5*theta/n, 5*theta.not/n))), #5 times gives at least 96.5% of sampling dist by Chebychevs
@@ -535,7 +542,7 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
              legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(round(exp(theta.not*log(alpha)/theta), 2)))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
       
-      text(x = g.star, y = dexp(g.star, n / theta.not), labels =  bquote('crit val'~'='~.(round(g.star, 2))), col = "red", pos = 2)
+      text(x = g.star, y = dexp(g.star, n / theta.not), labels =  bquote('crit val'~'='~.(round(g.star,4))), col = "red", pos = 2)
     }
 
   }
@@ -563,11 +570,11 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
 
       # plotting limits
       upper.x <- max(c(
-        uniroot(cdf, y = .999, theta = theta, n = n, lower = 0, upper = 5*n*theta)$root,
-        uniroot(cdf, y = .999, theta = theta.not, n = n, lower = 0, upper = 5*n*theta.not)$root
+        uniroot(cdf, y = .999, theta = theta, n = n, lower = 0, upper = 5*n*theta, extendInt = "yes")$root,
+        uniroot(cdf, y = .999, theta = theta.not, n = n, lower = 0, upper = 5*n*theta.not, extendInt = "yes")$root
       ))
-      nullmax <- max(sapply(seq(from = 0, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta.not, n)))
-      altmax <- max(sapply(seq(from = 0, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta, n)))
+      nullmax <- max(sapply(seq(from = 0, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta.not, n)))
+      altmax <- max(sapply(seq(from = 0, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta, n)))
       upper.y <- max(c(nullmax, altmax))
       
       # plot
@@ -650,8 +657,8 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
         uniroot(cdf, y = .99, theta = theta, n = n, lower = 0, upper = 5*n*theta)$root,
         uniroot(cdf, y = .99, theta = theta.not, n = n, lower = 0, upper = 5*n*theta.not)$root
       ))
-      nullmax <- max(sapply(seq(from = 0, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta.not, n)))
-      altmax <- max(sapply(seq(from = 0, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta, n)))
+      nullmax <- max(sapply(seq(from = 0, to = upper.x, length.out = 10000), FUN = function(x) sampdist(x, theta.not, n)))
+      altmax <- max(sapply(seq(from = 0, to = upper.x, length.out = 10000), FUN = function(x) sampdist(x, theta, n)))
       upper.y <- max(c(nullmax, altmax))
       
       # plot
@@ -683,11 +690,11 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
       }
       
       # legend
-      power <- round(exp_samp_max_pwrfunc_less(theta, alpha, theta.not, n), 2)
+      power <- round(exp_samp_max_pwrfunc_less(theta, alpha, theta.not, n), 3)
       legend("topright",
            legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(power))),
            lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
-      text(x = g.star, y = sampdist(g.star, theta.not, n), labels =  bquote('crit val'~'='~.(round(g.star, 2))), col = "red", pos = 4)
+      text(x = g.star, y = sampdist(g.star, theta.not, n), labels =  bquote('crit val'~'='~.(round(g.star, 4))), col = "red", pos = 4)
     }
     
     if(alternative == 'Greater than'){
@@ -705,11 +712,11 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
       
       # plotting limits
       upper.x <- max(c(
-        uniroot(cdf, y = .999, theta = theta, n = n, lower = 0, upper = 5*n*theta)$root,
-        uniroot(cdf, y = .999, theta = theta.not, n = n, lower = 0, upper = 5*n*theta.not)$root
+        uniroot(cdf, y = .999, theta = theta, n = n, lower = 0, upper = 5*n*theta, extendInt = "yes")$root,
+        uniroot(cdf, y = .999, theta = theta.not, n = n, lower = 0, upper = 5*n*theta.not, extendInt = "yes")$root
       ))
-      nullmax <- max(sapply(seq(from = 0, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta.not, n)))
-      altmax <- max(sapply(seq(from = 0, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta, n)))
+      nullmax <- max(sapply(seq(from = 0, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta.not, n)))
+      altmax <- max(sapply(seq(from = 0, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta, n)))
       upper.y <- max(c(nullmax, altmax))
       
       # plot
@@ -743,11 +750,11 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
       }
       
       # legend
-      power <- round(exp_samp_max_pwrfunc_greater(theta, alpha, theta.not, n), 2)
+      power <- round(exp_samp_max_pwrfunc_greater(theta, alpha, theta.not, n), 3)
       legend("topright",
              legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(power))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
-      text(x = g.star, y = sampdist(g.star, theta.not, n), labels =  bquote('crit val'~'='~.(round(g.star, 2))), col = "red", pos = 2)
+      text(x = g.star, y = sampdist(g.star, theta.not, n), labels =  bquote('crit val'~'='~.(round(g.star, 4))), col = "red", pos = 2)
     }
     
   }
@@ -776,8 +783,8 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
         n*theta.not - 5*sqrt(n)*sigma,
         n*theta - 5*sqrt(n)*sigma
       ))
-      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) dnorm(x, theta.not*n, sqrt(n)*sigma)))
-      altmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) dnorm(x, theta*n, sqrt(n)*sigma)))
+      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) dnorm(x, theta.not*n, sqrt(n)*sigma)))
+      altmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) dnorm(x, theta*n, sqrt(n)*sigma)))
       upper.y <- max(c(nullmax, altmax))
       
       # plot
@@ -857,8 +864,8 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
         n*theta.not - 5*sqrt(n)*sigma,
         n*theta - 5*sqrt(n)*sigma
       ))
-      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) dnorm(x, theta.not*n, sqrt(n)*sigma)))
-      altmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) dnorm(x, theta*n, sqrt(n)*sigma)))
+      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) dnorm(x, theta.not*n, sqrt(n)*sigma)))
+      altmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) dnorm(x, theta*n, sqrt(n)*sigma)))
       upper.y <- max(c(nullmax, altmax))
       
       # plot
@@ -912,8 +919,8 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
         n*theta.not - 5*sqrt(n)*sigma,
         n*theta - 5*sqrt(n)*sigma
       ))
-      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) dnorm(x, theta.not*n, sqrt(n)*sigma)))
-      altmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) dnorm(x, theta*n, sqrt(n)*sigma)))
+      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) dnorm(x, theta.not*n, sqrt(n)*sigma)))
+      altmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) dnorm(x, theta*n, sqrt(n)*sigma)))
       upper.y <- max(c(nullmax, altmax))
       
       # plot
@@ -975,16 +982,16 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
 
       # plotting limit
       upper.x <- max(c(
-        uniroot(cdf, y = .9999, theta = theta, n = n, sigma = sigma, lower = theta - 5*n*sigma, upper = theta + 5*n*sigma)$root,
-        uniroot(cdf, y = .9999, theta = theta.not, n = n, sigma = sigma, lower = theta.not - 5*n*sigma, upper = theta.not + 5*n*sigma)$root
+        uniroot(cdf, y = .9999, theta = theta, n = n, sigma = sigma, lower = theta - 5*n*sigma, upper = theta + 5*n*sigma, extendInt = "yes")$root,
+        uniroot(cdf, y = .9999, theta = theta.not, n = n, sigma = sigma, lower = theta.not - 5*n*sigma, upper = theta.not + 5*n*sigma, extendInt = "yes")$root
       ))
       lower.x <- min(c(
-        uniroot(cdf, y = .0001, theta = theta, n = n, sigma = sigma, lower = theta - 5*n*sigma, upper = theta + 5*n*sigma)$root,
-        uniroot(cdf, y = .0001, theta = theta.not, n = n, sigma = sigma, lower = theta.not - 5*n*sigma, upper = theta.not + 5*n*sigma)$root
+        uniroot(cdf, y = .0001, theta = theta, n = n, sigma = sigma, lower = theta - 5*n*sigma, upper = theta + 5*n*sigma, extendInt = "yes")$root,
+        uniroot(cdf, y = .0001, theta = theta.not, n = n, sigma = sigma, lower = theta.not - 5*n*sigma, upper = theta.not + 5*n*sigma, extendInt = "yes")$root
       ))
       
-      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta.not, n, sigma)))
-      altmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta, n, sigma)))
+      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta.not, n, sigma)))
+      altmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta, n, sigma)))
       upper.y <- max(c(nullmax, altmax))
       
       # plot
@@ -1066,16 +1073,16 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
       
       # plotting limit
       upper.x <- max(c(
-        uniroot(cdf, y = .9999, theta = theta, n = n, sigma = sigma, lower = theta - 5*n*sigma, upper = theta + 5*n*sigma)$root,
-        uniroot(cdf, y = .9999, theta = theta.not, n = n, sigma = sigma, lower = theta.not - 5*n*sigma, upper = theta.not + 5*n*sigma)$root
+        uniroot(cdf, y = .9999, theta = theta, n = n, sigma = sigma, lower = theta - 5*n*sigma, upper = theta + 5*n*sigma, extendInt = "yes")$root,
+        uniroot(cdf, y = .9999, theta = theta.not, n = n, sigma = sigma, lower = theta.not - 5*n*sigma, upper = theta.not + 5*n*sigma, extendInt = "yes")$root
       ))
       lower.x <- min(c(
-        uniroot(cdf, y = .0001, theta = theta, n = n, sigma = sigma, lower = theta - 5*n*sigma, upper = theta + 5*n*sigma)$root,
-        uniroot(cdf, y = .0001, theta = theta.not, n = n, sigma = sigma, lower = theta.not - 5*n*sigma, upper = theta.not + 5*n*sigma)$root
+        uniroot(cdf, y = .0001, theta = theta, n = n, sigma = sigma, lower = theta - 5*n*sigma, upper = theta + 5*n*sigma, extendInt = "yes")$root,
+        uniroot(cdf, y = .0001, theta = theta.not, n = n, sigma = sigma, lower = theta.not - 5*n*sigma, upper = theta.not + 5*n*sigma, extendInt = "yes")$root
       ))
       
-      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta.not, n, sigma)))
-      altmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta, n, sigma)))
+      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta.not, n, sigma)))
+      altmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta, n, sigma)))
       upper.y <- max(c(nullmax, altmax))
       
       # plot
@@ -1129,16 +1136,16 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
       
       # plotting limit
       upper.x <- max(c(
-        uniroot(cdf, y = .9999, theta = theta, n = n, sigma = sigma, lower = theta - 5*n*sigma, upper = theta + 5*n*sigma)$root,
-        uniroot(cdf, y = .9999, theta = theta.not, n = n, sigma = sigma, lower = theta.not - 5*n*sigma, upper = theta.not + 5*n*sigma)$root
+        uniroot(cdf, y = .9999, theta = theta, n = n, sigma = sigma, lower = theta - 5*n*sigma, upper = theta + 5*n*sigma, extendInt = "yes")$root,
+        uniroot(cdf, y = .9999, theta = theta.not, n = n, sigma = sigma, lower = theta.not - 5*n*sigma, upper = theta.not + 5*n*sigma, extendInt = "yes")$root
       ))
       lower.x <- min(c(
-        uniroot(cdf, y = .0001, theta = theta, n = n, sigma = sigma, lower = theta - 5*n*sigma, upper = theta + 5*n*sigma)$root,
-        uniroot(cdf, y = .0001, theta = theta.not, n = n, sigma = sigma, lower = theta.not - 5*n*sigma, upper = theta.not + 5*n*sigma)$root
+        uniroot(cdf, y = .0001, theta = theta, n = n, sigma = sigma, lower = theta - 5*n*sigma, upper = theta + 5*n*sigma, extendInt = "yes")$root,
+        uniroot(cdf, y = .0001, theta = theta.not, n = n, sigma = sigma, lower = theta.not - 5*n*sigma, upper = theta.not + 5*n*sigma, extendInt = "yes")$root
       ))
       
-      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta.not, n, sigma)))
-      altmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta, n, sigma)))
+      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta.not, n, sigma)))
+      altmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta, n, sigma)))
       upper.y <- max(c(nullmax, altmax))
       
       # plot
@@ -1201,16 +1208,16 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
       
       # plotting limit
       upper.x <- max(c(
-        uniroot(cdf, y = .9999, theta = theta, n = n, sigma = sigma, lower = theta - 5*n*sigma, upper = theta + 5*n*sigma)$root,
-        uniroot(cdf, y = .9999, theta = theta.not, n = n, sigma = sigma, lower = theta.not - 5*n*sigma, upper = theta.not + 5*n*sigma)$root
+        uniroot(cdf, y = .9999, theta = theta, n = n, sigma = sigma, lower = theta - 5*n*sigma, upper = theta + 5*n*sigma, extendInt = "yes")$root,
+        uniroot(cdf, y = .9999, theta = theta.not, n = n, sigma = sigma, lower = theta.not - 5*n*sigma, upper = theta.not + 5*n*sigma, extendInt = "yes")$root
       ))
       lower.x <- min(c(
-        uniroot(cdf, y = .0001, theta = theta, n = n, sigma = sigma, lower = theta - 5*n*sigma, upper = theta + 5*n*sigma)$root,
-        uniroot(cdf, y = .0001, theta = theta.not, n = n, sigma = sigma, lower = theta.not - 5*n*sigma, upper = theta.not + 5*n*sigma)$root
+        uniroot(cdf, y = .0001, theta = theta, n = n, sigma = sigma, lower = theta - 5*n*sigma, upper = theta + 5*n*sigma, extendInt = "yes")$root,
+        uniroot(cdf, y = .0001, theta = theta.not, n = n, sigma = sigma, lower = theta.not - 5*n*sigma, upper = theta.not + 5*n*sigma, extendInt = "yes")$root
       ))
       
-      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta.not, n, sigma)))
-      altmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta, n, sigma)))
+      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta.not, n, sigma)))
+      altmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta, n, sigma)))
       upper.y <- max(c(nullmax, altmax))
       
       # plot
@@ -1292,16 +1299,16 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
       
       # plotting limit
       upper.x <- max(c(
-        uniroot(cdf, y = .9999, theta = theta, n = n, sigma = sigma, lower = theta - 5*n*sigma, upper = theta + 5*n*sigma)$root,
-        uniroot(cdf, y = .9999, theta = theta.not, n = n, sigma = sigma, lower = theta.not - 5*n*sigma, upper = theta.not + 5*n*sigma)$root
+        uniroot(cdf, y = .9999, theta = theta, n = n, sigma = sigma, lower = theta - 5*n*sigma, upper = theta + 5*n*sigma, extendInt = "yes")$root,
+        uniroot(cdf, y = .9999, theta = theta.not, n = n, sigma = sigma, lower = theta.not - 5*n*sigma, upper = theta.not + 5*n*sigma, extendInt = "yes")$root
       ))
       lower.x <- min(c(
-        uniroot(cdf, y = .0001, theta = theta, n = n, sigma = sigma, lower = theta - 5*n*sigma, upper = theta + 5*n*sigma)$root,
-        uniroot(cdf, y = .0001, theta = theta.not, n = n, sigma = sigma, lower = theta.not - 5*n*sigma, upper = theta.not + 5*n*sigma)$root
+        uniroot(cdf, y = .0001, theta = theta, n = n, sigma = sigma, lower = theta - 5*n*sigma, upper = theta + 5*n*sigma, extendInt = "yes")$root,
+        uniroot(cdf, y = .0001, theta = theta.not, n = n, sigma = sigma, lower = theta.not - 5*n*sigma, upper = theta.not + 5*n*sigma, extendInt = "yes")$root
       ))
 
-      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta.not, n, sigma)))
-      altmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta, n, sigma)))
+      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta.not, n, sigma)))
+      altmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta, n, sigma)))
       upper.y <- max(c(nullmax, altmax))
 
       # plot
@@ -1355,16 +1362,16 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
       
       # plotting limit
       upper.x <- max(c(
-        uniroot(cdf, y = .9999, theta = theta, n = n, sigma = sigma, lower = theta - 5*n*sigma, upper = theta + 5*n*sigma)$root,
-        uniroot(cdf, y = .9999, theta = theta.not, n = n, sigma = sigma, lower = theta.not - 5*n*sigma, upper = theta.not + 5*n*sigma)$root
+        uniroot(cdf, y = .9999, theta = theta, n = n, sigma = sigma, lower = theta - 5*n*sigma, upper = theta + 5*n*sigma, extendInt = "yes")$root,
+        uniroot(cdf, y = .9999, theta = theta.not, n = n, sigma = sigma, lower = theta.not - 5*n*sigma, upper = theta.not + 5*n*sigma, extendInt = "yes")$root
       ))
       lower.x <- min(c(
-        uniroot(cdf, y = .0001, theta = theta, n = n, sigma = sigma, lower = theta - 5*n*sigma, upper = theta + 5*n*sigma)$root,
-        uniroot(cdf, y = .0001, theta = theta.not, n = n, sigma = sigma, lower = theta.not - 5*n*sigma, upper = theta.not + 5*n*sigma)$root
+        uniroot(cdf, y = .0001, theta = theta, n = n, sigma = sigma, lower = theta - 5*n*sigma, upper = theta + 5*n*sigma, extendInt = "yes")$root,
+        uniroot(cdf, y = .0001, theta = theta.not, n = n, sigma = sigma, lower = theta.not - 5*n*sigma, upper = theta.not + 5*n*sigma, extendInt = "yes")$root
       ))
       
-      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta.not, n, sigma)))
-      altmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta, n, sigma)))
+      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta.not, n, sigma)))
+      altmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta, n, sigma)))
       upper.y <- max(c(nullmax, altmax))
       
       # plot
@@ -1408,10 +1415,10 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
     
 }
 
-# exponential
-
+# uniform
 unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
   if(statistic == "Sum of the X's"){
+    
     if(alternative == 'Not equal to'){
       
       k1 <- qirwinhall(alpha/2, n, theta.not)
@@ -1431,8 +1438,8 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
         qirwinhall(.001, n, theta.not)
       ))
 
-      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .1), FUN = function(x) dirwinhall(x, n, theta.not)))
-      altmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .1), FUN = function(x) dirwinhall(x, n, theta)))
+      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) dirwinhall(x, n, theta.not)))
+      altmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) dirwinhall(x, n, theta)))
       upper.y <- max(c(nullmax, altmax))
 
       # plot
@@ -1512,8 +1519,8 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
         qirwinhall(.001, n, theta.not)
       ))
 
-      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .1), FUN = function(x) dirwinhall(x, n, theta.not)))
-      altmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .1), FUN = function(x) dirwinhall(x, n, theta)))
+      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) dirwinhall(x, n, theta.not)))
+      altmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) dirwinhall(x, n, theta)))
       upper.y <- max(c(nullmax, altmax))
       
       # plot
@@ -1568,8 +1575,8 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
         qirwinhall(.001, n, theta.not)
       ))
 
-      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .1), FUN = function(x) dirwinhall(x, n, theta.not)))
-      altmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .1), FUN = function(x) dirwinhall(x, n, theta)))
+      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) dirwinhall(x, n, theta.not)))
+      altmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) dirwinhall(x, n, theta)))
       upper.y <- max(c(nullmax, altmax))
 
       # plot
@@ -1653,8 +1660,8 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
         uniroot(cdf, y = .001, theta = theta.not, n = n, lower = theta.not - 5*n, upper = theta.not + 5*n, extendInt = "yes")$root
       ))
       
-      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta.not, n)))
-      altmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta, n)))
+      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta.not, n)))
+      altmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta, n)))
       upper.y <- max(c(nullmax, altmax))
       
       # plot
@@ -1758,8 +1765,8 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
       # upper.x <- 6
       # lower.x <- 0
       
-      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta.not, n)))
-      altmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta, n)))
+      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta.not, n)))
+      altmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta, n)))
       upper.y <- max(c(nullmax, altmax))
       
       # plot
@@ -1842,8 +1849,8 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
         uniroot(cdf, y = .001, theta = theta.not, n = n, lower = theta.not - 5*n, upper = theta.not + 5*n, extendInt = "yes")$root
       ))
       
-      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta.not, n)))
-      altmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta, n)))
+      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta.not, n)))
+      altmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta, n)))
       upper.y <- max(c(nullmax, altmax))
       
       # plot
@@ -1932,8 +1939,8 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
         uniroot(cdf, y = .0001, theta = theta.not, n = n, lower = theta.not - 5*n, upper = theta.not + 5*n, extendInt = "yes")$root
       ))
       
-      # nullmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta.not, n)))
-      # altmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta, n)))
+      # nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta.not, n)))
+      # altmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta, n)))
       upper.y <- max(c(sampdist(theta, theta, n), sampdist(theta.not, theta.not, n)))
       
       # plot
@@ -2120,8 +2127,8 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
         uniroot(cdf, y = .0001, theta = theta.not, n = n, lower = theta.not - 5*n, upper = theta.not + 5*n, extendInt = "yes")$root
       ))
       
-      # nullmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta.not, n)))
-      # altmax <- max(sapply(seq(from = lower.x, to = upper.x, by = .01), FUN = function(x) sampdist(x, theta, n)))
+      # nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta.not, n)))
+      # altmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) sampdist(x, theta, n)))
       upper.y <- max(c(sampdist(theta, theta, n), sampdist(theta.not, theta.not, n)))
 
       # plot
@@ -2161,7 +2168,6 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
       text(x = k1, y = sampdist(k1, theta.not, n), labels =  bquote('crit val'~'='~.(round(k1, 2))), col = "red", pos = 2)
       
     }
-    
     
   }
 }

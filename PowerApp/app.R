@@ -177,8 +177,16 @@ server <- function(input, output, session) {
       
       #sum, greater than
       if(input$distribution == "Exponential" & input$statistic == "Sum of the X's" & input$alternative == "Greater than" & input$theta.not > 0){
+        
+        theta <- val$theta[length(val$theta)]
+        if(is.na(theta)) {
+          xlims <- c(0.001, 5*input$theta.not)
+        } else{
+          xlims <- c(0.001, max(5*input$theta.not, theta))
+        }
+        
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(0.001, 5*input$theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~Sigma(X[i])), las = 1)
+             xlim = xlims, ylim = c(0,1), main = bquote("Power Function for T(X) ="~Sigma(X[i])), las = 1)
         curve(1 - pchisq(input$theta.not*qchisq(1 - input$alpha, 2*input$sample.size)/x, 2*input$sample.size), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
         points(x = val$theta, y = 1 - pchisq(input$theta.not*qchisq(1 - input$alpha, 2*input$sample.size)/val$theta, 2*input$sample.size), pch = 16)
@@ -190,10 +198,19 @@ server <- function(input, output, session) {
                  pch = c(NA,NA), bty = "n")
         }
       }
+      
       #sum, less than 
       if(input$distribution == "Exponential" & input$statistic == "Sum of the X's" & input$alternative == "Less than" & input$theta.not > 0){
+        
+        theta <- val$theta[length(val$theta)]
+        if(is.na(theta)) {
+          xlims <- c(0.001, 3*input$theta.not)
+        } else{
+          xlims <- c(0.001, max(3*input$theta.not, theta))
+        }
+        
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(0.001, 3*input$theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~Sigma(X[i])), las = 1)
+             xlim = xlims, ylim = c(0,1), main = bquote("Power Function for T(X) ="~Sigma(X[i])), las = 1)
         curve(pchisq(input$theta.not*qchisq(input$alpha, 2*input$sample.size)/x, 2*input$sample.size), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
         points(x = val$theta, y = pchisq(input$theta.not*qchisq(input$alpha, 2*input$sample.size)/val$theta, 2*input$sample.size), pch = 16)
@@ -205,16 +222,22 @@ server <- function(input, output, session) {
                  pch = c(NA,NA), bty = "n")
         }
       }
-      
+
       #sum, not equal
       if(input$distribution == "Exponential" & input$statistic == "Sum of the X's" & input$alternative == "Not equal to" & input$theta.not > 0){
         n <- input$sample.size
         theta.not <- input$theta.not
-        theta <- val$theta
+        theta <- val$theta[length(val$theta)]
         alpha <- input$alpha
+        
+        if(is.na(theta)) {
+          xlims <- c(0.001, 3*input$theta.not)
+        } else{
+          xlims <- c(0.001, max(3*input$theta.not, theta))
+        }
 
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(0.001, 3*input$theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~Sigma(X[i])), las = 1)
+             xlim = xlims, ylim = c(0,1), main = bquote("Power Function for T(X) ="~Sigma(X[i])), las = 1)
         curve(1 - pgamma(qgamma(1 - alpha/2, n, 1/theta.not), n, 1/x) + pgamma(qgamma(alpha/2, n, 1/theta.not), n, 1/x), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
         
@@ -232,8 +255,16 @@ server <- function(input, output, session) {
       
       #min, greater
       if(input$distribution == "Exponential" & input$statistic == "Sample Minimum" & input$alternative == "Greater than" & input$theta.not > 0){
+        
+        theta <- val$theta[length(val$theta)]
+        if(is.na(theta)) {
+          xlims <- c(0.001, 5*input$theta.not)
+        } else{
+          xlims <- c(0.001, max(5*input$theta.not, theta))
+        }
+        
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(0.001, 5*input$theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X[(1)]), las = 1)
+             xlim = xlims, ylim = c(0,1), main = bquote("Power Function for T(X) ="~X[(1)]), las = 1)
         curve(exp(input$theta.not*log(input$alpha)/x), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
         points(x = val$theta, y = exp(input$theta.not*log(input$alpha)/val$theta), pch = 16)
@@ -248,8 +279,16 @@ server <- function(input, output, session) {
       
       #min, less
       if(input$distribution == "Exponential" & input$statistic == "Sample Minimum" & input$alternative == "Less than" & input$theta.not > 0){
+        
+        theta <- val$theta[length(val$theta)]
+        if(is.na(theta)) {
+          xlims <- c(0.001, 5*input$theta.not)
+        } else{
+          xlims <- c(0.001, max(5*input$theta.not, theta))
+        }
+        
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(0.001,5*input$theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X[(1)]), las = 1)
+             xlim = xlims, ylim = c(0,1), main = bquote("Power Function for T(X) ="~X[(1)]), las = 1)
         curve(1 - exp(input$theta.not*log(1 - input$alpha)/x), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
         points(x = val$theta, y = 1 - exp(input$theta.not*log(1 - input$alpha)/val$theta), pch = 16)
@@ -268,9 +307,15 @@ server <- function(input, output, session) {
         theta.not <- input$theta.not
         theta <- val$theta
         alpha <- input$alpha
+        
+        if(is.na(theta)) {
+          xlims <- c(0.00001, 3*input$theta.not)
+        } else{
+          xlims <- c(0.00001, max(3*input$theta.not, theta))
+        }
 
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(0.001, 3*input$theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~~X[(1)]), las = 1)
+             xlim = xlims, ylim = c(0,1), main = bquote("Power Function for T(X) ="~~X[(1)]), las = 1)
         curve(1 - pexp(qexp(1 - alpha/2, n/theta.not), n/x) + pexp(qexp(alpha/2, n/theta.not), n/x), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
 
@@ -293,8 +338,15 @@ server <- function(input, output, session) {
         theta <- val$theta
         alpha <- input$alpha
         
+        if(is.na(theta)) {
+          xlims <- c(0.001, 5*input$theta.not)
+        } else{
+          xlims <- c(0.001, max(5*input$theta.not, theta))
+        }
+        
+        
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(0.001, 5*input$theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X[('n')]), las = 1)
+             xlim = xlims, ylim = c(0,1), main = bquote("Power Function for T(X) ="~X[('n')]), las = 1)
         
         curve(exp_samp_max_pwrfunc_greater(theta = x, alpha = alpha, theta_not = theta.not, n = n), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
@@ -316,8 +368,14 @@ server <- function(input, output, session) {
         theta <- val$theta
         alpha <- input$alpha
         
+        if(is.na(theta)) {
+          xlims <- c(0.001, 5*input$theta.not)
+        } else{
+          xlims <- c(0.001, max(5*input$theta.not, theta))
+        }
+        
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(0.001, 5*input$theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X[('n')]), las = 1)
+             xlim = xlims, ylim = c(0,1), main = bquote("Power Function for T(X) ="~X[('n')]), las = 1)
         
         curve(exp_samp_max_pwrfunc_less(theta = x, alpha = alpha, theta_not = theta.not, n = n), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
@@ -339,8 +397,14 @@ server <- function(input, output, session) {
         theta <- val$theta
         alpha <- input$alpha
         
+        if(is.na(theta)) {
+          xlims <- c(0.001, 5*input$theta.not)
+        } else{
+          xlims <- c(0.001, max(5*input$theta.not, theta))
+        }
+        
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(0.001, 5*input$theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X[('n')]), las = 1)
+             xlim = xlims, ylim = c(0,1), main = bquote("Power Function for T(X) ="~X[('n')]), las = 1)
         
         curve(exp_samp_max_pwrfunc_noteqto(theta = x, alpha = alpha, theta_not = theta.not, n = n), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
@@ -358,27 +422,27 @@ server <- function(input, output, session) {
     #make sure assumptions arent violated
     if(input$distribution == "Exponential" & input$theta.not <= 0) {
       plot(1, type = "n", xlab = "", ylab = "", main = "", xlim = c(0,1), ylim = c(0,1), axes = F)
-      text(x = .5, y = .5, "The null value must be greater than 0!", col = "red")
+      text(x = .5, y = .5, "The null value must be greater than 0.", col = "red")
     }
     
     if(input$distribution == "Exponential" & val$theta <= 0 & !is.na(val$theta)) {
       plot(1, type = "n", xlab = "", ylab = "", main = "", xlim = c(0,1), ylim = c(0,1), axes = F)
-      text(x = .5, y = .5, "Theta must be greater than 0! If you have previously clicked a negative value of theta, click this plot.", col = "red")
+      text(x = .5, y = .5, "Theta must be greater than 0. If you have previously clicked a negative value of theta, click this plot.", col = "red")
     }
     
     if(input$distribution == "Exponential" & input$sample.size <= 0) {
       plot(1, type = "n", xlab = "", ylab = "", main = "", xlim = c(0,1), ylim = c(0,1), axes = F)
-      text(x = .5, y = .5, "The sample size must be greater than 0!", col = "red")
+      text(x = .5, y = .5, "The sample size must be greater than 0.", col = "red")
     }
     
-    if(input$distribution == "Exponential" & input$alpha <= 0 | input$alpha >= 1) {
+    if(input$distribution == "Exponential" & (input$alpha <= 0 | input$alpha >= 1)) {
       plot(1, type = "n", xlab = "", ylab = "", main = "", xlim = c(0,1), ylim = c(0,1), axes = F)
-      text(x = .5, y = .5, "Alpha must be in (0,1)!", col = "red")
+      text(x = .5, y = .5, "Alpha must be in (0,1).", col = "red")
     }
     
     if(input$distribution == "Exponential" & input$sample.size %% 1 != 0) {
       plot(1, type = "n", xlab = "", ylab = "", main = "", xlim = c(0,1), ylim = c(0,1), axes = F)
-      text(x = .5, y = .5, "The sample size must be an integer!", col = "red")
+      text(x = .5, y = .5, "The sample size must be an integer.", col = "red")
     }
       
       
@@ -880,12 +944,19 @@ server <- function(input, output, session) {
     
     if(input$distribution == "Exponential"){
       
-      if(val$theta <= 0 | input$alpha < 0 | input$alpha > 1 | input$sample.size <= 0 | input$theta.not <= 0){
-        stop(message('Please specify appropriate parameter, alpha, and sample size values.'))
+      if(val$theta <= 0 | input$alpha <= 0 | input$alpha >= 1 | input$sample.size <= 0 | input$theta.not <= 0 | input$sample.size %% 1 != 0){
+        
+        plot(1, type = "n", xlab = "", ylab = "", main = "", xlim = c(0,1), ylim = c(0,1), axes = F)
+        text(x = .5, y = .5, "Please specify appropriate parameter, alpha, and sample size values.", col = "red")
+        
+        # stop(message('Please specify appropriate parameter, alpha, and sample size values.'))
+      } else{
+        
+        exp.samp(statistic = input$statistic, alternative = input$alternative, theta = val$theta[length(val$theta)], 
+                 theta.not = input$theta.not, n = input$sample.size, alpha = input$alpha)
+        
       }
       
-      exp.samp(statistic = input$statistic, alternative = input$alternative, theta = val$theta[length(val$theta)], 
-               theta.not = input$theta.not, n = input$sample.size, alpha = input$alpha)
       
     }
     
@@ -895,7 +966,7 @@ server <- function(input, output, session) {
     
     if(input$distribution == "Normal"){
       
-      if(input$alpha < 0 | input$alpha > 1 | input$sample.size <= 0 | input$sigma <= 0){
+      if(input$alpha <= 0 | input$alpha >= 1 | input$sample.size <= 0 | input$sigma <= 0){
         stop(message('Please specify appropriate parameter, alpha, and sample size values.'))
       }
       
