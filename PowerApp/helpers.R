@@ -774,15 +774,27 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
       lower.power <- pnorm(k1, n*theta, sqrt(n)*sigma)
       
       # plotting limits
-      upper.x <- max(c(
-        n*theta.not + 5*sqrt(n)*sigma,
-        n*theta + 5*sqrt(n)*sigma
-      ))
       
-      lower.x <- min(c(
-        n*theta.not - 5*sqrt(n)*sigma,
-        n*theta - 5*sqrt(n)*sigma
-      ))
+      if(is.na(theta)){
+        upper.x <- max(c(
+          n*theta.not + 5*sqrt(n)*sigma,
+          n*theta + 5*sqrt(n)*sigma
+        ))
+        lower.x <- min(c(
+          n*theta.not - 5*sqrt(n)*sigma,
+          n*theta - 5*sqrt(n)*sigma
+        ))
+      } else{
+        upper.x <- max(c(
+          n*theta.not + 5*sqrt(n)*sigma,
+          n*theta + 5*sqrt(n)*sigma
+        ))
+        lower.x <- min(c(
+          n*theta.not - 5*sqrt(n)*sigma,
+          n*theta - 5*sqrt(n)*sigma
+        ))
+      }
+      
       nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) dnorm(x, theta.not*n, sqrt(n)*sigma)))
       altmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 1000), FUN = function(x) dnorm(x, theta*n, sqrt(n)*sigma)))
       upper.y <- max(c(nullmax, altmax))
@@ -809,7 +821,7 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
                 y = c(dnorm(null.curve$x[which(null.curve$x < k1)], n*theta, sqrt(n)*sigma), 
                       dnorm(k1, n*theta, sqrt(n)*sigma), 0),
                 col = "grey")
-        text(x = k1, y = dnorm(k1, n*theta, sqrt(n)*sigma), labels = bquote('crit val'~'='~.(round(k1, 2))), col = "red", pos = 4)
+        text(x = k1, y = dnorm(k1, n*theta.not, sqrt(n)*sigma), labels = bquote('crit val'~'='~.(round(k1, 2))), col = "red", pos = 4)
 
         polygon(x = c(k2, k2, alt.curve$x[which(alt.curve$x > k2)]),
                 y = c(0, dnorm(k2, n*theta, sqrt(n)*sigma),
@@ -819,7 +831,7 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
                 y = c(0, dnorm(k2, n*theta.not, sqrt(n)*sigma),
                       dnorm(null.curve$x[which(null.curve$x > k2)], n*theta.not, sqrt(n)*sigma)),
                 col = "red")
-        text(x = k2, y = dnorm(k2, n*theta, sqrt(n)*sigma), labels = bquote('crit val'~'='~.(round(k2, 2))), col = "red", pos = 4)
+        text(x = k2, y = dnorm(k2, n*theta.not, sqrt(n)*sigma), labels = bquote('crit val'~'='~.(round(k2, 2))), col = "red", pos = 4)
       } else{
         polygon(x = c(alt.curve$x[which(alt.curve$x < k1)], k1, k1),
                 y = c(dnorm(null.curve$x[which(null.curve$x < k1)], n*theta, sqrt(n)*sigma), 
@@ -829,7 +841,7 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
                 y = c(dnorm(null.curve$x[which(null.curve$x < k1)], n*theta.not, sqrt(n)*sigma), 
                       dnorm(k1, n*theta.not, sqrt(n)*sigma), 0),
                 col = "red")
-        text(x = k1, y = dnorm(k1, n*theta, sqrt(n)*sigma), labels = bquote('crit val'~'='~.(round(k1, 2))), col = "red", pos = 4)
+        text(x = k1, y = dnorm(k1, n*theta.not, sqrt(n)*sigma), labels = bquote('crit val'~'='~.(round(k1, 2))), col = "red", pos = 4)
         
         polygon(x = c(k2, k2, null.curve$x[which(null.curve$x > k2)]),
                 y = c(0, dnorm(k2, n*theta.not, sqrt(n)*sigma),
@@ -1124,15 +1136,16 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
     if(alternative == 'Greater than'){
       
       # sampling distribution functions
+      # sampling distribution functions
       cdf <- function(x, y, theta, n, sigma = sigma){
-        (pnorm(x, theta, sigma))^n - y
+        1 - (1 - pnorm(x, theta, sigma))^n - y
       }
       sampdist <- function(x, theta, n, sigma = sigma){
-        n* (pnorm(x, theta, sigma))^(n-1) * dnorm(x, theta, sigma)
+        n * (1 - pnorm(x, theta, sigma))^(n-1) * dnorm(x, theta, sigma)
       }
       
       # crit val
-      g.star <- qnorm((1 - alpha)^(1/n), theta.not, sigma)
+      g.star <- qnorm(1 - alpha^(1/n), theta.not, sigma)
       
       # plotting limit
       upper.x <- max(c(
@@ -1153,8 +1166,8 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
            xlim = c(lower.x, upper.x),
            ylim = c(0, upper.y),
            xlab = "T(x)",
-           ylab = bquote(f[X[(n)]](x)),
-           main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+           ylab = bquote(f[X[(1)]](x)),
+           main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
       (alt.curve <- curve(sampdist(x, theta, n, sigma), add = T, n = 1000))
       (null.curve <- curve(sampdist(x, theta.not, n, sigma), add = T, lty = 2, n = 1000))
       abline(v = g.star, lty = 4, col = "red")

@@ -452,8 +452,31 @@ server <- function(input, output, session) {
       
       #sum of x's, greater than
       if(input$distribution == "Normal" & input$statistic == "Sum of the X's" & input$alternative == "Greater than"){
+        
+        theta <- val$theta
+        theta.not <- input$theta.not
+        n <- input$sample.size
+        sigma <- input$sigma
+        if(is.na(theta)){
+          upper.x <- max(c(
+            theta.not + 3*sigma
+          ))
+          lower.x <- min(c(
+            theta.not - 3*sigma
+          ))
+        } else{
+          upper.x <- max(c(
+            theta.not + 3*sigma,
+            theta + 3*sigma
+          ))
+          lower.x <- min(c(
+            theta.not - 3*sigma,
+            theta - 3*sigma
+          ))
+        }
+        
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(input$theta.not - 3*input$sigma, input$theta.not + 3*input$sigma), ylim = c(0,1), main = bquote("Power Function for T(X) ="~Sigma(X[i])), las = 1)
+             xlim = c(lower.x, upper.x), ylim = c(0,1), main = bquote("Power Function for T(X) ="~Sigma(X[i])), las = 1)
         curve(1 - pnorm(qnorm(1 - input$alpha, mean = 0, sd = 1) + ((input$theta.not - x)*sqrt(input$sample.size))/input$sigma), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
         points(x = val$theta, y = 1 - pnorm(qnorm(1 - input$alpha, mean = 0, sd = 1) + ((input$theta.not - val$theta)*sqrt(input$sample.size))/input$sigma), pch = 16)
@@ -474,8 +497,27 @@ server <- function(input, output, session) {
         theta <- val$theta[length(val$theta)]
         sigma <- input$sigma
         
+        if(is.na(theta)){
+          upper.x <- max(c(
+            theta.not + 3*sigma
+          ))
+          lower.x <- min(c(
+            theta.not - 3*sigma
+          ))
+        } else{
+          upper.x <- max(c(
+            theta.not + 3*sigma,
+            theta + 3*sigma
+          ))
+          lower.x <- min(c(
+            theta.not - 3*sigma,
+            theta - 3*sigma
+          ))
+        }
+        
+        
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(input$theta.not - 3*input$sigma, input$theta.not + 3*input$sigma), ylim = c(0,1), main = bquote("Power Function for T(X) ="~Sigma(X[i])), las = 1)
+             xlim = c(lower.x, upper.x), ylim = c(0,1), main = bquote("Power Function for T(X) ="~Sigma(X[i])), las = 1)
         curve(pnorm(qnorm(input$alpha) + (input$theta.not - x)*sqrt(input$sample.size)/input$sigma), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
         points(x = theta, y = pnorm(qnorm(input$alpha) + (theta.not - theta)*sqrt(input$sample.size)/input$sigma), pch = 16)
@@ -491,8 +533,31 @@ server <- function(input, output, session) {
       
       #sum, not equal
       if(input$distribution == "Normal" & input$statistic == "Sum of the X's" & input$alternative == "Not equal to"){
-         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(input$theta.not - 3*input$sigma, input$theta.not + 3*input$sigma), ylim = c(0,1), main = bquote("Power Function for T(X) ="~Sigma(X[i])), las = 1)
+         
+        theta <- val$theta
+        theta.not <- input$theta.not
+        n <- input$sample.size
+        sigma <- input$sigma
+        if(is.na(theta)){
+          upper.x <- max(c(
+            theta.not + 3*sigma
+          ))
+          lower.x <- min(c(
+            theta.not - 3*sigma
+          ))
+        } else{
+          upper.x <- max(c(
+            theta.not + 3*sigma,
+            theta + 3*sigma
+          ))
+          lower.x <- min(c(
+            theta.not - 3*sigma,
+            theta - 3*sigma
+          ))
+        }
+        
+        plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
+             xlim = c(lower.x, upper.x), ylim = c(0,1), main = bquote("Power Function for T(X) ="~Sigma(X[i])), las = 1)
         curve(1 - pnorm(qnorm(1 - input$alpha/2) - (input$theta.not - x)*sqrt(input$sample.size)/input$sigma) + pnorm(-qnorm(1 - input$alpha/2) - (input$theta.not - x)*sqrt(input$sample.size)/input$sigma), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
         points(x = val$theta, y = 1 - pnorm(qnorm(1 - input$alpha/2) - (input$theta.not - val$theta)*sqrt(input$sample.size)/input$sigma) + pnorm(-qnorm(1 - input$alpha/2) - (input$theta.not - val$theta)*sqrt(input$sample.size)/input$sigma), pch = 16)
@@ -513,8 +578,27 @@ server <- function(input, output, session) {
         alpha <- input$alpha
         sigma <- input$sigma
         
+        if(is.na(theta)){
+          upper.x <- max(c(
+            theta.not + 3*sigma
+          ))
+          lower.x <- min(c(
+            theta.not - 3*sigma
+          ))
+        } else{
+          upper.x <- max(c(
+            theta.not + 3*sigma,
+            theta + 3*sigma
+          ))
+          lower.x <- min(c(
+            theta.not - 3*sigma,
+            theta - 3*sigma
+          ))
+        }
+        
+        
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(theta.not - 3*sigma, theta.not + 3*sigma), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X[(1)]), las = 1)
+             xlim = c(lower.x, upper.x), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X[(1)]), las = 1)
         
         curve(norm_samp_min_pwrfunc_greater(theta = x, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
@@ -537,8 +621,27 @@ server <- function(input, output, session) {
         alpha <- input$alpha
         sigma <- input$sigma
         
+        if(is.na(theta)){
+          upper.x <- max(c(
+            theta.not + 3*sigma
+          ))
+          lower.x <- min(c(
+            theta.not - 3*sigma
+          ))
+        } else{
+          upper.x <- max(c(
+            theta.not + 3*sigma,
+            theta + 3*sigma
+          ))
+          lower.x <- min(c(
+            theta.not - 3*sigma,
+            theta - 3*sigma
+          ))
+        }
+        
+        
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(theta.not - 3*sigma, theta.not + 3*sigma), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X[(1)]), las = 1)
+             xlim = c(lower.x, upper.x), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X[(1)]), las = 1)
         
         curve(norm_samp_min_pwrfunc_less(theta = x, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
@@ -560,9 +663,28 @@ server <- function(input, output, session) {
         theta <- val$theta
         alpha <- input$alpha
         sigma <- input$sigma
+
+        if(is.na(theta)){
+          upper.x <- max(c(
+            theta.not + 3*sigma
+          ))
+          lower.x <- min(c(
+            theta.not - 3*sigma
+          ))
+        } else{
+          upper.x <- max(c(
+            theta.not + 3*sigma,
+            theta + 3*sigma
+          ))
+          lower.x <- min(c(
+            theta.not - 3*sigma,
+            theta - 3*sigma
+          ))
+        }
+        
         
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(theta.not - 3*sigma, theta.not + 3*sigma), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X[(1)]), las = 1)
+             xlim = c(lower.x, upper.x), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X[(1)]), las = 1)
         
         curve(norm_samp_min_pwrfunc_noteqto(theta = x, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
@@ -585,8 +707,27 @@ server <- function(input, output, session) {
         alpha <- input$alpha
         sigma <- input$sigma
         
+        if(is.na(theta)){
+          upper.x <- max(c(
+            theta.not + 3*sigma
+          ))
+          lower.x <- min(c(
+            theta.not - 3*sigma
+          ))
+        } else{
+          upper.x <- max(c(
+            theta.not + 3*sigma,
+            theta + 3*sigma
+          ))
+          lower.x <- min(c(
+            theta.not - 3*sigma,
+            theta - 3*sigma
+          ))
+        }
+        
+        
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(theta.not - 3*sigma, theta.not + 3*sigma), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X[('n')]), las = 1)
+             xlim = c(lower.x, upper.x), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X[('n')]), las = 1)
         
         curve(norm_samp_max_pwrfunc_greater(theta = x, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
@@ -609,8 +750,27 @@ server <- function(input, output, session) {
         alpha <- input$alpha
         sigma <- input$sigma
         
+        if(is.na(theta)){
+          upper.x <- max(c(
+            theta.not + 3*sigma
+          ))
+          lower.x <- min(c(
+            theta.not - 3*sigma
+          ))
+        } else{
+          upper.x <- max(c(
+            theta.not + 3*sigma,
+            theta + 3*sigma
+          ))
+          lower.x <- min(c(
+            theta.not - 3*sigma,
+            theta - 3*sigma
+          ))
+        }
+        
+        
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(theta.not - 3*sigma, theta.not + 3*sigma), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X[('n')]), las = 1)
+             xlim = c(lower.x, upper.x), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X[('n')]), las = 1)
         
         curve(norm_samp_max_pwrfunc_less(theta = x, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
@@ -632,9 +792,28 @@ server <- function(input, output, session) {
         theta <- val$theta
         alpha <- input$alpha
         sigma <- input$sigma
+
+        if(is.na(theta)){
+          upper.x <- max(c(
+            theta.not + 3*sigma
+          ))
+          lower.x <- min(c(
+            theta.not - 3*sigma
+          ))
+        } else{
+          upper.x <- max(c(
+            theta.not + 3*sigma,
+            theta + 3*sigma
+          ))
+          lower.x <- min(c(
+            theta.not - 3*sigma,
+            theta - 3*sigma
+          ))
+        }
+        
         
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(theta.not - 3*sigma, theta.not + 3*sigma), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X[('n')]), las = 1)
+             xlim = c(lower.x, upper.x), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X[('n')]), las = 1)
         
         curve(norm_samp_max_pwrfunc_noteqto(theta = x, alpha = alpha, sigma = sigma, theta_not = theta.not, n = n), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
@@ -965,13 +1144,20 @@ server <- function(input, output, session) {
     ###########################
     
     if(input$distribution == "Normal"){
-      
-      if(input$alpha <= 0 | input$alpha >= 1 | input$sample.size <= 0 | input$sigma <= 0){
-        stop(message('Please specify appropriate parameter, alpha, and sample size values.'))
+
+      if(input$alpha <= 0 | input$alpha >= 1 | input$sample.size <= 0 | input$sample.size %% 1 != 0 | input$sigma <= 0){
+        
+        plot(1, type = "n", xlab = "", ylab = "", main = "", xlim = c(0,1), ylim = c(0,1), axes = F)
+        text(x = .5, y = .5, "Please specify appropriate parameter, alpha, and sample size values.", col = "red")
+        
+        # stop(message('Please specify appropriate parameter, alpha, and sample size values.'))
+      } else{
+        
+        norm.samp(statistic = input$statistic, alternative = input$alternative, theta = val$theta[length(val$theta)], 
+                  theta.not = input$theta.not, n = input$sample.size, alpha = input$alpha, sigma = input$sigma)
+        
       }
       
-      norm.samp(statistic = input$statistic, alternative = input$alternative, theta = val$theta[length(val$theta)], 
-                theta.not = input$theta.not, n = input$sample.size, alpha = input$alpha, sigma = input$sigma)
     }
     
     ############################
