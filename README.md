@@ -116,186 +116,219 @@
   <b> Normal </b>:
   
   - Sum of X, greater
-    * $\theta >> \text{xlims}$
-    * $\theta << \text{xlims}$
-    * $\theta_0 >> 3$
-    * $\theta_0 << 3$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
-    * $-\sigma$
+    * title, labels and power match 
+    * non-integer n 
+    * &theta; >> max x limit 
+    * &theta; << max x limit 
+    * small &theta; not
+    * large &theta; not 
+    * n = 1 
+    * n = 100
+    * negative n
+    * alpha not in (0,1)
+    * negative &sigma;
   - Sum of X, less
-    * $\theta >> \text{xlims}$
-    * $\theta << \text{xlims}$
-    * $\theta_0 >> 3$
-    * $\theta_0 << 3$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
-    * $-\sigma$
+    * title, labels and power match 
+    * non-integer n 
+    * &theta; >> max x limit 
+    * &theta; << max x limit 
+    * small &theta; not
+    * large &theta; not 
+    * n = 1 
+    * n = 100
+    * negative n
+    * alpha not in (0,1)
+    * negative &sigma;
   - Sum of X, not equal
-    * $\theta >> \text{xlims}$
-    * $\theta << \text{xlims}$
-    * $\theta_0 >> 3$
-    * $\theta_0 << 3$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
-    * $-\sigma$
+    * title, labels and power match 
+    * non-integer n 
+    * &theta; >> max x limit 
+    * &theta; << max x limit 
+    * small &theta; not
+    * large &theta; not 
+    * n = 1 
+    * n = 100
+    * negative n
+    * alpha not in (0,1)
+    * negative &sigma;
   
   - Min, greater
-    * $\theta >> \text{xlims}$
-    * $\theta << \text{xlims}$
-    * $\theta_0 >> 3$
-    * $\theta_0 << 3$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
-    * $-\sigma$
+    * title, labels and power match 
+    * non-integer n 
+    * &theta; >> max x limit 
+    * &theta; << max x limit 
+    * small &theta; not
+    * large &theta; not 
+    * n = 1 
+    * n = 100
+    * negative n
+    * alpha not in (0,1)
+    * negative &sigma;
   - Min, less
-    * $\theta >> \text{xlims}$
-    * $\theta << \text{xlims}$
-    * $\theta_0 >> 3$
-    * $\theta_0 << 3$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
-    * $-\sigma$
+    * title, labels and power match 
+    * non-integer n 
+    * &theta; >> max x limit 
+    * &theta; << max x limit 
+    * small &theta; not
+    * large &theta; not 
+    * n = 1 
+    * n = 100
+    * negative n
+    * alpha not in (0,1)
+    * negative &sigma;
   - Min, not equal
-    * $\theta >> \text{xlims}$
-    * $\theta << \text{xlims}$
-    * $\theta_0 >> 3$
-    * $\theta_0 << 3$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
-    * $-\sigma$
+    * title, labels and power match 
+    * non-integer n 
+    * &theta; >> max x limit 
+    * &theta; << max x limit 
+    * small &theta; not
+    * large &theta; not 
+    * n = 1 
+    * n = 100
+    * negative n
+    * alpha not in (0,1)
+    * negative &sigma;
   
   - Max, greater
-    * $\theta >> \text{xlims}$
-    * $\theta << \text{xlims}$
-    * $\theta_0 >> 3$
-    * $\theta_0 << 3$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
-    * $-\sigma$
+    * title, labels and power match 
+    * non-integer n 
+    * &theta; >> max x limit 
+    * &theta; << max x limit 
+    * small &theta; not
+    * large &theta; not 
+    * n = 1 
+    * n = 100
+    * negative n
+    * alpha not in (0,1)
+    * negative &sigma;
   - Max, less 
-    * $\theta >> \text{xlims}$
-    * $\theta << \text{xlims}$
-    * $\theta_0 >> 3$
-    * $\theta_0 << 3$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
-    * $-\sigma$
+    * title, labels and power match 
+    * non-integer n 
+    * &theta; >> max x limit 
+    * &theta; << max x limit 
+    * small &theta; not
+    * large &theta; not 
+    * n = 1 
+    * n = 100
+    * negative n
+    * alpha not in (0,1)
+    * negative &sigma;
   - Max, not equal 
-    * $\theta >> \text{xlims}$
-    * $\theta << \text{xlims}$
-    * $\theta_0 >> 3$
-    * $\theta_0 << 3$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
-    * $-\sigma$
+    * title, labels and power match 
+    * non-integer n 
+    * &theta; >> max x limit 
+    * &theta; << max x limit 
+    * small &theta; not
+    * large &theta; not 
+    * n = 1 
+    * n = 100
+    * negative n
+    * alpha not in (0,1)
+    * negative &sigma;
   
   <b> Uniform </b>:  
   
-  - Sum of X, greater 
-    * $-\theta$
-    * $\theta >> \text{xlims}$
-    * $-\theta_0$
-    * $\theta_0 >> \text{xlims}$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
+  - Sum of X, greater
+    * title, labels and power match
+    * non-integer n
+    * negative &theta;
+    * &theta; >> max x limit
+    * negative &theta; not
+    * large &theta; not
+    * n = 1
+    * n = 100
+    * negative n
+    * alpha not in (0,1)
   - Sum of X, less
-    * $-\theta$
-    * $\theta >> \text{xlims}$
-    * $-\theta_0$
-    * $\theta_0 >> \text{xlims}$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
+    * title, labels and power match
+    * non-integer n
+    * negative &theta;
+    * &theta; >> max x limit
+    * negative &theta; not
+    * large &theta; not
+    * n = 1
+    * n = 100
+    * negative n
+    * alpha not in (0,1)
   - Sum of X, not equal
-    * $-\theta$
-    * $\theta >> \text{xlims}$
-    * $-\theta_0$
-    * $\theta_0 >> \text{xlims}$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
+    * title, labels and power match
+    * non-integer n
+    * negative &theta;
+    * &theta; >> max x limit
+    * negative &theta; not
+    * large &theta; not
+    * n = 1
+    * n = 100
+    * negative n
+    * alpha not in (0,1)
   
   - Min, greater 
-    * $-\theta$
-    * $\theta >> \text{xlims}$
-    * $-\theta_0$
-    * $\theta_0 >> \text{xlims}$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
+    * title, labels and power match
+    * non-integer n
+    * negative &theta;
+    * &theta; >> max x limit
+    * negative &theta; not
+    * large &theta; not
+    * n = 1
+    * n = 100
+    * negative n
+    * alpha not in (0,1)
   - Min, less 
-    * $-\theta$
-    * $\theta >> \text{xlims}$
-    * $-\theta_0$
-    * $\theta_0 >> \text{xlims}$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
+    * title, labels and power match
+    * non-integer n
+    * negative &theta;
+    * &theta; >> max x limit
+    * negative &theta; not
+    * large &theta; not
+    * n = 1
+    * n = 100
+    * negative n
+    * alpha not in (0,1)
   - Min, not equal 
-    * $-\theta$
-    * $\theta >> \text{xlims}$
-    * $-\theta_0$
-    * $\theta_0 >> \text{xlims}$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
+    * title, labels and power match
+    * non-integer n
+    * negative &theta;
+    * &theta; >> max x limit
+    * negative &theta; not
+    * large &theta; not
+    * n = 1
+    * n = 100
+    * negative n
+    * alpha not in (0,1)
     
   - Max, greater
-    * $\theta < \theta_0$
-    * $-\theta$
-    * $\theta >> \text{xlims}$
-    * $-\theta_0$
-    * $\theta_0 >> \text{xlims}$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
+    * title, labels and power match
+    * non-integer n
+    * negative &theta;
+    * &theta; >> max x limit
+    * negative &theta; not
+    * large &theta; not
+    * n = 1
+    * n = 100
+    * negative n
+    * alpha not in (0,1)
   - Max, less
-    * $\theta < \theta_0$
-    * $-\theta$
-    * $\theta >> \text{xlims}$
-    * $-\theta_0$
-    * $\theta_0 >> \text{xlims}$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
+    * title, labels and power match
+    * non-integer n
+    * negative &theta;
+    * &theta; >> max x limit
+    * negative &theta; not
+    * large &theta; not
+    * n = 1
+    * n = 100
+    * negative n
+    * alpha not in (0,1)
   - Max, not equal
-    * $\theta < \theta_0$
-    * $-\theta$
-    * $\theta >> \text{xlims}$
-    * $-\theta_0$
-    * $\theta_0 >> \text{xlims}$
-    * $n = 1$
-    * $n = 100$
-    * $n = -1$
-    * $-\alpha$
+    * title, labels and power match
+    * non-integer n
+    * negative &theta;
+    * &theta; >> max x limit
+    * negative &theta; not
+    * large &theta; not
+    * n = 1
+    * n = 100
+    * negative n
+    * alpha not in (0,1)
   
 ### Proofread derivations
 
