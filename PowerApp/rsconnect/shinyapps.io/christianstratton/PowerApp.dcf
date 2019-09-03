@@ -5,8 +5,8 @@ account: christianstratton
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 819181
-bundleId: 2371670
+bundleId: 2381778
 url: https://christianstratton.shinyapps.io/PowerApp/
-when: 1567184483.12461
+when: 1567530734.3781
 asMultiple: FALSE
 asStatic: FALSE

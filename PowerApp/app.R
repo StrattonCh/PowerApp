@@ -23,7 +23,7 @@ ui <- fluidPage(
         selectInput(
           inputId = "statistic",
           label = h3("Test Statistic"),
-          choices = c("Sum of the X's", "Sample Minimum", "Sample Maximum")
+          choices = c("Sum of the X's" = "sum", "Sample Minimum", "Sample Maximum")
         ),
         numericInput(
           inputId = "theta.not",
@@ -55,7 +55,7 @@ ui <- fluidPage(
           inputId = "sample.size",
           label = h3("Sample Size"),
           value = 25,
-          step = 10,
+          step = 1,
           min = 0
         ),
         numericInput(
@@ -63,6 +63,13 @@ ui <- fluidPage(
           label = h3("Theta"),
           value = NULL,
           step = 0.01
+        ),
+        conditionalPanel(
+          condition = "input.distribution == 'Uniform' & input.statistic == 'sum'",
+          checkboxInput(
+            inputId = "norm.approx",
+            label = "Use normal approximation",
+            value = FALSE)
         )
       ),
       conditionalPanel(
@@ -176,7 +183,7 @@ server <- function(input, output, session) {
       ################################
       
       #sum, greater than
-      if(input$distribution == "Exponential" & input$statistic == "Sum of the X's" & input$alternative == "Greater than" & input$theta.not > 0){
+      if(input$distribution == "Exponential" & input$statistic == "sum" & input$alternative == "Greater than" & input$theta.not > 0){
         
         theta <- val$theta[length(val$theta)]
         if(is.na(theta)) {
@@ -200,7 +207,7 @@ server <- function(input, output, session) {
       }
       
       #sum, less than 
-      if(input$distribution == "Exponential" & input$statistic == "Sum of the X's" & input$alternative == "Less than" & input$theta.not > 0){
+      if(input$distribution == "Exponential" & input$statistic == "sum" & input$alternative == "Less than" & input$theta.not > 0){
         
         theta <- val$theta[length(val$theta)]
         if(is.na(theta)) {
@@ -224,7 +231,7 @@ server <- function(input, output, session) {
       }
 
       #sum, not equal
-      if(input$distribution == "Exponential" & input$statistic == "Sum of the X's" & input$alternative == "Not equal to" & input$theta.not > 0){
+      if(input$distribution == "Exponential" & input$statistic == "sum" & input$alternative == "Not equal to" & input$theta.not > 0){
         n <- input$sample.size
         theta.not <- input$theta.not
         theta <- val$theta[length(val$theta)]
@@ -451,7 +458,7 @@ server <- function(input, output, session) {
       ###########################
       
       #sum of x's, greater than
-      if(input$distribution == "Normal" & input$statistic == "Sum of the X's" & input$alternative == "Greater than"){
+      if(input$distribution == "Normal" & input$statistic == "sum" & input$alternative == "Greater than"){
         
         theta <- val$theta
         theta.not <- input$theta.not
@@ -490,7 +497,7 @@ server <- function(input, output, session) {
       }
       
       #sum of x's, less than
-      if(input$distribution == "Normal" & input$statistic == "Sum of the X's" & input$alternative == "Less than"){
+      if(input$distribution == "Normal" & input$statistic == "sum" & input$alternative == "Less than"){
         n <- input$sample.size
         alpha <- input$alpha
         theta.not <- input$theta.not
@@ -532,7 +539,7 @@ server <- function(input, output, session) {
       }
       
       #sum, not equal
-      if(input$distribution == "Normal" & input$statistic == "Sum of the X's" & input$alternative == "Not equal to"){
+      if(input$distribution == "Normal" & input$statistic == "sum" & input$alternative == "Not equal to"){
          
         theta <- val$theta
         theta.not <- input$theta.not
@@ -853,16 +860,40 @@ server <- function(input, output, session) {
       ############################
       ### UNIFORM DISTRIBUTION ###
       ############################
+    
+    if(input$distribution == "Uniform" & input$alpha <= 0 | input$alpha >= 1) {
+      plot(1, type = "n", xlab = "", ylab = "", main = "", xlim = c(0,1), ylim = c(0,1), axes = F)
+      text(x = .5, y = .5, "Alpha must be in (0,1)!", col = "red")
+    } else if(input$distribution == "Uniform" & input$theta.not <= 0) {
+      plot(1, type = "n", xlab = "", ylab = "", main = "", xlim = c(0,1), ylim = c(0,1), axes = F)
+      text(x = .5, y = .5, "The null value must be greater than 0!", col = "red")
+    } else if(input$distribution == "Uniform" & input$sample.size <= 0){
+      plot(1, type = "n", xlab = "", ylab = "", main = "", xlim = c(0,1), ylim = c(0,1), axes = F)
+      text(x = .5, y = .5, "The sample size must be greater than 0!", col = "red")
+    } else{
+      
       
       #sum, greater than
-      if(input$distribution == "Uniform" & input$statistic == "Sum of the X's" & input$alternative == "Greater than"){
+      if(input$distribution == "Uniform" & input$statistic == "sum" & input$alternative == "Greater than" & !(input$norm.approx)){
         n <- input$sample.size
         theta.not <- input$theta.not
         alpha <- input$alpha
         theta <- val$theta
         
+        if(is.na(theta)){
+          upper.x <- max(c(
+            2*theta.not
+          ))
+        } else{
+          upper.x <- max(c(
+            2*theta.not,
+            theta
+          ))
+        }
+        
+        
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(0, 2*theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~ Sigma(X['i'])), las = 1)
+             xlim = c(0.001, upper.x), ylim = c(0,1), main = bquote("Power Function for T(X) ="~ Sigma(X['i'])), las = 1)
         
         curve(unif_sum_pwrfunc_greater(theta = x, alpha = alpha, theta_not = theta.not, n = n), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
@@ -870,7 +901,7 @@ server <- function(input, output, session) {
         points(x = theta, y = unif_sum_pwrfunc_greater(theta = theta, alpha = alpha, theta_not = theta.not, n = n), pch = 16)
         abline(v = theta, col  = "gray")
         abline(h = unif_sum_pwrfunc_greater(theta = theta, alpha = alpha, theta_not = theta.not, n = n), col  = "gray")
-
+        
         if(!is.na(val$theta)){
           legend("topleft",
                  legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(unif_sum_pwrfunc_greater(theta = theta, alpha = alpha, theta_not = theta.not, n = n), 3)))),
@@ -879,15 +910,76 @@ server <- function(input, output, session) {
         
       }  
       
-      #sum, less than
-      if(input$distribution == "Uniform" & input$statistic == "Sum of the X's" & input$alternative == "Less than"){
+      #sum, greater than, norm approx
+      if(input$distribution == "Uniform" & input$statistic == "sum" & input$alternative == "Greater than" & input$norm.approx){
         n <- input$sample.size
         theta.not <- input$theta.not
         alpha <- input$alpha
         theta <- val$theta
         
+        if(is.na(theta)){
+          upper.x <- max(c(
+            theta.not + 3* sqrt(theta.not^2 / 12)
+          ))
+          lower.x <- max(c(
+            0, 
+            theta.not - 3* sqrt(theta.not^2 / 12)
+          ))
+        } else{
+          upper.x <- max(c(
+            theta.not + 3* sqrt(theta.not^2 / 12),
+            theta + 3* sqrt(theta^2 / 12)
+          ))
+          lower.x <- max(c(
+            0, 
+            min(c(
+              theta.not - 3* sqrt(theta.not^2 / 12),
+              theta - 3* sqrt(theta^2 / 12)
+            ))
+          ))
+        }
+        
+        
+        title <- bquote(atop("Power Function for T(X) ="~ Sigma(X['i']), "\n based on a normal approximation"))
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(0, 2*theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~ Sigma(X['i'])), las = 1)
+             xlim = c(lower.x, upper.x), ylim = c(0,1), main = title, las = 1)
+        
+        curve(expr = unif_norm_approx_greater(theta = x, alpha = alpha, theta_not = theta.not, n = n), add = T, n = 1000)
+        abline(h = input$alpha, lty = 2, col = "red")
+
+        points(x = theta, y = unif_norm_approx_greater(theta = theta, alpha = alpha, theta_not = theta.not, n = n), pch = 16)
+        abline(v = theta, col  = "gray")
+        abline(h = unif_norm_approx_greater(theta = theta, alpha = alpha, theta_not = theta.not, n = n), col  = "gray")
+        
+        if(!is.na(val$theta)){
+          legend("topleft",
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(unif_norm_approx_greater(theta = theta, alpha = alpha, theta_not = theta.not, n = n), 3)))),
+                 pch = c(NA,NA), bty = "n")
+        }
+        
+      }  
+      
+      #sum, less than
+      if(input$distribution == "Uniform" & input$statistic == "sum" & input$alternative == "Less than" & !(input$norm.approx)){
+        n <- input$sample.size
+        theta.not <- input$theta.not
+        alpha <- input$alpha
+        theta <- val$theta
+        
+        if(is.na(theta)){
+          upper.x <- max(c(
+            2*theta.not
+          ))
+        } else{
+          upper.x <- max(c(
+            2*theta.not,
+            theta
+          ))
+        }
+        
+        
+        plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
+             xlim = c(0.001, upper.x), ylim = c(0,1), main = bquote("Power Function for T(X) ="~ Sigma(X['i'])), las = 1)
         
         curve(unif_sum_pwrfunc_less(theta = x, alpha = alpha, theta_not = theta.not, n = n), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
@@ -904,15 +996,77 @@ server <- function(input, output, session) {
         
       }  
       
-      #sum, not equal
-      if(input$distribution == "Uniform" & input$statistic == "Sum of the X's" & input$alternative == "Not equal to"){
+      #sum, less than, norm approx
+      if(input$distribution == "Uniform" & input$statistic == "sum" & input$alternative == "Less than" & input$norm.approx){
         n <- input$sample.size
         theta.not <- input$theta.not
         alpha <- input$alpha
         theta <- val$theta
         
+        if(is.na(theta)){
+          upper.x <- max(c(
+            theta.not + 3* sqrt(theta.not^2 / 12)
+          ))
+          lower.x <- max(c(
+            0, 
+            theta.not - 3* sqrt(theta.not^2 / 12)
+          ))
+        } else{
+          upper.x <- max(c(
+            theta.not + 3* sqrt(theta.not^2 / 12),
+            theta + 3* sqrt(theta^2 / 12)
+          ))
+          lower.x <- max(c(
+            0, 
+            min(c(
+              theta.not - 3* sqrt(theta.not^2 / 12),
+              theta - 3* sqrt(theta^2 / 12)
+            ))
+          ))
+        }
+        
+        
+        title <- bquote(atop("Power Function for T(X) ="~ Sigma(X['i']), "\n based on a normal approximation"))
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(0, 2*theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~ Sigma(X['i'])), las = 1)
+             xlim = c(lower.x, upper.x), ylim = c(0,1), main = title, las = 1)
+        
+        curve(expr = unif_norm_approx_less(theta = x, alpha = alpha, theta_not = theta.not, n = n), add = T, n = 1000)
+        abline(h = input$alpha, lty = 2, col = "red")
+        
+        points(x = theta, y = unif_norm_approx_less(theta = theta, alpha = alpha, theta_not = theta.not, n = n), pch = 16)
+        abline(v = theta, col  = "gray")
+        abline(h = unif_norm_approx_less(theta = theta, alpha = alpha, theta_not = theta.not, n = n), col  = "gray")
+        
+        if(!is.na(val$theta)){
+          legend("topleft",
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(unif_norm_approx_less(theta = theta, alpha = alpha, theta_not = theta.not, n = n), 3)))),
+                 pch = c(NA,NA), bty = "n")
+        }
+        
+        
+      }  
+      
+      #sum, not equal
+      if(input$distribution == "Uniform" & input$statistic == "sum" & input$alternative == "Not equal to" & !(input$norm.approx)){
+        n <- input$sample.size
+        theta.not <- input$theta.not
+        alpha <- input$alpha
+        theta <- val$theta
+        
+        if(is.na(theta)){
+          upper.x <- max(c(
+            2*theta.not
+          ))
+        } else{
+          upper.x <- max(c(
+            2*theta.not,
+            theta
+          ))
+        }
+        
+        
+        plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
+             xlim = c(0.001, upper.x), ylim = c(0,1), main = bquote("Power Function for T(X) ="~ Sigma(X['i'])), las = 1)
         
         curve(unif_sum_pwrfunc_noteqto(theta = x, alpha = alpha, theta_not = theta.not, n = n), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
@@ -929,6 +1083,55 @@ server <- function(input, output, session) {
         
       }  
       
+      #sum, not equal, norm approx
+      if(input$distribution == "Uniform" & input$statistic == "sum" & input$alternative == "Not equal to" & input$norm.approx){
+        n <- input$sample.size
+        theta.not <- input$theta.not
+        alpha <- input$alpha
+        theta <- val$theta
+        
+        if(is.na(theta)){
+          upper.x <- max(c(
+            theta.not + 3* sqrt(theta.not^2 / 12)
+          ))
+          lower.x <- max(c(
+            0, 
+            theta.not - 3* sqrt(theta.not^2 / 12)
+          ))
+        } else{
+          upper.x <- max(c(
+            theta.not + 3* sqrt(theta.not^2 / 12),
+            theta + 3* sqrt(theta^2 / 12)
+          ))
+          lower.x <- max(c(
+            0, 
+            min(c(
+              theta.not - 3* sqrt(theta.not^2 / 12),
+              theta - 3* sqrt(theta^2 / 12)
+            ))
+          ))
+        }
+        
+        
+        title <- bquote(atop("Power Function for T(X) ="~ Sigma(X['i']), "\n based on a normal approximation"))
+        plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
+             xlim = c(lower.x, upper.x), ylim = c(0,1), main = title, las = 1)
+        
+        curve(expr = unif_norm_approx_noteq(theta = x, alpha = alpha, theta_not = theta.not, n = n), add = T, n = 1000)
+        abline(h = input$alpha, lty = 2, col = "red")
+        
+        points(x = theta, y = unif_norm_approx_noteq(theta = theta, alpha = alpha, theta_not = theta.not, n = n), pch = 16)
+        abline(v = theta, col  = "gray")
+        abline(h = unif_norm_approx_noteq(theta = theta, alpha = alpha, theta_not = theta.not, n = n), col  = "gray")
+        
+        if(!is.na(val$theta)){
+          legend("topleft",
+                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(unif_norm_approx_noteq(theta = theta, alpha = alpha, theta_not = theta.not, n = n), 3)))),
+                 pch = c(NA,NA), bty = "n")
+        }
+        
+      }  
+      
       #min, greater than
       if(input$distribution == "Uniform" & input$statistic == "Sample Minimum" & input$alternative == "Greater than"){
         n <- input$sample.size
@@ -936,8 +1139,20 @@ server <- function(input, output, session) {
         alpha <- input$alpha
         theta <- val$theta
         
+        if(is.na(theta)){
+          upper.x <- max(c(
+            2*theta.not
+          ))
+        } else{
+          upper.x <- max(c(
+            2*theta.not,
+            theta
+          ))
+        }
+        
+        
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(0, 2*theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~ X['(1)']), las = 1)
+             xlim = c(0.001, upper.x), ylim = c(0,1), main = bquote("Power Function for T(X) ="~ X['(1)']), las = 1)
         
         curve(unif_samp_min_pwrfunc_greater(theta = x, alpha = alpha, theta_not = theta.not, n = n), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
@@ -961,8 +1176,20 @@ server <- function(input, output, session) {
         alpha <- input$alpha
         theta <- val$theta
         
+        if(is.na(theta)){
+          upper.x <- max(c(
+            2*theta.not
+          ))
+        } else{
+          upper.x <- max(c(
+            2*theta.not,
+            theta
+          ))
+        }
+        
+        
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(0, 2*theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~ X['(1)']), las = 1)
+             xlim = c(0.001, upper.x), ylim = c(0,1), main = bquote("Power Function for T(X) ="~ X['(1)']), las = 1)
         
         curve(unif_samp_min_pwrfunc_less(theta = x, alpha = alpha, theta_not = theta.not, n = n), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
@@ -986,8 +1213,20 @@ server <- function(input, output, session) {
         alpha <- input$alpha
         theta <- val$theta
         
+        if(is.na(theta)){
+          upper.x <- max(c(
+            2*theta.not
+          ))
+        } else{
+          upper.x <- max(c(
+            2*theta.not,
+            theta
+          ))
+        }
+        
+        
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(0, 2*theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X['(1)']), las = 1)
+             xlim = c(0.001, upper.x), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X['(1)']), las = 1)
         
         curve(unif_samp_min_pwrfunc_noteqto(theta = x, alpha = alpha, theta_not = theta.not, n = n), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
@@ -1010,9 +1249,21 @@ server <- function(input, output, session) {
         theta.not <- input$theta.not
         alpha <- input$alpha
         theta <- val$theta[length(val$theta)]
-
+        
+        if(is.na(theta)){
+          upper.x <- max(c(
+            2*theta.not
+          ))
+        } else{
+          upper.x <- max(c(
+            2*theta.not,
+            theta
+          ))
+        }
+        
+        
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(0, 2*theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~ X['(n)']), las = 1)
+             xlim = c(0.001, upper.x), ylim = c(0,1), main = bquote("Power Function for T(X) ="~ X['(n)']), las = 1)
         
         curve(unif_samp_max_pwrfunc_greater(theta = x, alpha = alpha, theta_not = theta.not, n = n), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
@@ -1020,7 +1271,7 @@ server <- function(input, output, session) {
         points(x = theta, y = unif_samp_max_pwrfunc_greater(theta = theta, alpha = alpha, theta_not = theta.not, n = n), pch = 16)
         abline(v = theta, col  = "gray")
         abline(h = unif_samp_max_pwrfunc_greater(theta = theta, alpha = alpha, theta_not = theta.not, n = n), col  = "gray")
-
+        
         if(!is.na(val$theta)){
           legend("topleft",
                  legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(unif_samp_max_pwrfunc_greater(theta = theta, alpha = alpha, theta_not = theta.not, n = n), 3)))),
@@ -1035,9 +1286,21 @@ server <- function(input, output, session) {
         theta.not <- input$theta.not
         alpha <- input$alpha
         theta <- val$theta
-
+        
+        if(is.na(theta)){
+          upper.x <- max(c(
+            2*theta.not
+          ))
+        } else{
+          upper.x <- max(c(
+            2*theta.not,
+            theta
+          ))
+        }
+        
+        
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(0, 2*theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~ X['(n)']), las = 1)
+             xlim = c(0.001, upper.x), ylim = c(0,1), main = bquote("Power Function for T(X) ="~ X['(n)']), las = 1)
         
         curve(unif_samp_max_pwrfunc_less(theta = x, alpha = alpha, theta_not = theta.not, n = n), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
@@ -1045,7 +1308,7 @@ server <- function(input, output, session) {
         points(x = theta, y = unif_samp_max_pwrfunc_less(theta = theta, alpha = alpha, theta_not = theta.not, n = n), pch = 16)
         abline(v = theta, col  = "gray")
         abline(h = unif_samp_max_pwrfunc_less(theta = theta, alpha = alpha, theta_not = theta.not, n = n), col  = "gray")
-
+        
         if(!is.na(val$theta)){
           legend("topleft",
                  legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(theta,2))), bquote(beta(theta)~"="~ .(round(unif_samp_max_pwrfunc_less(theta = theta, alpha = alpha, theta_not = theta.not, n = n), 3)))),
@@ -1061,8 +1324,20 @@ server <- function(input, output, session) {
         alpha <- input$alpha
         theta <- val$theta
         
+        if(is.na(theta)){
+          upper.x <- max(c(
+            2*theta.not
+          ))
+        } else{
+          upper.x <- max(c(
+            2*theta.not,
+            theta
+          ))
+        }
+        
+        
         plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(0, 2*theta.not), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X['(n)']), las = 1)
+             xlim = c(0.001, upper.x), ylim = c(0,1), main = bquote("Power Function for T(X) ="~X['(n)']), las = 1)
         
         curve(unif_samp_max_pwrfunc_noteqto(theta = x, alpha = alpha, theta_not = theta.not, n = n), add = T, n = 1000)
         abline(h = input$alpha, lty = 2, col = "red")
@@ -1078,27 +1353,14 @@ server <- function(input, output, session) {
         }
         
       }
-    
-    
-    #make sure assumptions arent violated
-    if(input$distribution == "Uniform" & input$theta.not <= 0) {
-      plot(1, type = "n", xlab = "", ylab = "", main = "", xlim = c(0,1), ylim = c(0,1), axes = F)
-      text(x = .5, y = .5, "The null value must be greater than 0!", col = "red")
+      
     }
-    
+      
+
+    #make sure assumptions arent violated
     if(input$distribution == "Uniform" & val$theta <= 0 & !is.na(val$theta)) {
       plot(1, type = "n", xlab = "", ylab = "", main = "", xlim = c(0,1), ylim = c(0,1), axes = F)
       text(x = .5, y = .5, "Theta must be greater than 0! If you have previously clicked a negative value of theta, click this plot.", col = "red")
-    }
-    
-    if(input$distribution == "Uniform" & input$sample.size <= 0) {
-      plot(1, type = "n", xlab = "", ylab = "", main = "", xlim = c(0,1), ylim = c(0,1), axes = F)
-      text(x = .5, y = .5, "The sample size must be greater than 0!", col = "red")
-    }
-    
-    if(input$distribution == "Uniform" & input$alpha <= 0 | input$alpha >= 1) {
-      plot(1, type = "n", xlab = "", ylab = "", main = "", xlim = c(0,1), ylim = c(0,1), axes = F)
-      text(x = .5, y = .5, "Alpha must be in (0,1)!", col = "red")
     }
     
     if(input$distribution == "Uniform" & input$sample.size %% 1 != 0) {
@@ -1106,11 +1368,7 @@ server <- function(input, output, session) {
       text(x = .5, y = .5, "The sample size must be an integer!", col = "red")
     }
     
-    
-    
-      
     })
-
   
   #Plot the sampling distribution for chosen theta
   output$sampDist <- renderPlot({
@@ -1166,14 +1424,14 @@ server <- function(input, output, session) {
     
     if(input$distribution == "Uniform"){
       
-      if(val$theta <= 0 | input$alpha < 0 | input$alpha > 1 | input$sample.size <= 0 | input$theta.not <= 0){
-        stop(message('Please specify appropriate parameter, alpha, and sample size values.'))
+      if(val$theta <= 0 | input$alpha <= 0 | input$alpha >= 1 | input$sample.size <= 0 | input$theta.not <= 0 | input$sample.size %% 1 != 0){
+        plot(1, type = "n", xlab = "", ylab = "", main = "", xlim = c(0,1), ylim = c(0,1), axes = F)
+        text(x = .5, y = .5, "Please specify appropriate parameter, alpha, and sample size values.", col = "red")
+      } else{
+        unif.samp(statistic = input$statistic, alternative = input$alternative, theta = val$theta[length(val$theta)],
+                  theta.not = input$theta.not, n = input$sample.size, alpha = input$alpha, norm.approx = input$norm.approx)
       }
       
-      unif.samp(statistic = input$statistic, alternative = input$alternative, theta = val$theta[length(val$theta)],
-                theta.not = input$theta.not, n = input$sample.size, alpha = input$alpha)
-      
-      # plot(1)
     }
 
     
@@ -1182,6 +1440,8 @@ server <- function(input, output, session) {
   output$deriv2 <- renderUI({
     withMathJax(HTML(readLines(paste0(input$dist2, '_', input$stat2, '.txt'))))
   })
+  
+  
 
 }
 
