@@ -229,13 +229,13 @@
   <b> Uniform </b>:  
   
   - Sum of X, greater
-    * title, labels and power match
-    * non-integer n
-    * negative &theta;
-    * &theta; >> max x limit
-    * negative &theta; not
-    * large &theta; not
-    * n = 1
+    * <s> title, labels and power match </s>
+    * <s> non-integer n </s>
+    * <s> negative &theta; </s>
+    * <s> &theta; >> max x limit </s>
+    * <s> negative &theta; not </s>
+    * <s> large &theta; not </s>
+    * <s> n = 1 </s>
     * n = 100
     * negative n
     * alpha not in (0,1)
@@ -263,16 +263,16 @@
     * alpha not in (0,1)
   
   - Min, greater 
-    * title, labels and power match
-    * non-integer n
-    * negative &theta;
-    * &theta; >> max x limit
-    * negative &theta; not
-    * large &theta; not
-    * n = 1
-    * n = 100
-    * negative n
-    * alpha not in (0,1)
+    * <s> title, labels and power match </s>
+    * <s> non-integer n </s>
+    * <s> negative &theta; </s>
+    * <s> &theta; >> max x limit </s>
+    * <s> negative &theta; not </s>
+    * <s> large &theta; not </s>
+    * <s> n = 1 </s>
+    * <s> n = 100 </s>
+    * <s> negative n </s>
+    * <s> alpha not in (0,1) </s>
   - Min, less 
     * title, labels and power match
     * non-integer n
