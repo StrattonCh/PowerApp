@@ -88,6 +88,34 @@ ui <- fluidPage(
                       "Sample Minimum" = 'min',
                       "Sample Maximum" = 'max')
         )
+      ),
+      conditionalPanel(
+        "input.tabselected == 3",
+        numericInput(
+          inputId = "sim.reps",
+          label = h3("Number of simulated samples"),
+          value = 10000,
+          step = 1000,
+          min = 1
+        ),
+        numericInput(
+          inputId = "sim.n",
+          label = h3("Sample Size"),
+          value = 25,
+          step = 1,
+          min = 1
+        ),
+        numericInput(
+          inputId = "sim.theta",
+          label = h3("Theta"),
+          value = 3,
+          min = 0
+        ),
+        checkboxInput(
+          inputId = "sim.addcdf",
+          label = 'Overlay normal CDF',
+          value = F
+        )
       )
     ),
     
@@ -126,6 +154,7 @@ ui <- fluidPage(
                             click = "plot_click",
                             hover = hoverOpts(id = "plot.hover", delay = 0, delayType = "debounce")
                  ),
+                 span(textOutput("warning"), style = "color:red"),
                  br(),
                  
                  #add sampling distribution text for exponential
@@ -157,7 +186,15 @@ ui <- fluidPage(
                  tags$div(HTML("<script> type='text/x-mathjax-config'> MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]} });</script>")),
                  # # p(includeHTML("exp_sum.txt"))
                  withMathJax(uiOutput('deriv2'))
-                 )
+        ),
+        tabPanel("Irwin-Hall Normal Approximation", value = 3,
+                 p('The purpose of this tab is to examine how well the normal distribution approximates the 
+                   sampling distribution of the sum of uniform random variables. To do so, we will use simulation.
+                   Use the side panel to simulate sample sums from the uniform distribution and calculate the 
+                   empirical distribution function for these simulated samples. Then, overlay the normal 
+                   distribution function to compare them.'),
+                 plotOutput(outputId = "sim_hist", height = 800)
+        )
       )
     )
   )
@@ -177,13 +214,12 @@ server <- function(input, output, session) {
   
   #Produce First Graph of Power Function
   output$powerPlot <- renderPlot({
+    ################################
+    ### EXPONENTIAL DISTRIBUTION ###
+    ################################
       
-      ################################
-      ### EXPONENTIAL DISTRIBUTION ###
-      ################################
-      
-      #sum, greater than
-      if(input$distribution == "Exponential" & input$statistic == "sum" & input$alternative == "Greater than" & input$theta.not > 0){
+    #sum, greater than
+    if(input$distribution == "Exponential" & input$statistic == "sum" & input$alternative == "Greater than" & input$theta.not > 0){
         
         theta <- val$theta[length(val$theta)]
         if(is.na(theta)) {
@@ -205,9 +241,9 @@ server <- function(input, output, session) {
                  pch = c(NA,NA), bty = "n")
         }
       }
-      
-      #sum, less than 
-      if(input$distribution == "Exponential" & input$statistic == "sum" & input$alternative == "Less than" & input$theta.not > 0){
+    
+    #sum, less than 
+    if(input$distribution == "Exponential" & input$statistic == "sum" & input$alternative == "Less than" & input$theta.not > 0){
         
         theta <- val$theta[length(val$theta)]
         if(is.na(theta)) {
@@ -230,8 +266,8 @@ server <- function(input, output, session) {
         }
       }
 
-      #sum, not equal
-      if(input$distribution == "Exponential" & input$statistic == "sum" & input$alternative == "Not equal to" & input$theta.not > 0){
+    #sum, not equal
+    if(input$distribution == "Exponential" & input$statistic == "sum" & input$alternative == "Not equal to" & input$theta.not > 0){
         n <- input$sample.size
         theta.not <- input$theta.not
         theta <- val$theta[length(val$theta)]
@@ -260,8 +296,8 @@ server <- function(input, output, session) {
         }
       }
       
-      #min, greater
-      if(input$distribution == "Exponential" & input$statistic == "Sample Minimum" & input$alternative == "Greater than" & input$theta.not > 0){
+    #min, greater
+    if(input$distribution == "Exponential" & input$statistic == "Sample Minimum" & input$alternative == "Greater than" & input$theta.not > 0){
         
         theta <- val$theta[length(val$theta)]
         if(is.na(theta)) {
@@ -284,8 +320,8 @@ server <- function(input, output, session) {
         }
       }
       
-      #min, less
-      if(input$distribution == "Exponential" & input$statistic == "Sample Minimum" & input$alternative == "Less than" & input$theta.not > 0){
+    #min, less
+    if(input$distribution == "Exponential" & input$statistic == "Sample Minimum" & input$alternative == "Less than" & input$theta.not > 0){
         
         theta <- val$theta[length(val$theta)]
         if(is.na(theta)) {
@@ -308,8 +344,8 @@ server <- function(input, output, session) {
         }
       }
       
-      #min, not equal
-      if(input$distribution == "Exponential" & input$statistic == "Sample Minimum" & input$alternative == "Not equal to" & input$theta.not > 0){
+    #min, not equal
+    if(input$distribution == "Exponential" & input$statistic == "Sample Minimum" & input$alternative == "Not equal to" & input$theta.not > 0){
         n <- input$sample.size
         theta.not <- input$theta.not
         theta <- val$theta
@@ -338,8 +374,8 @@ server <- function(input, output, session) {
         }
       }
       
-      #max, greater than
-      if(input$distribution == "Exponential" & input$statistic == "Sample Maximum" & input$alternative == "Greater than" & input$theta.not > 0){
+    #max, greater than
+    if(input$distribution == "Exponential" & input$statistic == "Sample Maximum" & input$alternative == "Greater than" & input$theta.not > 0){
         n <- input$sample.size
         theta.not <- input$theta.not
         theta <- val$theta
@@ -368,8 +404,8 @@ server <- function(input, output, session) {
         }
       }
       
-      #max, less than
-      if(input$distribution == "Exponential" & input$statistic == "Sample Maximum" & input$alternative == "Less than" & input$theta.not > 0){
+    #max, less than
+    if(input$distribution == "Exponential" & input$statistic == "Sample Maximum" & input$alternative == "Less than" & input$theta.not > 0){
         n <- input$sample.size
         theta.not <- input$theta.not
         theta <- val$theta
@@ -397,8 +433,8 @@ server <- function(input, output, session) {
         }
       }
       
-      #max, not equal
-      if(input$distribution == "Exponential" & input$statistic == "Sample Maximum" & input$alternative == "Not equal to" & input$theta.not > 0){
+    #max, not equal
+    if(input$distribution == "Exponential" & input$statistic == "Sample Maximum" & input$alternative == "Not equal to" & input$theta.not > 0){
         n <- input$sample.size
         theta.not <- input$theta.not
         theta <- val$theta
@@ -453,51 +489,51 @@ server <- function(input, output, session) {
     }
       
       
-      ###########################
-      ### NORMAL DISTRIBUTION ###
-      ###########################
+    ###########################
+    ### NORMAL DISTRIBUTION ###
+    ###########################
       
-      #sum of x's, greater than
-      if(input$distribution == "Normal" & input$statistic == "sum" & input$alternative == "Greater than"){
-        
-        theta <- val$theta
-        theta.not <- input$theta.not
-        n <- input$sample.size
-        sigma <- input$sigma
-        if(is.na(theta)){
-          upper.x <- max(c(
-            theta.not + 3*sigma
-          ))
-          lower.x <- min(c(
-            theta.not - 3*sigma
-          ))
-        } else{
-          upper.x <- max(c(
-            theta.not + 3*sigma,
-            theta + 3*sigma
-          ))
-          lower.x <- min(c(
-            theta.not - 3*sigma,
-            theta - 3*sigma
-          ))
-        }
-        
-        plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
-             xlim = c(lower.x, upper.x), ylim = c(0,1), main = bquote("Power Function for T(X) ="~Sigma(X[i])), las = 1)
-        curve(1 - pnorm(qnorm(1 - input$alpha, mean = 0, sd = 1) + ((input$theta.not - x)*sqrt(input$sample.size))/input$sigma), add = T, n = 1000)
-        abline(h = input$alpha, lty = 2, col = "red")
-        points(x = val$theta, y = 1 - pnorm(qnorm(1 - input$alpha, mean = 0, sd = 1) + ((input$theta.not - val$theta)*sqrt(input$sample.size))/input$sigma), pch = 16)
-        abline(v = val$theta, col  = "gray")
-        abline(h = 1 - pnorm(qnorm(1 - input$alpha, mean = 0, sd = 1) + ((input$theta.not - val$theta)*sqrt(input$sample.size))/input$sigma), col  = "gray")
-        if(!is.na(val$theta)){
-          legend("topleft",
-                 legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(val$theta,2))), bquote(beta(theta)~"="~ .(round(1 - pnorm(qnorm(1 - input$alpha, mean = 0, sd = 1) + ((input$theta.not - val$theta)*sqrt(input$sample.size))/input$sigma), 2)))),
-                 pch = c(NA,NA), bty = "n")
-        }
+    #sum of x's, greater than
+    if(input$distribution == "Normal" & input$statistic == "sum" & input$alternative == "Greater than"){
+      theta <- val$theta
+      theta.not <- input$theta.not
+      n <- input$sample.size
+      sigma <- input$sigma
+      if(is.na(theta)){
+        upper.x <- max(c(
+          theta.not + 3*sigma
+        ))
+        lower.x <- min(c(
+          theta.not - 3*sigma
+        ))
+      } else{
+        upper.x <- max(c(
+          theta.not + 3*sigma,
+          theta + 3*sigma
+        ))
+        lower.x <- min(c(
+          theta.not - 3*sigma,
+          theta - 3*sigma
+        ))
       }
       
-      #sum of x's, less than
-      if(input$distribution == "Normal" & input$statistic == "sum" & input$alternative == "Less than"){
+      plot(1, type = "n", xlab = expression(theta), ylab = expression(beta(theta)),
+           xlim = c(lower.x, upper.x), ylim = c(0,1), main = bquote("Power Function for T(X) ="~Sigma(X[i])), las = 1)
+      curve(1 - pnorm(qnorm(1 - input$alpha, mean = 0, sd = 1) + ((input$theta.not - x)*sqrt(input$sample.size))/input$sigma), add = T, n = 1000)
+      abline(h = input$alpha, lty = 2, col = "red")
+      points(x = val$theta, y = 1 - pnorm(qnorm(1 - input$alpha, mean = 0, sd = 1) + ((input$theta.not - val$theta)*sqrt(input$sample.size))/input$sigma), pch = 16)
+      abline(v = val$theta, col  = "gray")
+      abline(h = 1 - pnorm(qnorm(1 - input$alpha, mean = 0, sd = 1) + ((input$theta.not - val$theta)*sqrt(input$sample.size))/input$sigma), col  = "gray")
+      if(!is.na(val$theta)){
+        legend("topleft",
+               legend = c(expression(paste("Click Info")), bquote(theta~"="~.(round(val$theta,2))), bquote(beta(theta)~"="~ .(round(1 - pnorm(qnorm(1 - input$alpha, mean = 0, sd = 1) + ((input$theta.not - val$theta)*sqrt(input$sample.size))/input$sigma), 2)))),
+               pch = c(NA,NA), bty = "n")
+      }
+        
+    }
+      
+    #sum of x's, less than
+    if(input$distribution == "Normal" & input$statistic == "sum" & input$alternative == "Less than"){
         n <- input$sample.size
         alpha <- input$alpha
         theta.not <- input$theta.not
@@ -538,8 +574,8 @@ server <- function(input, output, session) {
         }
       }
       
-      #sum, not equal
-      if(input$distribution == "Normal" & input$statistic == "sum" & input$alternative == "Not equal to"){
+    #sum, not equal
+    if(input$distribution == "Normal" & input$statistic == "sum" & input$alternative == "Not equal to"){
          
         theta <- val$theta
         theta.not <- input$theta.not
@@ -577,8 +613,8 @@ server <- function(input, output, session) {
         }
       }
       
-      #min, greater than
-      if(input$distribution == "Normal" & input$statistic == "Sample Minimum" & input$alternative == "Greater than"){
+    #min, greater than
+    if(input$distribution == "Normal" & input$statistic == "Sample Minimum" & input$alternative == "Greater than"){
         n <- input$sample.size
         theta.not <- input$theta.not
         theta <- val$theta
@@ -620,8 +656,8 @@ server <- function(input, output, session) {
         }
       }
       
-      #min, less than
-      if(input$distribution == "Normal" & input$statistic == "Sample Minimum" & input$alternative == "Less than"){
+    #min, less than
+    if(input$distribution == "Normal" & input$statistic == "Sample Minimum" & input$alternative == "Less than"){
         n <- input$sample.size
         theta.not <- input$theta.not
         theta <- val$theta
@@ -663,8 +699,8 @@ server <- function(input, output, session) {
         }
       }
       
-      #min, not equal
-      if(input$distribution == "Normal" & input$statistic == "Sample Minimum" & input$alternative == "Not equal to"){
+    #min, not equal
+    if(input$distribution == "Normal" & input$statistic == "Sample Minimum" & input$alternative == "Not equal to"){
         n <- input$sample.size
         theta.not <- input$theta.not
         theta <- val$theta
@@ -706,8 +742,8 @@ server <- function(input, output, session) {
         }
       }
       
-      #max, greater than
-      if(input$distribution == "Normal" & input$statistic == "Sample Maximum" & input$alternative == "Greater than"){
+    #max, greater than
+    if(input$distribution == "Normal" & input$statistic == "Sample Maximum" & input$alternative == "Greater than"){
         n <- input$sample.size
         theta.not <- input$theta.not
         theta <- val$theta
@@ -749,8 +785,8 @@ server <- function(input, output, session) {
         }
       }
       
-      #max, less than
-      if(input$distribution == "Normal" & input$statistic == "Sample Maximum" & input$alternative == "Less than"){
+    #max, less than
+    if(input$distribution == "Normal" & input$statistic == "Sample Maximum" & input$alternative == "Less than"){
         n <- input$sample.size
         theta.not <- input$theta.not
         theta <- val$theta
@@ -792,8 +828,8 @@ server <- function(input, output, session) {
         }
       }
       
-      #max, not equal
-      if(input$distribution == "Normal" & input$statistic == "Sample Maximum" & input$alternative == "Not equal to"){
+    #max, not equal
+    if(input$distribution == "Normal" & input$statistic == "Sample Maximum" & input$alternative == "Not equal to"){
         n <- input$sample.size
         theta.not <- input$theta.not
         theta <- val$theta
@@ -857,9 +893,9 @@ server <- function(input, output, session) {
     }
 
       
-      ############################
-      ### UNIFORM DISTRIBUTION ###
-      ############################
+    ############################
+    ### UNIFORM DISTRIBUTION ###
+    ############################
     
     if(input$distribution == "Uniform" & input$alpha <= 0 | input$alpha >= 1) {
       plot(1, type = "n", xlab = "", ylab = "", main = "", xlim = c(0,1), ylim = c(0,1), axes = F)
@@ -871,8 +907,6 @@ server <- function(input, output, session) {
       plot(1, type = "n", xlab = "", ylab = "", main = "", xlim = c(0,1), ylim = c(0,1), axes = F)
       text(x = .5, y = .5, "The sample size must be greater than 0!", col = "red")
     } else{
-      
-      
       #sum, greater than
       if(input$distribution == "Uniform" & input$statistic == "sum" & input$alternative == "Greater than" & !(input$norm.approx)){
         n <- input$sample.size
@@ -1442,7 +1476,117 @@ server <- function(input, output, session) {
   })
   
   
+  # logical flag to denote numeric instability
+  output$warning <- renderText(
+    if(input$distribution == "Uniform" & input$statistic == "sum" & !(input$norm.approx)){
+      
+      message <- paste0("Warning: due to numerical instability in the Irwin-Hall distribution function, this power function
+          (and the resulting sampling distributions) may exhibit some strange behavior or fail to plot.
+          This problem is exacerbated and more noticable as the sample size increases; see Alberto (2019) for 
+          greater detail. For even moderately large sample sizes, we recommend using the Central Limit Theorem 
+          to approximate the sampling distribution and power curve. To do so, check the 'Use normal approximation' 
+          box in the side panel. For sample sizes of even four or greater, the Central Limit Theorem provides a
+          reasonably good approximation to the sampling distribution. Use the Irwin-Hall Normal Approximation tab
+          to further investigate this relationship.")
+      
+      if(input$alternative == "Greater than"){
+        n <- input$sample.size
+        theta.not <- input$theta.not
+        alpha <- input$alpha
+        theta <- val$theta
+        
+        if(is.na(theta)){
+          upper.x <- max(c(
+            2*theta.not
+          ))
+        } else{
+          upper.x <- max(c(
+            2*theta.not,
+            theta
+          ))
+        }
+        tmp <- curve(unif_sum_pwrfunc_greater(theta = x, alpha = alpha, theta_not = theta.not, n = n), from = 0.001, to = upper.x, n = 1000)
+        tmp2 <- curve(unif_sum_pwrfunc_greater(theta = x, alpha = alpha, theta_not = theta.not, n = n), from = 0.001, to = upper.x, n = 1000)
+        
+        if(is.unsorted(tmp$y) | all(tmp$y == 1)){
+          message
+        }
+      } else if(input$alternative == "Less than"){
+        n <- input$sample.size
+        theta.not <- input$theta.not
+        alpha <- input$alpha
+        theta <- val$theta
+        
+        if(is.na(theta)){
+          upper.x <- max(c(
+            2*theta.not
+          ))
+        } else{
+          upper.x <- max(c(
+            2*theta.not,
+            theta
+          ))
+        }
+        tmp <- curve(unif_sum_pwrfunc_less(theta = x, alpha = alpha, theta_not = theta.not, n = n), from = 0.001, to = upper.x, n = 1000)
+        
+        if(is.unsorted(tmp$y) | all(tmp$y == 1)){
+          message
+        }
+      } else if(input$alternative == "Not equal to"){
+        n <- input$sample.size
+        theta.not <- input$theta.not
+        alpha <- input$alpha
+        theta <- val$theta
+        
+        if(is.na(theta)){
+          upper.x <- max(c(
+            2*theta.not
+          ))
+        } else{
+          upper.x <- max(c(
+            2*theta.not,
+            theta
+          ))
+        }
+        tmp <- curve(unif_sum_pwrfunc_noteqto(theta = x, alpha = alpha, theta_not = theta.not, n = n), from = 0.001, to = upper.x, n = 1000)
+        
+        if(is.unsorted(tmp$y) | all(tmp$y == 1)){
+          message
+        }
+      }
 
+    } else{
+      NULL
+    }
+  )
+  
+  # normal approx tab
+
+  output$sim_hist <- renderPlot({
+    par(mfrow = c(2,1))
+    sims <- input$sim.reps
+    n <- input$sim.n
+    theta <- input$sim.theta
+    
+    tmp <- replicate(sims, sum(runif(n, 0, theta)))
+    hist(tmp, 
+         xlab = bquote(Sigma(X[i])),
+         main = bquote('Approximate sampling distribution of' ~ Sigma(X[i]) ~ 'for' ~ theta ~ '=' ~ .(round(theta, 2)))
+    )
+    
+    plot(ecdf(tmp), main = bquote("Empirical CDF of simulated samples"),
+         ylab = bquote(F[n](x)))
+    
+    if(input$sim.addcdf){
+      curve(pnorm(x, n*theta / 2 , sqrt(n * theta^2 / 12)), lty = 2, col = "red", add = T)
+      tmp2 <- ecdf(tmp)
+      ks <- max(abs(tmp2(tmp) - pnorm(tmp, n*theta/2, sqrt(n*theta^2/12))))
+      
+      legend("bottomright", legend =  c(expression(paste('Empirical CDF')), 'Normal CDF', bquote('Kolmogorov-Smirnov distance =' ~ .(round(ks, 6)))),
+             lty = c(1,2, NA), col = c(1:2, NA), bty = "n")
+    }
+    
+  })
 }
 
 # Run the application 

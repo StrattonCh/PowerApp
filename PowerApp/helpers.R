@@ -256,6 +256,8 @@ unif_norm_approx_noteq <- function(theta, alpha, theta_not, n){
   return(1 - pnorm(k2, n*theta/2, sqrt(n * theta^2 / 12)) + pnorm(k1, n*theta/2, sqrt(n * theta^2 / 12)))
 }
 
+is.sorted <- Negate(is.unsorted)
+
 ##############################
 ### SAMPLING DISTRIBUTIONS ###
 ##############################
@@ -1663,14 +1665,16 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
         lower.power <- pirwinhall(q = k1, n = n, theta = theta)
         
         # plotting limit
+        lower.x <- max(
+          0, 
+          min(c(
+            n*theta.not/2 - 3*sqrt(theta.not^2 * n / 12),
+            n*theta/2 - 3*sqrt(theta^2 * n /12)
+          ))
+        )
         upper.x <- max(c(
-          qirwinhall(.999, n, theta),
-          qirwinhall(.999, n, theta.not)
-        ))
-        
-        lower.x <- min(c(
-          qirwinhall(.001, n, theta),
-          qirwinhall(.001, n, theta.not)
+          n*theta.not/2 + 3*sqrt(theta.not^2 * n / 12),
+          n*theta/2 + 3*sqrt(theta^2 * n /12)
         ))
         
         nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 500), FUN = function(x) dirwinhall(x, n, theta.not)))
@@ -1738,26 +1742,73 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
         
       } 
       
+      # if(alternative == 'Less than'){
+      #   
+      #   # crit val
+      #   k1 <- qirwinhall(alpha, n, theta.not)
+      #   
+      #   # plotting limits
+      #   null.xlims <- c(
+      #     max(0, n*theta.not/2 - 3*sqrt(theta.not^2 * n / 12)),
+      #     n*theta.not/2 + 3*sqrt(theta.not^2 * n / 12)
+      #   )
+      #   alt.xlims <- c(
+      #     max(0, n*theta/2 - 3*sqrt(theta^2 * n / 12)),
+      #     n*theta/2 + 3*sqrt(theta^2 * n / 12)
+      #   )
+      #   
+      #   upper.x <- max(c(
+      #     max(alt.xlims, null.xlims)
+      #   ))
+      #   
+      #   lower.x <- min(c(
+      #     min(alt.xlims, null.xlims)
+      #   ))
+      #   
+      #   null.x <- seq(null.xlims[1], null.xlims[2], length.out = 1000)
+      #   alt.x <- seq(alt.xlims[1], alt.xlims[2], length.out = 1000)
+      #   
+      #   null.y <- dirwinhall(null.x, n, theta.not)
+      #   alt.y <- dirwinhall(alt.x, n, theta)
+      #   
+      #   upper.y <- max(c(max(null.y), max(alt.y)))
+      #   
+      #   # plot
+      #   plot(1, type = "n", las = 1,
+      #        xlim = c(lower.x, upper.x),
+      #        ylim = c(0, upper.y),
+      #        xlab = "T(x)",
+      #        ylab = bquote(f[Sigma(X[i])](x)),
+      #        main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      #   lines(null.y ~ null.x, lty = 2)
+      #   lines(alt.y ~ alt.x)
+      #   
+      #   abline(v = k1, lty = 4, col = "red")
+      #   
+      # }
+      
       if(alternative == 'Less than'){
-        
+
         # crit val
         g.star <- qirwinhall(alpha, n, theta.not)
-        
+
         # plotting limit
+        lower.x <- max(
+          0,
+          min(c(
+            n*theta.not/2 - 3*sqrt(theta.not^2 * n / 12),
+            n*theta/2 - 3*sqrt(theta^2 * n /12)
+          ))
+        )
         upper.x <- max(c(
-          qirwinhall(.999, n, theta),
-          qirwinhall(.999, n, theta.not)
+          n*theta.not/2 + 3*sqrt(theta.not^2 * n / 12),
+          n*theta/2 + 3*sqrt(theta^2 * n /12)
         ))
-        
-        lower.x <- min(c(
-          qirwinhall(.001, n, theta),
-          qirwinhall(.001, n, theta.not)
-        ))
-        
+
         nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 500), FUN = function(x) dirwinhall(x, n, theta.not)))
         altmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 500), FUN = function(x) dirwinhall(x, n, theta)))
         upper.y <- max(c(nullmax, altmax))
-        
+
         # plot
         plot(1, type = "n", las = 1,
              xlim = c(lower.x, upper.x),
@@ -1768,14 +1819,14 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
         (alt.curve <- curve(dirwinhall(x, n, theta), add = T, n = 1000))
         (null.curve <- curve(dirwinhall(x, n, theta.not), add = T, lty = 2, n = 1000))
         abline(v = g.star, lty = 4, col = "red")
-        
+
         # polygons
         if(unif_sum_pwrfunc_less(theta, alpha, theta.not, n) >= alpha){
-          polygon(x = c(alt.curve$x[which(alt.curve$x < g.star)], g.star, g.star),
-                  y = c(dirwinhall(alt.curve$x[which(alt.curve$x < g.star)], n, theta),
+          polygon(x = c(lower.x, lower.x, alt.curve$x[which(alt.curve$x < g.star)], g.star, g.star),
+                  y = c(0, dirwinhall(lower.x, n, theta), dirwinhall(alt.curve$x[which(alt.curve$x < g.star)], n, theta),
                         dirwinhall(g.star, n, theta), 0), col = "grey")
-          polygon(x = c(alt.curve$x[which(alt.curve$x < g.star)], g.star, g.star),
-                  y = c(dirwinhall(alt.curve$x[which(alt.curve$x < g.star)], n, theta.not),
+          polygon(x = c(lower.x, lower.x, alt.curve$x[which(alt.curve$x < g.star)], g.star, g.star),
+                  y = c(0, dirwinhall(lower.x, n, theta.not), dirwinhall(alt.curve$x[which(alt.curve$x < g.star)], n, theta.not),
                         dirwinhall(g.star, n, theta.not), 0), col = "red")
         } else{
           polygon(x = c(alt.curve$x[which(alt.curve$x < g.star)], g.star, g.star),
@@ -1785,35 +1836,103 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
                   y = c(dirwinhall(alt.curve$x[which(alt.curve$x < g.star)], n, theta),
                         dirwinhall(g.star, n, theta), 0), col = "grey")
         }
-        
+
         # legend
         power <- round(unif_sum_pwrfunc_less(theta, alpha, theta.not, n), 3)
         legend("topright",
                legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(power))),
                lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
         text(x = g.star, y = dirwinhall(g.star, n, theta.not), labels =  bquote('crit val'~'='~.(round(g.star, 2))), col = "red", pos = 4)
-        
+
       }
+      
+      # if(alternative == 'Greater than'){
+      #   # crit val
+      #   k1 <- qirwinhall(1 - alpha, n, theta.not)
+      #   
+      #   # plotting limits
+      #   null.xlims <- c(
+      #     max(0, n*theta.not/2 - 3*sqrt(theta.not^2 * n / 12)),
+      #     n*theta.not/2 + 3*sqrt(theta.not^2 * n / 12)
+      #   )
+      #   alt.xlims <- c(
+      #     max(0, n*theta/2 - 3*sqrt(theta^2 * n / 12)),
+      #     n*theta/2 + 3*sqrt(theta^2 * n / 12)
+      #   )
+      #   
+      #   upper.x <- max(c(
+      #     max(alt.xlims, null.xlims)
+      #   ))
+      #   
+      #   lower.x <- min(c(
+      #     min(alt.xlims, null.xlims)
+      #   ))
+      #   
+      #   null.x <- seq(null.xlims[1], null.xlims[2], length.out = 1000)
+      #   alt.x <- seq(alt.xlims[1], alt.xlims[2], length.out = 1000)
+      #   
+      #   null.y <- dirwinhall(null.x, n, theta.not)
+      #   alt.y <- dirwinhall(alt.x, n, theta)
+      #   
+      #   upper.y <- max(c(max(null.y), max(alt.y)))
+      #   
+      #   # plot
+      #   plot(1, type = "n", las = 1,
+      #        xlim = c(lower.x, upper.x),
+      #        ylim = c(0, upper.y),
+      #        xlab = "T(x)",
+      #        ylab = bquote(f[Sigma(X[i])](x)),
+      #        main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      #   lines(null.y ~ null.x, lty = 2)
+      #   lines(alt.y ~ alt.x)
+      #   
+      #   abline(v = k1, lty = 4, col = "red")
+      #   
+      #   # polygons
+      #   power <- round(unif_sum_pwrfunc_greater(theta, alpha, theta.not, n), 3)
+      #   if(power >= alpha){
+      #     poly.null.x <- null.x[which(null.x >= k1)]
+      #     poly.null.y <- null.y[which(null.x >= k1)]
+      #     
+      #     poly.alt.x <- alt.x[which(alt.x >= k1)]
+      #     poly.alt.y <- alt.y[which(alt.x >= k1)]
+      #     
+      #     polygon(x = c(k1, k1, poly.alt.x),
+      #             y = c(0, dirwinhall(k1, n, theta), poly.alt.y),
+      #             col = "grey")
+      #     polygon(x = c(k1, k1, poly.null.x, poly.null.x[1000]),
+      #             y = c(0, dirwinhall(k1, n, theta.not), poly.null.y, 0),
+      #             col = "red")
+      #     text(k1, dirwinhall(k1, n, theta.not), labels =  bquote('crit val'~'='~.(round(k1, 2))), col = "red", pos = 2)
+      #   } else{
+      #     NULL
+      #   }
+      #   
+      #   
+      # }
       
       if(alternative == 'Greater than'){
         # crit val
         g.star <- qirwinhall(1 - alpha, n, theta.not)
-        
+
         # plotting limit
+        lower.x <- max(
+          0,
+          min(c(
+            n*theta.not/2 - 3*sqrt(theta.not^2 * n / 12),
+            n*theta/2 - 3*sqrt(theta^2 * n /12)
+          ))
+        )
         upper.x <- max(c(
-          qirwinhall(.999, n, theta),
-          qirwinhall(.999, n, theta.not)
+          n*theta.not/2 + 3*sqrt(theta.not^2 * n / 12),
+          n*theta/2 + 3*sqrt(theta^2 * n /12)
         ))
-        
-        lower.x <- min(c(
-          qirwinhall(.001, n, theta),
-          qirwinhall(.001, n, theta.not)
-        ))
-        
+
+
         nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 500), FUN = function(x) dirwinhall(x, n, theta.not)))
         altmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 500), FUN = function(x) dirwinhall(x, n, theta)))
         upper.y <- max(c(nullmax, altmax))
-        
+
         # plot
         plot(1, type = "n", las = 1,
              xlim = c(lower.x, upper.x),
@@ -1824,20 +1943,20 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
         (alt.curve <- curve(dirwinhall(x, n, theta), add = T, n = 1000))
         (null.curve <- curve(dirwinhall(x, n, theta.not), add = T, lty = 2, n = 1000))
         abline(v = g.star, lty = 4, col = "red")
-        
+
         # polygons
         if(unif_sum_pwrfunc_greater(theta, alpha, theta.not, n) >= alpha){
           polygon(x = c(g.star, g.star, alt.curve$x[which(alt.curve$x > g.star)], upper.x),
                   y = c(0, dirwinhall(g.star, n, theta), dirwinhall(alt.curve$x[which(alt.curve$x > g.star)], n, theta), 0), col = "grey")
-          polygon(x = c(g.star, g.star, alt.curve$x[which(alt.curve$x > g.star)]),
-                  y = c(0, dirwinhall(g.star, n, theta.not), dirwinhall(alt.curve$x[which(alt.curve$x > g.star)], n, theta.not)), col = "red")
+          polygon(x = c(g.star, g.star, alt.curve$x[which(alt.curve$x > g.star)], upper.x),
+                  y = c(0, dirwinhall(g.star, n, theta.not), dirwinhall(alt.curve$x[which(alt.curve$x > g.star)], n, theta.not), 0), col = "red")
         } else{
           polygon(x = c(g.star, g.star, alt.curve$x[which(alt.curve$x > g.star)], upper.x),
                   y = c(0, dirwinhall(g.star, n, theta.not), dirwinhall(alt.curve$x[which(alt.curve$x > g.star)], n, theta.not), 0), col = "red")
-          polygon(x = c(g.star, g.star, alt.curve$x[which(alt.curve$x > g.star)]),
-                  y = c(0, dirwinhall(g.star, n, theta), dirwinhall(alt.curve$x[which(alt.curve$x > g.star)], n, theta)), col = "grey")
+          polygon(x = c(g.star, g.star, alt.curve$x[which(alt.curve$x > g.star)], upper.x),
+                  y = c(0, dirwinhall(g.star, n, theta), dirwinhall(alt.curve$x[which(alt.curve$x > g.star)], n, theta), 0), col = "grey")
         }
-        
+
         # legend
         power <- round(unif_sum_pwrfunc_greater(theta, alpha, theta.not, n), 3)
         legend("topright",
