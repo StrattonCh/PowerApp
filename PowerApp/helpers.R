@@ -146,6 +146,69 @@ unif_samp_min_pwrfunc_noteqto <- Vectorize(function(theta, alpha, theta_not, n){
   }
 })
 
+# dirwinhall <- Vectorize(function(x, n, theta){
+#   # function to calculate density of sum of n unif(0, theta) RVs
+#   # inputs  : x - value at which to calculate density
+#   #         : n - number of unif RVs to sum
+#   #         : theta - population maximum
+#   # outputs : numeric value that is the density at x
+#   
+#   if(x/theta < 0) return(0)
+#   if(x/theta > n) return(0)
+#   if(x/theta >= 0 & x/theta <= n){
+#     X  <-  floor(x/theta)
+#     r <- seq(from = 0,  to = X)
+#     s <-  (-1)^r * choose(n, r)*(x/theta-r)^(n-1)/factorial(n-1)
+#     return(sum(s)/theta)
+#   }
+# })
+# 
+# pirwinhall <- Vectorize(function(q, n, theta){
+#   # function to calculate cumulative density of sum of n unif(0, theta) RVs
+#   # inputs  : q - quantile
+#   #         : n - number of unif RVs to sum
+#   #         : theta - population maximum
+#   # outputs : numeric value that is the cumulative density at x
+#   
+#   if(q/theta < 0) return(0)
+#   if(q/theta > n) return(1)
+#   if(q/theta >= 0 & q/theta <= n){
+#     X  <-  floor(q/theta)
+#     r <- seq(from = 0,  to = X)
+#     s <-  (-1)^r * choose(n, r)*(q/theta-r)^(n)/factorial(n)
+#     return(sum(s))
+#   }
+# })
+# 
+# pirwinhall_zero <- Vectorize(function(q, n, theta, p){
+#   # function to calculate cumulative density of sum of n unif(0, theta) RVs
+#   # inputs  : q - quantile
+#   #         : n - number of unif RVs to sum
+#   #         : theta - population maximum
+#   # outputs : numeric value that is the cumulative density at x
+#   
+#   if(q/theta < 0) return(0)
+#   if(q/theta > n) return(1)
+#   if(q/theta >= 0 & q/theta <= n){
+#     X  <-  floor(q/theta)
+#     r <- seq(from = 0,  to = X)
+#     s <-  (-1)^r * choose(n, r)*(q/theta-r)^(n)/factorial(n)
+#     return(sum(s) - p)
+#   }
+# })
+# 
+# qirwinhall <- Vectorize(function(p, n, theta){
+#   # function to calculate quantile of sum of n unif(0, theta) RVs
+#   # inputs  : x - probability
+#   #         : n - number of unif RVs to sum
+#   #         : theta - population maximum
+#   # outputs : numeric value that is the cumulative density at x
+#   
+#   tmp <- uniroot(pirwinhall_zero, n = n, theta = theta, p = p, lower = 0, upper = 3*n*theta + 5 * sqrt(n*theta^2/12), tol = .0001, extendInt = "yes")
+#   return(tmp[[1]])
+#   
+# })
+
 dirwinhall <- Vectorize(function(x, n, theta){
   # function to calculate density of sum of n unif(0, theta) RVs
   # inputs  : x - value at which to calculate density
@@ -158,8 +221,11 @@ dirwinhall <- Vectorize(function(x, n, theta){
   if(x/theta >= 0 & x/theta <= n){
     X  <-  floor(x/theta)
     r <- seq(from = 0,  to = X)
-    s <-  (-1)^r * choose(n, r)*(x/theta-r)^(n-1)/factorial(n-1)
-    return(sum(s)/theta)
+    # s <-  (-1)^r * choose(n, r)*(x/theta-r)^(n-1)/factorial(n-1)
+    # return(sum(s)/theta)
+    s <- sum((-1)^r * choose(n, r)*(x/theta-r)^(n-1))
+    out <- exp(-lfactorial(n-1)) * s/theta
+    return(out)
   }
 })
 
@@ -171,13 +237,14 @@ pirwinhall <- Vectorize(function(q, n, theta){
   # outputs : numeric value that is the cumulative density at x
   
   if(q/theta < 0) return(0)
-  if(q/theta > n) return(1)
-  if(q/theta >= 0 & q/theta <= n){
+  if(all(q/theta >= 0, q/theta < n)){
     X  <-  floor(q/theta)
     r <- seq(from = 0,  to = X)
-    s <-  (-1)^r * choose(n, r)*(q/theta-r)^(n)/factorial(n)
-    return(sum(s))
+    s <- sum((-1)^r * choose(n, r)*(q/theta-r)^(n))
+    out <- exp(-lfactorial(n)) * s
+    return(out)
   }
+  if(q/theta >= n) return(1)
 })
 
 pirwinhall_zero <- Vectorize(function(q, n, theta, p){
@@ -192,8 +259,9 @@ pirwinhall_zero <- Vectorize(function(q, n, theta, p){
   if(q/theta >= 0 & q/theta <= n){
     X  <-  floor(q/theta)
     r <- seq(from = 0,  to = X)
-    s <-  (-1)^r * choose(n, r)*(q/theta-r)^(n)/factorial(n)
-    return(sum(s) - p)
+    s <-  sum((-1)^r * choose(n, r)*(q/theta-r)^(n))
+    out <- exp(-lfactorial(n)) * s
+    return(out - p)
   }
 })
 
@@ -204,7 +272,7 @@ qirwinhall <- Vectorize(function(p, n, theta){
   #         : theta - population maximum
   # outputs : numeric value that is the cumulative density at x
   
-  tmp <- uniroot(pirwinhall_zero, n = n, theta = theta, p = p, lower = 0, upper = n*theta, tol = .0001, extendInt = "yes")
+  tmp <- uniroot(pirwinhall_zero, n = n, theta = theta, p = p, lower = 0, upper = n*theta + 5 * sqrt(n*theta^2/12), tol = .0000001, extendInt = "yes")
   return(tmp[[1]])
   
 })
@@ -1695,43 +1763,43 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
         abline(v = k2, lty = 4, col = "red")
         
         if(lower.power < alpha/2){
-          polygon(x = c(null.curve$x[which(null.curve$x < k1)], k1, k1),
-                  y = c(dirwinhall(null.curve$x[which(null.curve$x < k1)], n, theta.not), 
+          polygon(x = c(lower.x, lower.x, null.curve$x[which(null.curve$x < k1)], k1, k1),
+                  y = c(0, dirwinhall(lower.x, n, theta.not), dirwinhall(null.curve$x[which(null.curve$x < k1)], n, theta.not), 
                         dirwinhall(k1, n, theta.not), 0),
                   col = "red")
-          polygon(x = c(alt.curve$x[which(alt.curve$x < k1)], k1, k1),
-                  y = c(dirwinhall(null.curve$x[which(null.curve$x < k1)], n, theta), 
+          polygon(x = c(lower.x, lower.x,alt.curve$x[which(alt.curve$x < k1)], k1, k1),
+                  y = c(0, dirwinhall(lower.x, n, theta), dirwinhall(null.curve$x[which(null.curve$x < k1)], n, theta), 
                         dirwinhall(k1, n, theta), 0),
                   col = "grey")
           text(x = k1, y = dirwinhall(k1, n, theta), labels = bquote('crit val'~'='~.(round(k1, 2))), col = "red", pos = 4)
           
-          polygon(x = c(k2, k2, alt.curve$x[which(alt.curve$x > k2)]),
+          polygon(x = c(k2, k2, alt.curve$x[which(alt.curve$x > k2)], upper.x),
                   y = c(0, dirwinhall(k2, n, theta),
-                        dirwinhall(alt.curve$x[which(alt.curve$x > k2)], n, theta)),
+                        dirwinhall(alt.curve$x[which(alt.curve$x > k2)], n, theta), 0),
                   col = "grey")
-          polygon(x = c(k2, k2, null.curve$x[which(null.curve$x > k2)]),
+          polygon(x = c(k2, k2, null.curve$x[which(null.curve$x > k2)], upper.x),
                   y = c(0, dirwinhall(k2, n, theta.not),
-                        dirwinhall(null.curve$x[which(null.curve$x > k2)], n, theta.not)),
+                        dirwinhall(null.curve$x[which(null.curve$x > k2)], n, theta.not), 0),
                   col = "red")
           text(x = k2, y = dirwinhall(k2, n, theta.not), labels = bquote('crit val'~'='~.(round(k2, 2))), col = "red", pos = 4)
         } else{
-          polygon(x = c(alt.curve$x[which(alt.curve$x < k1)], k1, k1),
-                  y = c(dirwinhall(null.curve$x[which(null.curve$x < k1)], n, theta), 
+          polygon(x = c(lower.x, lower.x, alt.curve$x[which(alt.curve$x < k1)], k1, k1),
+                  y = c(0, dirwinhall(lower.x, n, theta), dirwinhall(null.curve$x[which(null.curve$x < k1)], n, theta), 
                         dirwinhall(k1, n, theta), 0),
                   col = "grey")
-          polygon(x = c(null.curve$x[which(null.curve$x < k1)], k1, k1),
-                  y = c(dirwinhall(null.curve$x[which(null.curve$x < k1)], n, theta.not), 
+          polygon(x = c(lower.x, lower.x, null.curve$x[which(null.curve$x < k1)], k1, k1),
+                  y = c(0, dirwinhall(lower.x, n, theta.not), dirwinhall(null.curve$x[which(null.curve$x < k1)], n, theta.not), 
                         dirwinhall(k1, n, theta.not), 0),
                   col = "red")
           text(x = k1, y = dirwinhall(k1, n, theta), labels = bquote('crit val'~'='~.(round(k1, 2))), col = "red", pos = 4)
           
-          polygon(x = c(k2, k2, null.curve$x[which(null.curve$x > k2)]),
+          polygon(x = c(k2, k2, null.curve$x[which(null.curve$x > k2)], upper.x),
                   y = c(0, dirwinhall(k2, n, theta.not),
-                        dirwinhall(null.curve$x[which(null.curve$x > k2)], n, theta.not)),
+                        dirwinhall(null.curve$x[which(null.curve$x > k2)], n, theta.not), 0),
                   col = "red")
-          polygon(x = c(k2, k2, alt.curve$x[which(alt.curve$x > k2)]),
+          polygon(x = c(k2, k2, alt.curve$x[which(alt.curve$x > k2)], upper.x),
                   y = c(0, dirwinhall(k2, n, theta),
-                        dirwinhall(alt.curve$x[which(alt.curve$x > k2)], n, theta)),
+                        dirwinhall(alt.curve$x[which(alt.curve$x > k2)], n, theta), 0),
                   col = "grey")
           text(x = k2, y = dirwinhall(k2, n, theta.not), labels = bquote('crit val'~'='~.(round(k2, 2))), col = "red", pos = 4)
         }
