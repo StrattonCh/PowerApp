@@ -1,0 +1,43 @@
+Suppose that $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
+\[
+\begin{split}
+\text{$H_0$: }& \theta \geq \theta_0 \\
+\text{$H_a$: }& \theta < \theta_0
+\end{split}
+\]
+
+Consider the following test function:
+\[
+\phi(X) = \begin{cases}
+1 & X_{(1)} < k \\
+0 & \text{else}
+\end{cases},
+\]
+
+where $k$ is chosen such that $Pr(\phi(X) = 1|\theta_0) = \alpha$. It can be shown that if $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, then $X_{(1)} \sim \text{Exp}(\frac{\theta}{n})$. Using this relationship, we derive the test. 
+\[
+\begin{split}
+Pr(\phi(X) = 1|\theta_0) = Pr\left(X_{(1)} > k\Big|\theta_0\right) = \alpha 
+\end{split}
+\]
+
+Let $T = X_{(1)} \sim \text{Exp}(\frac{\theta}{n})$. To define our test, we seek the value $k$ such that 
+\[
+Pr(T < k | \theta_0) = \alpha
+\]
+
+The value of $k$ that satisfies this equation is the $\alpha^{th}$ quantile of the $\text{Exp}(\frac{\theta_0}{n})$ distribution. Letting $\eta_{\theta_0/n, \alpha}$ denote this value, our test functions becomes
+\[
+\phi(X) = \begin{cases}
+1 & X_{(1)} < \eta_{\theta_0/n, \alpha} \\
+0 & \text{else}
+\end{cases}
+\]
+
+Therefore, our power function is
+\[
+\beta(\theta) = Pr(X \in RR) = Pr\left(X_{(1)} < \eta_{\theta_0/n, \alpha} \Big| \theta\right) = 1 - \exp\left(-\frac{n \cdot \eta_{\theta_0/n, \alpha}}{\theta} \right)
+\]
+
+<div align="right"> <font size="6"> &#9633; </div>
+

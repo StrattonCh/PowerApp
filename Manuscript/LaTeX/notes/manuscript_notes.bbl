@@ -1,0 +1,10 @@
+\begin{thebibliography}{1}
+\newcommand{\enquote}[1]{``#1''}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{McDaniel and Green(2012)}]{mcdaniel2012}
+McDaniel, S.~N. and Green, L.~B. (2012), \enquote{Using applets and video
+  instruction to foster students' understanding of sampling variability,}
+  \textit{Technology Innovations in Statistics Education}, 6, 1--17.
+
+\end{thebibliography}
