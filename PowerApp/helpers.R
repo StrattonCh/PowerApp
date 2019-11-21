@@ -332,7 +332,7 @@ is.sorted <- Negate(is.unsorted)
 
 
 # exponential
-exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
+exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha, distribution){
 
   if(statistic == "sum"){
     if(alternative == 'Not equal to'){
@@ -354,6 +354,7 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
            xlab = "T(x)",
            ylab = bquote(f[Sigma(X[i])](x)),
            main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
       
       (null.curve <- curve(dgamma(x, n, 1 / theta.not), add = T, n = 1000, lty = 2))
       (alt.curve <- curve(dgamma(x, n, 1/theta), add = T, n = 1000))
@@ -420,6 +421,8 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
            xlab = "T(x)",
            ylab = bquote(f[Sigma(X[i])](x)),
            main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+      
       (alt.curve <- curve(dgamma(x, n, 1 / theta), add = T, n = 1000))
       (null.curve <- curve(dgamma(x, n, 1 / theta.not), add = T, lty = 2, n = 1000))
       abline(v = g.star, lty = 4, col = "red")
@@ -458,6 +461,8 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
            xlab = "T(x)",
            ylab = bquote(f[Sigma(X[i])](x)),
            main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+      
       (alt.curve <- curve(dgamma(x, n, 1 / theta), add = T, n = 1000))
       (null.curve <- curve(dgamma(x, n, 1 / theta.not), add = T, lty = 2, n = 1000))
       g.star <- qgamma(alpha, n, 1 / theta.not, lower.tail = T)
@@ -507,6 +512,7 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
            xlab = "T(x)",
            ylab = bquote(f[X[(1)]](x)),
            main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
       
       (null.curve <- curve(dexp(x, n / theta.not), add = T, n = 1000, lty = 2))
       (alt.curve <- curve(dexp(x, n/theta), add = T, n = 1000))
@@ -570,6 +576,8 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
            xlab = "T(x)",
            ylab = bquote(f[X[(1)]](x)),
            main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+      
       (alt.curve <- curve(dexp(x, n / theta), add = T, n = 1000))
       (null.curve <- curve(dexp(x, n / theta.not), add = T, lty = 2, n = 1000))
       g.star <- qexp(alpha, n / theta.not, lower.tail = T)
@@ -604,6 +612,8 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
            xlab = "T(x)",
            ylab = bquote(f[X[(1)]](x)),
            main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+      
       (alt.curve <- curve(dexp(x, n / theta), add = T, n = 1000))
       (null.curve <- curve(dexp(x, n / theta.not), add = T, lty = 2, n = 1000))
       g.star <- qexp(alpha, n / theta.not, lower.tail = F)
@@ -673,6 +683,7 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
            xlab = "T(x)",
            ylab = bquote(f[X[(n)]](x)),
            main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
       
       (alt.curve <- curve(sampdist(x, theta, n), add = T, n = 1000))
       (null.curve <- curve(sampdist(x, theta.not, n), add = T, lty = 2, n = 1000))
@@ -757,6 +768,8 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
            xlab = "T(x)",
            ylab = bquote(f[X[(n)]](x)),
            main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+      
       (alt.curve <- curve(sampdist(x, theta, n), add = T, n = 1000))
       (null.curve <- curve(sampdist(x, theta.not, n), add = T, lty = 2, n = 1000))
       abline(v = g.star, lty = 4, col = "red")
@@ -815,6 +828,8 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
            xlab = "T(x)",
            ylab = bquote(f[X[(n)]](x)),
            main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+      
       (alt.curve <- curve(sampdist(x, theta, n), add = T, n = 1000))
       (null.curve <- curve(sampdist(x, theta.not, n), add = T, lty = 2, n = 1000))
       abline(v = g.star, lty = 4, col = "red")
@@ -850,7 +865,7 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha){
 }
 
 # normal
-norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma){
+norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma, distribution){
   
   if(statistic == "sum"){
     
@@ -895,6 +910,8 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
            xlab = "T(x)",
            ylab = bquote(f[Sigma(X[i])](x)),
            main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+      
       (alt.curve <- curve(dnorm(x, n*theta, sqrt(n)*sigma), add = T, n = 1000))
       (null.curve <- curve(dnorm(x, n*theta.not, sqrt(n)*sigma), add = T, lty = 2, n = 1000))
       
@@ -976,6 +993,8 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
            xlab = "T(x)",
            ylab = bquote(f[Sigma(X[i])](x)),
            main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+      
       (alt.curve <- curve(dnorm(x, n*theta, sqrt(n)*sigma), add = T, n = 1000))
       (null.curve <- curve(dnorm(x, n*theta.not, sqrt(n)*sigma), add = T, lty = 2, n = 1000))
       abline(v = g.star, lty = 4, col = "red")
@@ -1031,6 +1050,8 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
            xlab = "T(x)",
            ylab = bquote(f[Sigma(X[i])](x)),
            main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+      
       (alt.curve <- curve(dnorm(x, n*theta, sqrt(n)*sigma), add = T, n = 1000))
       (null.curve <- curve(dnorm(x, n*theta.not, sqrt(n)*sigma), add = T, lty = 2, n = 1000))
       abline(v = g.star, lty = 4, col = "red")
@@ -1102,6 +1123,8 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
            xlab = "T(x)",
            ylab = bquote(f[X[(1)]](x)),
            main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+      
       (alt.curve <- curve(sampdist(x, theta, n, sigma), add = T, n = 1000))
       (null.curve <- curve(sampdist(x, theta.not, n, sigma), add = T, lty = 2, n = 1000))
       
@@ -1193,6 +1216,8 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
            xlab = "T(x)",
            ylab = bquote(f[X[(1)]](x)),
            main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+      
       (alt.curve <- curve(sampdist(x, theta, n, sigma), add = T, n = 1000))
       (null.curve <- curve(sampdist(x, theta.not, n, sigma), add = T, lty = 2, n = 1000))
       abline(v = g.star, lty = 4, col = "red")
@@ -1257,6 +1282,8 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
            xlab = "T(x)",
            ylab = bquote(f[X[(1)]](x)),
            main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+      
       (alt.curve <- curve(sampdist(x, theta, n, sigma), add = T, n = 1000))
       (null.curve <- curve(sampdist(x, theta.not, n, sigma), add = T, lty = 2, n = 1000))
       abline(v = g.star, lty = 4, col = "red")
@@ -1329,6 +1356,8 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
            xlab = "T(x)",
            ylab = bquote(f[X[(n)]](x)),
            main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+      
       (alt.curve <- curve(sampdist(x, theta, n, sigma), add = T, n = 1000))
       (null.curve <- curve(sampdist(x, theta.not, n, sigma), add = T, lty = 2, n = 1000))
       
@@ -1420,6 +1449,8 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
            xlab = "T(x)",
            ylab = bquote(f[X[(n)]](x)),
            main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+      
       (alt.curve <- curve(sampdist(x, theta, n, sigma), add = T, n = 1000))
       (null.curve <- curve(sampdist(x, theta.not, n, sigma), add = T, lty = 2, n = 1000))
       abline(v = g.star, lty = 4, col = "red")
@@ -1483,6 +1514,8 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
            xlab = "T(x)",
            ylab = bquote(f[X[(n)]](x)),
            main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+      
       (alt.curve <- curve(sampdist(x, theta, n, sigma), add = T, n = 1000))
       (null.curve <- curve(sampdist(x, theta.not, n, sigma), add = T, lty = 2, n = 1000))
       abline(v = g.star, lty = 4, col = "red")
@@ -1518,7 +1551,7 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma)
 }
 
 # uniform
-unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.approx = F){
+unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.approx = F, distribution){
   
   if(statistic == "sum"){
     
@@ -1550,29 +1583,20 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
         upper.y <- max(c(nullmax, altmax))
         
         # plot
-        title <- bquote(atop("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2)), 
-                             "based on a normal approximation"))
+        title <- bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2)) ~ "based on a normal approximation")
         plot(1, type = "n", las = 1,
              xlim = c(lower.x, upper.x),
              ylim = c(0, upper.y),
              xlab = "T(x)",
              ylab = bquote(f[Sigma(X[i])](x)),
              main = title)
+        mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
         
         (alt.curve <- curve(dnorm(x, n*theta/2, sqrt(n*theta^2/12)), add = T, n = 1000))
         (null.curve <- curve(dnorm(x, n*theta.not/2, sqrt(n*theta.not^2/12)), add = T, lty = 2, n = 1000))
         
         abline(v = k1, lty = 4, col = "red")
         abline(v = k1, lty = 4, col = "red")
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         if(lower.power < alpha/2){
           polygon(x = c(lower.x, lower.x, null.curve$x[which(alt.curve$x < k1)], k1),
@@ -1629,14 +1653,14 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
         upper.y <- max(c(nullmax, altmax))
         
         # plot
-        title <- bquote(atop("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2)), 
-                             "based on a normal approximation"))
+        title <- bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2)) ~ "based on a normal approximation")
         plot(1, type = "n", las = 1,
              xlim = c(lower.x, upper.x),
              ylim = c(0, upper.y),
              xlab = "T(x)",
              ylab = bquote(f[Sigma(X[i])](x)),
              main = title)
+        mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
         
         (alt.curve <- curve(dnorm(x, n*theta/2, sqrt(n*theta^2/12)), add = T, n = 1000))
         (null.curve <- curve(dnorm(x, n*theta.not/2, sqrt(n*theta.not^2/12)), add = T, lty = 2, n = 1000))
@@ -1687,14 +1711,14 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
         upper.y <- max(c(nullmax, altmax))
         
         # plot
-        title <- bquote(atop("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2)), 
-                             "based on a normal approximation"))
+        title <- bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"based on a normal approximation")
         plot(1, type = "n", las = 1,
              xlim = c(lower.x, upper.x),
              ylim = c(0, upper.y),
              xlab = "T(x)",
              ylab = bquote(f[Sigma(X[i])](x)),
              main = title)
+        mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
         
         (alt.curve <- curve(dnorm(x, n*theta/2, sqrt(n*theta^2/12)), add = T, n = 1000))
         (null.curve <- curve(dnorm(x, n*theta.not/2, sqrt(n*theta.not^2/12)), add = T, lty = 2, n = 1000))
@@ -1758,6 +1782,7 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
              main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
         (alt.curve <- curve(dirwinhall(x, n, theta), add = T, n = 1000))
         (null.curve <- curve(dirwinhall(x, n, theta.not), add = T, lty = 2, n = 1000))
+        mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
         
         abline(v = k1, lty = 4, col = "red")
         abline(v = k2, lty = 4, col = "red")
@@ -1810,51 +1835,6 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
         
       } 
       
-      # if(alternative == 'Less than'){
-      #   
-      #   # crit val
-      #   k1 <- qirwinhall(alpha, n, theta.not)
-      #   
-      #   # plotting limits
-      #   null.xlims <- c(
-      #     max(0, n*theta.not/2 - 3*sqrt(theta.not^2 * n / 12)),
-      #     n*theta.not/2 + 3*sqrt(theta.not^2 * n / 12)
-      #   )
-      #   alt.xlims <- c(
-      #     max(0, n*theta/2 - 3*sqrt(theta^2 * n / 12)),
-      #     n*theta/2 + 3*sqrt(theta^2 * n / 12)
-      #   )
-      #   
-      #   upper.x <- max(c(
-      #     max(alt.xlims, null.xlims)
-      #   ))
-      #   
-      #   lower.x <- min(c(
-      #     min(alt.xlims, null.xlims)
-      #   ))
-      #   
-      #   null.x <- seq(null.xlims[1], null.xlims[2], length.out = 1000)
-      #   alt.x <- seq(alt.xlims[1], alt.xlims[2], length.out = 1000)
-      #   
-      #   null.y <- dirwinhall(null.x, n, theta.not)
-      #   alt.y <- dirwinhall(alt.x, n, theta)
-      #   
-      #   upper.y <- max(c(max(null.y), max(alt.y)))
-      #   
-      #   # plot
-      #   plot(1, type = "n", las = 1,
-      #        xlim = c(lower.x, upper.x),
-      #        ylim = c(0, upper.y),
-      #        xlab = "T(x)",
-      #        ylab = bquote(f[Sigma(X[i])](x)),
-      #        main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      #   lines(null.y ~ null.x, lty = 2)
-      #   lines(alt.y ~ alt.x)
-      #   
-      #   abline(v = k1, lty = 4, col = "red")
-      #   
-      # }
-      
       if(alternative == 'Less than'){
 
         # crit val
@@ -1884,6 +1864,8 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
              xlab = "T(x)",
              ylab = bquote(f[Sigma(X[i])](x)),
              main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+        mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+        
         (alt.curve <- curve(dirwinhall(x, n, theta), add = T, n = 1000))
         (null.curve <- curve(dirwinhall(x, n, theta.not), add = T, lty = 2, n = 1000))
         abline(v = g.star, lty = 4, col = "red")
@@ -1914,71 +1896,6 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
 
       }
       
-      # if(alternative == 'Greater than'){
-      #   # crit val
-      #   k1 <- qirwinhall(1 - alpha, n, theta.not)
-      #   
-      #   # plotting limits
-      #   null.xlims <- c(
-      #     max(0, n*theta.not/2 - 3*sqrt(theta.not^2 * n / 12)),
-      #     n*theta.not/2 + 3*sqrt(theta.not^2 * n / 12)
-      #   )
-      #   alt.xlims <- c(
-      #     max(0, n*theta/2 - 3*sqrt(theta^2 * n / 12)),
-      #     n*theta/2 + 3*sqrt(theta^2 * n / 12)
-      #   )
-      #   
-      #   upper.x <- max(c(
-      #     max(alt.xlims, null.xlims)
-      #   ))
-      #   
-      #   lower.x <- min(c(
-      #     min(alt.xlims, null.xlims)
-      #   ))
-      #   
-      #   null.x <- seq(null.xlims[1], null.xlims[2], length.out = 1000)
-      #   alt.x <- seq(alt.xlims[1], alt.xlims[2], length.out = 1000)
-      #   
-      #   null.y <- dirwinhall(null.x, n, theta.not)
-      #   alt.y <- dirwinhall(alt.x, n, theta)
-      #   
-      #   upper.y <- max(c(max(null.y), max(alt.y)))
-      #   
-      #   # plot
-      #   plot(1, type = "n", las = 1,
-      #        xlim = c(lower.x, upper.x),
-      #        ylim = c(0, upper.y),
-      #        xlab = "T(x)",
-      #        ylab = bquote(f[Sigma(X[i])](x)),
-      #        main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      #   lines(null.y ~ null.x, lty = 2)
-      #   lines(alt.y ~ alt.x)
-      #   
-      #   abline(v = k1, lty = 4, col = "red")
-      #   
-      #   # polygons
-      #   power <- round(unif_sum_pwrfunc_greater(theta, alpha, theta.not, n), 3)
-      #   if(power >= alpha){
-      #     poly.null.x <- null.x[which(null.x >= k1)]
-      #     poly.null.y <- null.y[which(null.x >= k1)]
-      #     
-      #     poly.alt.x <- alt.x[which(alt.x >= k1)]
-      #     poly.alt.y <- alt.y[which(alt.x >= k1)]
-      #     
-      #     polygon(x = c(k1, k1, poly.alt.x),
-      #             y = c(0, dirwinhall(k1, n, theta), poly.alt.y),
-      #             col = "grey")
-      #     polygon(x = c(k1, k1, poly.null.x, poly.null.x[1000]),
-      #             y = c(0, dirwinhall(k1, n, theta.not), poly.null.y, 0),
-      #             col = "red")
-      #     text(k1, dirwinhall(k1, n, theta.not), labels =  bquote('crit val'~'='~.(round(k1, 2))), col = "red", pos = 2)
-      #   } else{
-      #     NULL
-      #   }
-      #   
-      #   
-      # }
-      
       if(alternative == 'Greater than'){
         # crit val
         g.star <- qirwinhall(1 - alpha, n, theta.not)
@@ -2008,6 +1925,8 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
              xlab = "T(x)",
              ylab = bquote(f[Sigma(X[i])](x)),
              main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+        mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+        
         (alt.curve <- curve(dirwinhall(x, n, theta), add = T, n = 1000))
         (null.curve <- curve(dirwinhall(x, n, theta.not), add = T, lty = 2, n = 1000))
         abline(v = g.star, lty = 4, col = "red")
@@ -2095,6 +2014,8 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
            xlab = "T(x)",
            ylab = bquote(f[X[(1)]](x)),
            main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+      
       (alt.curve <- curve(sampdist.vec(x, theta, n), add = T, n = 1000))
       (null.curve <- curve(sampdist.vec(x, theta.not, n), add = T, lty = 2, n = 1000))
       abline(v = k1, lty = 4, col = "red")
@@ -2200,6 +2121,8 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
            xlab = "T(x)",
            ylab = bquote(f[X[(1)]](x)),
            main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+      
       (alt.curve <- curve(sampdist.vec(x, theta, n), add = T, n = 1000))
       (null.curve <- curve(sampdist.vec(x, theta.not, n), add = T, lty = 2, n = 1000))
       abline(v = k1, lty = 4, col = "red")
@@ -2284,6 +2207,8 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
            xlab = "T(x)",
            ylab = bquote(f[X[(1)]](x)),
            main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+      
       (alt.curve <- curve(sampdist.vec(x, theta, n), add = T, n = 1000))
       (null.curve <- curve(sampdist.vec(x, theta.not, n), add = T, lty = 2, n = 1000))
       abline(v = k1, lty = 4, col = "red")
@@ -2357,11 +2282,13 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
       #   uniroot(cdf, y = .9999, theta = theta, n = n, lower = theta - 5*n, upper = theta + 5*n, extendInt = "yes")$root,
       #   uniroot(cdf, y = .9999, theta = theta.not, n = n, lower = theta.not - 5*n, upper = theta.not + 5*n, extendInt = "yes")$root
       # ))
+      # upper.x <- max(c(theta, theta.not))
+      # lower.x <- min(c(
+      #   uniroot(cdf, y = .0001, theta = theta, n = n, lower = theta - 5*n, upper = theta + 5*n, extendInt = "yes", tol = .000001)$root,
+      #   uniroot(cdf, y = .0001, theta = theta.not, n = n, lower = theta.not - 5*n, upper = theta.not + 5*n, extendInt = "yes", tol = .000001)$root
+      # ))
+      lower.x <- (.0001*theta^n)^(1/n)
       upper.x <- max(c(theta, theta.not))
-      lower.x <- min(c(
-        uniroot(cdf, y = .0001, theta = theta, n = n, lower = theta - 5*n, upper = theta + 5*n, extendInt = "yes")$root,
-        uniroot(cdf, y = .0001, theta = theta.not, n = n, lower = theta.not - 5*n, upper = theta.not + 5*n, extendInt = "yes")$root
-      ))
       
       # nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 500), FUN = function(x) sampdist(x, theta.not, n)))
       # altmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 500), FUN = function(x) sampdist(x, theta, n)))
@@ -2374,6 +2301,8 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
            xlab = "T(x)",
            ylab = bquote(f[X[(1)]](x)),
            main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+      
       (alt.curve <- curve(sampdist.vec(x, theta, n), add = T, n = 1000))
       (null.curve <- curve(sampdist.vec(x, theta.not, n), add = T, lty = 2, n = 1000))
       abline(v = k1, lty = 4, col = "red")
@@ -2460,11 +2389,13 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
       #   uniroot(cdf, y = .9999, theta = theta, n = n, lower = theta - 5*n, upper = theta + 5*n, extendInt = "yes")$root,
       #   uniroot(cdf, y = .9999, theta = theta.not, n = n, lower = theta.not - 5*n, upper = theta.not + 5*n, extendInt = "yes")$root
       # ))
-      upper.x <- max(c(theta + .05, theta.not + .05))
-      lower.x <- min(c(
-        uniroot(cdf, y = .0001, theta = theta, n = n, lower = theta - 5*n, upper = theta + 5*n, extendInt = "yes")$root,
-        uniroot(cdf, y = .0001, theta = theta.not, n = n, lower = theta.not - 5*n, upper = theta.not + 5*n, extendInt = "yes")$root
-      ))
+      # upper.x <- max(c(theta + .05, theta.not + .05))
+      # lower.x <- min(c(
+      #   uniroot(cdf, y = .0001, theta = theta, n = n, lower = theta - 5*n, upper = theta + 5*n, extendInt = "yes")$root,
+      #   uniroot(cdf, y = .0001, theta = theta.not, n = n, lower = theta.not - 5*n, upper = theta.not + 5*n, extendInt = "yes")$root
+      # ))
+      lower.x <- (.0001*theta^n)^(1/n)
+      upper.x <- max(c(theta, theta.not))
 
       nullmax <- sampdist(theta.not, theta.not, n)
       altmax <- sampdist(theta, theta, n)
@@ -2477,6 +2408,8 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
            xlab = "T(x)",
            ylab = bquote(f[X[(1)]](x)),
            main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+      
       (alt.curve <- curve(sampdist.vec(x, theta, n), add = T, n = 1000))
       (null.curve <- curve(sampdist.vec(x, theta.not, n), add = T, lty = 2, n = 1000))
       abline(v = k1, lty = 4, col = "red")
@@ -2545,11 +2478,13 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
       #   uniroot(cdf, y = .9999, theta = theta, n = n, lower = theta - 5*n, upper = theta + 5*n, extendInt = "yes")$root,
       #   uniroot(cdf, y = .9999, theta = theta.not, n = n, lower = theta.not - 5*n, upper = theta.not + 5*n, extendInt = "yes")$root
       # ))
+      # upper.x <- max(c(theta, theta.not))
+      # lower.x <- min(c(
+      #   uniroot(cdf, y = .0001, theta = theta, n = n, lower = theta - 5*n, upper = theta + 5*n, extendInt = "yes")$root,
+      #   uniroot(cdf, y = .0001, theta = theta.not, n = n, lower = theta.not - 5*n, upper = theta.not + 5*n, extendInt = "yes")$root
+      # ))
+      lower.x <- (.0001*theta^n)^(1/n)
       upper.x <- max(c(theta, theta.not))
-      lower.x <- min(c(
-        uniroot(cdf, y = .0001, theta = theta, n = n, lower = theta - 5*n, upper = theta + 5*n, extendInt = "yes")$root,
-        uniroot(cdf, y = .0001, theta = theta.not, n = n, lower = theta.not - 5*n, upper = theta.not + 5*n, extendInt = "yes")$root
-      ))
       
       # nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 500), FUN = function(x) sampdist(x, theta.not, n)))
       # altmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 500), FUN = function(x) sampdist(x, theta, n)))
@@ -2562,6 +2497,8 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
            xlab = "T(x)",
            ylab = bquote(f[X[(1)]](x)),
            main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+      
       (alt.curve <- curve(sampdist.vec(x, theta, n), add = T, n = 1000))
       (null.curve <- curve(sampdist.vec(x, theta.not, n), add = T, lty = 2, n = 1000))
       abline(v = k1, lty = 4, col = "red")

@@ -1,13 +1,9 @@
-<h2>Uniform Distribution</h2>
-
-<h3>Statistic: $\sum_{i=1}^n X_i$</h3>
-
 <h4>Extending the Irwin-Hall Distribution</h4>
 
-It can be shown that if $X_i \stackrel{iid}{\sim} \text{Unif}(0, 1)$ and we take a random sample of size $n$ from this population, then $\sum_{i=1}^n X_i \sim \text{Irwin-Hall}(n)$. Suppose that $Y \sim \sim \text{Irwin-Hall}(n)$, then $Y$ has the following density and distribution functions:
+It can be shown that if $X_i \stackrel{iid}{\sim} \text{Unif}(0, 1)$ and we take a random sample of size $n$ from this population, then $\sum_{i=1}^n X_i \sim \text{Irwin-Hall}(n)$. Suppose that $Y \sim \text{Irwin-Hall}(n)$, then $Y$ has the following density and distribution function:
 \[
 f_Y(y) =\begin{cases}
-\frac{1}{(n-1)!} \sum_{k = 0}^{\floor{x}} (-1)^k \binom{n}{k}(y-k)^{n-1}, \ y \in \mathbb{R} & 0 < y < n\theta \\
+\frac{1}{(n-1)!} \sum_{k = 0}^{\left \lfloor{x}\right \rfloor} (-1)^k \binom{n}{k}(y-k)^{n-1}, \ y \in \mathbb{R} & 0 < y < n\theta \\
 0 & \text{else}
 \end{cases} 
 \]
@@ -15,7 +11,7 @@ f_Y(y) =\begin{cases}
 \[
 F_Y(y) = \begin{cases}
 0 & y < 0 \\
-\frac{1}{n!} \sum_{k = 0}^{\floor{x}} (-1)^k \binom{n}{k}(y-k)^{n} & 0 \leq y \leq n\theta \\
+\frac{1}{n!} \sum_{k = 0}^{\left \lfloor{x}\right \rfloor} (-1)^k \binom{n}{k}(y-k)^{n} & 0 \leq y \leq n\theta \\
 1 & y > n\theta 
 \end{cases}
 \]
@@ -33,7 +29,7 @@ f_T(t) &= \frac{1}{\theta} f_Y\left(\frac{t}{\theta}\right)
 \end{split}
 \]
 
-<h4>Alternative: Greater than</h4>
+<h4>Derivations</h4>
 
 Suppose that $X_i \stackrel{iid}{\sim} \text{Unif}(0, \theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
 \[
@@ -56,7 +52,7 @@ where $k$ is chosen such that $Pr(\phi(X) = 1|\theta_0) = \alpha$. That is, we s
 Pr(\phi(X) = 1|\theta_0) = Pr\left(\sum_{i=1}^n X_i > k |\theta_0\right) = \alpha
 \]
 
-The value of $k$ that satisfies this is the $1 - \alpha$ quantile of the general Irwin-Hall($n, \theta_0$) distribution. Letting $\eta_{1-\alpha, n, \theta_0}$ denote this quantity, our test function is
+The value of $k$ that satisfies this is the $1 - \alpha$ quantile of the general Irwin-Hall$(n, \theta_0)$ distribution. Letting $\eta_{1-\alpha, n, \theta_0}$ denote this quantity, our test function is
 
 \[
 \phi(X) = \begin{cases}
@@ -68,82 +64,16 @@ The value of $k$ that satisfies this is the $1 - \alpha$ quantile of the general
 Therefore, our power function looks like
 \[
 \begin{split}
-\beta(\theta) &= Pr(X \in RR) = Pr(\sum_{i=1}^n X_i > \eta_{1-\alpha, n, \theta}) \\
+\beta(\theta) &= Pr(X \in RR) = Pr(\sum_{i=1}^n X_i > \eta_{1-\alpha, n, \theta_0}) \\
 &= 1 - Pr\left(\sum_{i=1}^n X_i \leq \eta_{1-\alpha, n, \theta_0}\right)
 \end{split}
 \]
 
-<h4>Alternative: Less than</h4>
-
-Suppose that $X_i \stackrel{iid}{\sim} \text{Unif}(0, \theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
-\[
-\begin{split}
-\text{$H_0$: }& \theta \geq \theta_0 \\
-\text{$H_a$: }& \theta < \theta_0
-\end{split}
-\]
-
-Consider the following test function:
-\[
-\phi(X) = \begin{cases}
-1 & \sum_{i=1}^n X_i < k \\
-0 & \text{else}
-\end{cases},
-\]
-
-where $k$ is chosen such that $Pr(\phi(X) = 1|\theta_0) = \alpha$. That is, we seek $k$ such that
-\[
-Pr(\phi(X) = 1|\theta_0) = Pr\left(\sum_{i=1}^n X_i < k |\theta_0\right) = \alpha
-\]
-
-The value of $k$ that satisfies this is the $\alpha$ quantile of the general Irwin-Hall($n, \theta_0$) distribution. Letting $\eta_{\alpha, n, \theta_0}$ denote this quantity, our test function is
-
-\[
-\phi(X) = \begin{cases}
-1 & \sum_{i=1}^n X_i < \eta_{\alpha, n, \theta_0}\\
-0 & \text{else}
-\end{cases}
-\]
-
-Therefore, our power function looks like
-\[
-\begin{split}
-\beta(\theta) &= Pr(X \in RR) = Pr\left(\sum_{i=1}^n X_i < \eta_{\alpha, n, \theta_0}\right)
-\end{split}
-\]
 
 
-<h4>Alternative: Not equal to</h4>
 
-Suppose that $X_i \stackrel{iid}{\sim} \text{Unif}(0, \theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
-\[
-\begin{split}
-\text{$H_0$: }& \theta = \theta_0 \\
-\text{$H_a$: }& \theta \neq \theta_0
-\end{split}
-\]
+<div align="right"> <font size="6"> &#9633; </div>
 
-Consider the following test function:
-\[
-\phi(X) = \begin{cases}
-1 & \sum_{i=1}^n X_i < k_1 \text{ or } \sum_{i=1}^n X_i > k_2 \\
-0 & \text{else}
-\end{cases},
-\]
 
-where $k_1$ and $k_2$ are chosen such that $Pr(\phi(X) = 1|\theta_0) = \alpha$. We choose a symmetric test. Let $T = \sum_{i=1}^n X_i$. We seek $k_1$ and $k_2$ such that $Pr(T < k_1|\theta_0) = \alpha/2$ and $Pr(T < k_2|\theta_0) = \alpha/2$. The values of $k_1$ and $k_2$ that satisfy these equations are the $\alpha/2$ and $1 - \alpha/2$ quantiles of the general Irwin-Hall($n, \theta_0$) distribution. Letting $\eta_{\alpha/2, n, \theta_0}$ and $\eta_{\alpha/2, n, \theta_0}$ denote these quantities, our test function is
 
-\[
-\phi(X) = \begin{cases}
-1 & \sum_{i=1}^n X_i < \eta_{\alpha, n, \theta}\\
-0 & \text{else}
-\end{cases}
-\]
-
-Therefore, our power function looks like
-\[
-\begin{split}
-\beta(\theta) &= Pr(X \in RR) = 1 - Pr\left(\sum_{i=1}^n X_i < \eta_{1-\alpha/2, n, \theta_0}\right) + Pr\left(\sum_{i=1}^n X_i < \eta_{\alpha/2, n, \theta_0}\right) \\
-\end{split}
-\]
 

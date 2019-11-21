@@ -1,5 +1,74 @@
-\begin{thebibliography}{0}
+\begin{thebibliography}{14}
 \newcommand{\enquote}[1]{``#1''}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{Aberson et~al.(2002)Aberson, Berger, Healy, and Romero}]{aberson2002}
+Aberson, C.~L., Berger, D.~E., Healy, M.~R., and Romero, V.~L. (2002),
+  \enquote{An Interactive Tutorial for Teaching Statistical Power,}
+  \textit{Journal of Statistics Education}, 10.
+
+\bibitem[{{American Statistical Association}(2005)}]{ASA2005}
+{American Statistical Association} (2005), \textit{Guidelines for Assessment
+  and Instruction in Statistics Education (GAISE): College report}, American
+  Statistical Association.
+
+\bibitem[{{American Statistical Association}(2014)}]{ASA2014}
+--- (2014), \textit{2014 Curriculum guidelines for undergraduate programs in
+  statistical science}, American Statistical Association.
+
+\bibitem[{Anderson-Cook and Dorai-Raj(2003)}]{andersoncook2003}
+Anderson-Cook, C.~M. and Dorai-Raj, S. (2003), \enquote{Making the Concepts of
+  Power and Sample Size Relevant and Accessible to Students in Introductory
+  Statistics Courses using Applets,} \textit{Journal of Statistics Education},
+  11, null.
+
+\bibitem[{Bobek and Tversky(2016)}]{bobek2016}
+Bobek, E. and Tversky, B. (2016), \enquote{Creating visual explanations
+  improves learning,} \textit{Cognitive Research: Principles and Implications},
+  1.
+
+\bibitem[{Casella and Berger(2002)}]{casella2002}
+Casella, G. and Berger, R.~L. (2002), \textit{Statistical inference},
+  Brooks/COle Cengage Learning, 2nd ed.
+
+\bibitem[{Chance et~al.(2007)Chance, Ben-Zvi, Garfield, and
+  Medina}]{chance2007}
+Chance, B., Ben-Zvi, D., Garfield, J., and Medina, E. (2007), \enquote{The role
+  of technology in improving student learning of statistics,}
+  \textit{Technology Innovations in Statistics Education}, 1.
+
+\bibitem[{delMas et~al.(1999)delMas, Garfield, and Chance}]{delMas1999}
+delMas, R., Garfield, J., and Chance, B. (1999), \enquote{A model of classroom
+  research in action: developing simulation activities to improve students'
+  statistical reasoning,} \textit{Journal of Statistics Education}, 7.
+
+\bibitem[{Doi et~al.(2016)Doi, Gail, Wong, Alcaraz, and Peter}]{doi2016}
+Doi, J., Gail, P., Wong, J., Alcaraz, I., and Peter, C. (2016), \enquote{Web
+  application teaching tools for statistics using {R} and {S}hiny,}
+  \textit{Technology Innovations in Statistics Education}, 9.
+
+\bibitem[{Green and Blankenship(2015)}]{green2015}
+Green, J.~L. and Blankenship, E.~E. (2015), \enquote{Fostering Conceptual
+  Understanding in Mathematical Statistics,} \textit{The American
+  Statistician}, 69, 315--325.
+
+\bibitem[{Lane and Peres(2006)}]{lane2006}
+Lane, D. and Peres, S. (2006), \enquote{Interactive simulations in the teaching
+  of statistics: promise and pitfalls,} \textit{Proceedings of the Seventh
+  International Conference of Teaching Statistics}.
+
+\bibitem[{{Quijano Xacur}(2019)}]{alberto2019}
+{Quijano Xacur}, O.~A. (2019), \textit{unifed: The unifed Distribution}, r
+  package version 1.1.1.
+
+\bibitem[{Rossman and Chance(2004)}]{rossman2004}
+Rossman, A. and Chance, B. (2004), \textit{The Rossman/Chance Applet
+  Collection}, Available at http://www.rossmanchance.com/applets/.
+
+\bibitem[{Wackerly et~al.(2008)Wackerly, Mendenhall~III, and
+  Scheaffer}]{wackerly2008}
+Wackerly, D.~D., Mendenhall~III, W., and Scheaffer, R.~L. (2008),
+  \textit{Mathematical Statistics with Applications}, Brooks/COle Cengage
+  Learning, 7th ed.
 
 \end{thebibliography}

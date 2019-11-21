@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2017.11.13)  25 SEP 2019 10:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2017.11.13)  21 NOV 2019 14:53
 entering extended mode
 **./manuscript.tex
 (manuscript.tex
@@ -234,37 +234,119 @@ Package hyperref Warning: Option `hyperindex' has already been used,
 Package hyperref Info: Option `colorlinks' set `true' on input line 251.
 Package hyperref Info: Option `linktocpage' set `true' on input line 251.
 Package hyperref Info: Option `plainpages' set `false' on input line 251.
-) (manuscript.aux)
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsmath.sty"
+Package: amsmath 2017/09/02 v2.17a AMS math features
+\@mathmargin=\skip53
+
+For additional information on amsmath, use the `?' option.
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amstext.sty"
+Package: amstext 2000/06/29 v2.01 AMS text
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty"
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks15
+\ex@=\dimen109
+))
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty"
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen110
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty"
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count101
+LaTeX Info: Redefining \frac on input line 213.
+\uproot@=\count102
+\leftroot@=\count103
+LaTeX Info: Redefining \overline on input line 375.
+\classnum@=\count104
+\DOTSCASE@=\count105
+LaTeX Info: Redefining \ldots on input line 472.
+LaTeX Info: Redefining \dots on input line 475.
+LaTeX Info: Redefining \cdots on input line 596.
+\Mathstrutbox@=\box27
+\strutbox@=\box28
+\big@size=\dimen111
+LaTeX Font Info:    Redeclaring font encoding OML on input line 712.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 713.
+\macc@depth=\count106
+\c@MaxMatrixCols=\count107
+\dotsspace@=\muskip11
+\c@parentequation=\count108
+\dspbrk@lvl=\count109
+\tag@help=\toks16
+\row@=\count110
+\column@=\count111
+\maxfields@=\count112
+\andhelp@=\toks17
+\eqnshift@=\dimen112
+\alignsep@=\dimen113
+\tagshift@=\dimen114
+\tagwidth@=\dimen115
+\totwidth@=\dimen116
+\lineht@=\dimen117
+\@envbody=\toks18
+\multlinegap=\skip54
+\multlinetaggap=\skip55
+\mathdisplay@stack=\toks19
+LaTeX Info: Redefining \[ on input line 2817.
+LaTeX Info: Redefining \] on input line 2818.
+))
+(C:\Users\3stra\AppData\Roaming\MiKTeX\2.9\tex\latex\etoolbox\etoolbox.sty
+Package: etoolbox 2017/11/22 v2.5 e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count113
+)
+("C:\Program Files\MiKTeX 2.9\tex\latex\float\float.sty"
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count114
+\float@exts=\toks20
+\float@box=\box29
+\@float@everytoks=\toks21
+\@floatcapt=\box30
+)
+(C:\Users\3stra\AppData\Roaming\MiKTeX\2.9\tex\latex\soul\soul.sty
+Package: soul 2003/11/17 v2.4 letterspacing/underlining (mf)
+\SOUL@word=\toks22
+\SOUL@lasttoken=\toks23
+\SOUL@cmds=\toks24
+\SOUL@buffer=\toks25
+\SOUL@token=\toks26
+\SOUL@spaceskip=\skip56
+\SOUL@ttwidth=\dimen118
+\SOUL@uldp=\dimen119
+\SOUL@ulht=\dimen120
+)
+(manuscript.aux)
 \openout1 = `manuscript.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 13.
+LaTeX Font Info:    ... okay on input line 13.
 
 (C:\Users\3stra\AppData\Roaming\MiKTeX\2.9\tex\context\base\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count101
-\scratchdimen=\dimen109
-\scratchbox=\box27
-\nofMPsegments=\count102
-\nofMParguments=\count103
-\everyMPshowfont=\toks15
-\MPscratchCnt=\count104
-\MPscratchDim=\dimen110
-\MPnumerator=\count105
-\makeMPintoPDFobject=\count106
-\everyMPtoPDFconversion=\toks16
+\scratchcounter=\count115
+\scratchdimen=\dimen121
+\scratchbox=\box31
+\nofMPsegments=\count116
+\nofMParguments=\count117
+\everyMPshowfont=\toks27
+\MPscratchCnt=\count118
+\MPscratchDim=\dimen122
+\MPnumerator=\count119
+\makeMPintoPDFobject=\count120
+\everyMPtoPDFconversion=\toks28
 ) ("C:\Program Files\MiKTeX 2.9\tex\latex\oberdiek\epstopdf-base.sty"
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -278,8 +360,8 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 )
-\AtBeginShipoutBox=\box28
-Package hyperref Info: Link coloring ON on input line 7.
+\AtBeginShipoutBox=\box32
+Package hyperref Info: Link coloring ON on input line 13.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -287,11 +369,11 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 ("C:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\gettitlestring.sty"
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count107
+\c@section@level=\count121
 )
-LaTeX Info: Redefining \ref on input line 7.
-LaTeX Info: Redefining \pageref on input line 7.
-LaTeX Info: Redefining \nameref on input line 7.
+LaTeX Info: Redefining \ref on input line 13.
+LaTeX Info: Redefining \pageref on input line 13.
+LaTeX Info: Redefining \nameref on input line 13.
 
 (manuscript.out) (manuscript.out)
 \@outlinefile=\write4
@@ -300,53 +382,264 @@ LaTeX Info: Redefining \nameref on input line 7.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\\' on input line 7.
+(hyperref)                removing `\\' on input line 13.
 
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 7.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 7.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 7.
 [1
 
 {C:/Users/3stra/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-(manuscript.bbl
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-Package natbib Warning: Empty `thebibliography' environment on input line 5.
-
-)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 28.
  [2]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 28.
+LaTeX Font Info:    Try loading font information for T1+aess on input line 38.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\ae\t1aess.fd"
+File: t1aess.fd 1997/11/16 Font definitions for T1/aess.
+)
+Overfull \hbox (23.78336pt too wide) in paragraph at lines 40--41
+[]\T1/aer/m/n/10.95 This web ap-pli-ca-tion fea-tures three dif-fer-ent fam-i-l
+ies of pop-u-la-tion dis-tri-bu-tions: the exponential($\OML/cmm/m/it/10.95 $\
+T1/aer/m/n/10.95 )
+ []
+
+[3]
+<app_layout.png, id=147, 435.5472pt x 774.2526pt>
+File: app_layout.png Graphic file (type png)
+<use app_layout.png>
+Package pdftex.def Info: app_layout.png  used on input line 48. on input line 4
+8.
+Package pdftex.def Info: Requested size: 435.54611pt x 774.2507pt on input line
+ 48.
+
+Overfull \vbox (57.32736pt too high) has occurred while \output is active []
+
+
+[4pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) 
+has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.51 
+      <./app_layout.png>]
+<reactive.png, id=155, 364.7226pt x 291.0072pt>
+File: reactive.png Graphic file (type png)
+<use reactive.png>
+Package pdftex.def Info: reactive.png  used on input line 56. on input line 56.
+
+Package pdftex.def Info: Requested size: 364.7217pt x 291.00648pt on input line
+ 56.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [5pdfTeX warning (ext4): destination with the same identifier (name{figure.2})
+ has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.63 
+      <./reactive.png>]
+<derivs.png, id=162, 351.714pt x 291.0072pt>
+File: derivs.png Graphic file (type png)
+<use derivs.png>
+Package pdftex.def Info: derivs.png  used on input line 66. on input line 66.
+Package pdftex.def Info: Requested size: 351.71315pt x 291.00648pt on input lin
+e 66.
+ [6pdfTeX warning (ext4): destination with the same identifier (name{figure.3})
+ has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.75 
+      <./derivs.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [7]
+<varypop.png, id=177, 291.0072pt x 363.2772pt>
+File: varypop.png Graphic file (type png)
+<use varypop.png>
+Package pdftex.def Info: varypop.png  used on input line 90. on input line 90.
+Package pdftex.def Info: Requested size: 289.07999pt x 360.87613pt on input lin
+e 90.
+
+Underfull \vbox (badness 1163) has occurred while \output is active []
+
+ [8pdfTeX warning (ext4): destination with the same identifier (name{figure.4})
+ has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.99 
+      <./varypop.png>]
+<varystat.png, id=187, 621.522pt x 362.46185pt>
+File: varystat.png Graphic file (type png)
+<use varystat.png>
+Package pdftex.def Info: varystat.png  used on input line 102. on input line 10
+2.
+Package pdftex.def Info: Requested size: 442.65375pt x 258.15718pt on input lin
+e 102.
+
+Underfull \vbox (badness 5985) has occurred while \output is active []
+
+ [9pdfTeX warning (ext4): destination with the same identifier (name{figure.5})
+ has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.111 
+       <./varystat.png>]
+<varyalt1.png, id=195, 435.00981pt x 435.00981pt>
+File: varyalt1.png Graphic file (type png)
+<use varyalt1.png>
+Package pdftex.def Info: varyalt1.png  used on input line 114. on input line 11
+4.
+Package pdftex.def Info: Requested size: 435.00874pt x 435.00874pt on input lin
+e 114.
+ [10pdfTeX warning (ext4): destination with the same identifier (name{figure.6}
+) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.120 \newpage
+               <./varyalt1.png>]
+<varyalt2.png, id=202, 796.8972pt x 333.4056pt>
+File: varyalt2.png Graphic file (type png)
+<use varyalt2.png>
+Package pdftex.def Info: varyalt2.png  used on input line 124. on input line 12
+4.
+Package pdftex.def Info: Requested size: 442.65375pt x 185.2pt on input line 12
+4.
+<varyingsig.png, id=203, 618.98427pt x 362.45335pt>
+File: varyingsig.png Graphic file (type png)
+<use varyingsig.png>
+Package pdftex.def Info: varyingsig.png  used on input line 140. on input line 
+140.
+Package pdftex.def Info: Requested size: 442.65375pt x 259.20195pt on input lin
+e 140.
+ [11pdfTeX warning (ext4): destination with the same identifier (name{figure.7}
+) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.142 \end{figure}
+                   <./varyalt2.png>] [12pdfTeX warning (ext4): destination with
+ the same identifier (name{figure.8}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.150 \newpage
+               <./varyingsig.png>]
+<varyingn.png, id=218, 539.1342pt x 290.5254pt>
+File: varyingn.png Graphic file (type png)
+<use varyingn.png>
+Package pdftex.def Info: varyingn.png  used on input line 154. on input line 15
+4.
+Package pdftex.def Info: Requested size: 442.65375pt x 238.53381pt on input lin
+e 154.
+
+Underfull \vbox (badness 4686) has occurred while \output is active []
+
+ [13pdfTeX warning (ext4): destination with the same identifier (name{figure.9}
+) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.165 
+       <./varyingn.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [14]
+<irwinerror.png, id=235, 682.20387pt x 543.27104pt>
+File: irwinerror.png Graphic file (type png)
+<use irwinerror.png>
+Package pdftex.def Info: irwinerror.png  used on input line 180. on input line 
+180.
+Package pdftex.def Info: Requested size: 442.65375pt x 352.50856pt on input lin
+e 180.
+
+[15pdfTeX warning (ext4): destination with the same identifier (name{figure.10}
+) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.187 
+       <./irwinerror.png>]
+<normapprox1.png, id=243, 671.43153pt x 542.95154pt>
+File: normapprox1.png Graphic file (type png)
+<use normapprox1.png>
+Package pdftex.def Info: normapprox1.png  used on input line 190. on input line
+ 190.
+Package pdftex.def Info: Requested size: 442.65375pt x 357.95973pt on input lin
+e 190.
+ [16pdfTeX warning (ext4): destination with the same identifier (name{figure.11
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.197 
+       <./normapprox1.png>]
+<normapprox2.png, id=250, 747.2718pt x 543.9522pt>
+File: normapprox2.png Graphic file (type png)
+<use normapprox2.png>
+Package pdftex.def Info: normapprox2.png  used on input line 200. on input line
+ 200.
+Package pdftex.def Info: Requested size: 442.65375pt x 322.2238pt on input line
+ 200.
+ [17pdfTeX warning (ext4): destination with the same identifier (name{figure.12
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.209 
+       <./normapprox2.png>]
+<sim.png, id=258, 750.1626pt x 543.9522pt>
+File: sim.png Graphic file (type png)
+<use sim.png>
+Package pdftex.def Info: sim.png  used on input line 212. on input line 212.
+Package pdftex.def Info: Requested size: 442.65375pt x 320.9705pt on input line
+ 212.
+ [18pdfTeX warning (ext4): destination with the same identifier (name{figure.13
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.217 
+       <./sim.png>] [19]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [20]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [21]
+[22] [23] (manuscript.bbl) [24] [25]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 361.
+ [26]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 361.
  (manuscript.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 28.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 28.
-
-
-Package rerunfilecheck Warning: File `manuscript.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `manuscript.out':
-(rerunfilecheck)             Before: 2BA9FDBCD537605ABC277FC6C8CCAF82;363
-(rerunfilecheck)             After:  6DFA897110751BC59222CF9C3DEF07B7;680.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 28.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 361.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 361.
+Package rerunfilecheck Info: File `manuscript.out' has not changed.
+(rerunfilecheck)             Checksum: 0A68B22964B54A18B2FF2BA90297A77C;2206.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 361.
  ) 
 Here is how much of TeX's memory you used:
- 6151 strings out of 493312
- 90015 string characters out of 3138898
- 170795 words of memory out of 3000000
- 9614 multiletter control sequences out of 15000+200000
- 20963 words of font info for 46 fonts, out of 3000000 for 9000
+ 7518 strings out of 493312
+ 107672 string characters out of 3138898
+ 200600 words of memory out of 3000000
+ 10852 multiletter control sequences out of 15000+200000
+ 27947 words of font info for 61 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 35i,9n,34p,218b,316s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 35i,9n,34p,1719b,374s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fi
-les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb>
-Output written on manuscript.pdf (2 pages, 49597 bytes).
+les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKT
+eX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fo
+nts/type1/public/amsfonts/cm/cmmib10.pfb><C:/Program Files/MiKTeX 2.9/fonts/typ
+e1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public
+/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/
+cm/cmss10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy1
+0.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on manuscript.pdf (26 pages, 1406177 bytes).
 PDF statistics:
- 63 PDF objects out of 1000 (max. 8388607)
- 19 named destinations out of 1000 (max. 500000)
- 41 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 358 PDF objects out of 1000 (max. 8388607)
+ 90 named destinations out of 1000 (max. 500000)
+ 210 words of extra memory for PDF output out of 10000 (max. 10000000)
 

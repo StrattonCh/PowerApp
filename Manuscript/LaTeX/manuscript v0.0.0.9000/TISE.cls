@@ -273,6 +273,11 @@
 \newcommand{\VAR}{\mathsf{VAR}}
 \newcommand{\COV}{\mathsf{COV}}
 \newcommand{\Prob}{\mathsf{P}}
+
+% additional packages
+\usepackage{amsmath}
+%\usepackage{csquotes}
+
 \endinput
 %%
 %% End of file `asa.cls'.
