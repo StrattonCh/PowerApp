@@ -1,0 +1,47 @@
+Suppose that $X_i \stackrel{iid}{\sim} \text{N}(\theta, \sigma^2)$, where $\sigma^2$ is known, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
+\[
+\begin{split}
+\text{$H_0$: }& \theta \leq \theta_0 \\
+\text{$H_a$: }& \theta > \theta_0
+\end{split}
+\]
+
+Consider the following test function:
+\[
+\phi(X) = \begin{cases}
+1 & X_{(n)} > k \\
+0 & \text{else}
+\end{cases},
+\]
+
+where $k$ is chosen such that $Pr(\phi(X) = 1|\theta_0) = \alpha$. To find this value, we must first find the distribution of the sample maximum. By definition,
+\[
+F_{X_{(n)}}(x) = [F_X(x)]^n = [\psi(x, \theta_0, \sigma^2)]^n,
+\]
+where $\psi(x, \theta_0, \sigma^2)$ denotes the distribution function of the $N(\theta_0, \sigma^2)$ distribution. Let $T = X_{(n)}$. We seek the value $k$ such that 
+\[
+Pr(T > k | \theta_0) = 1 - Pr(T \leq k | \theta_0) = \alpha
+\]
+
+Using the distribution function derived above, we have:
+\[
+\begin{split}
+1 - Pr(T \leq k | \theta_0) = 1 - [\psi(k, \theta_0, \sigma^2)]^n &= \alpha \\
+\psi(k, \theta_0, \sigma^2) &= (1 - \alpha)^{1/n}
+\end{split}
+\]
+
+The value of $k$ that satisfies this equation is the $(1 - \alpha)^{1/n}$ quantile of the $\text{N}(\theta_0, \sigma^2)$ distribution. Letting $z^*_{\theta_0, \sigma^2, (1 - \alpha)^{1/n}}$ denote this value, our test functions becomes
+\[
+\phi(X) = \begin{cases}
+1 & X_{(n)} > z^*_{\theta_0, \sigma^2, (1 - \alpha)^{1/n}} \\
+0 & \text{else}
+\end{cases}
+\]
+
+Therefore, our power function is
+\[
+\beta(\theta) = Pr(X \in RR) = Pr\left(X_{(n)} > z^*_{\theta_0, \sigma^2, (1 - \alpha)^{1/n}}\Big| \theta\right) = 1 - Pr\left(X_{(n)}\leq z^*_{\theta_0, \sigma^2, (1 - \alpha)^{1/n}} \Big| \theta\right)
+\]
+
+<div align="right"> <font size="6"> &#9633; </div>

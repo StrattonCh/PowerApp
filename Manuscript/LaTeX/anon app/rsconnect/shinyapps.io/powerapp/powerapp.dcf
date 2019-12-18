@@ -1,0 +1,12 @@
+name: powerapp
+title: powerapp
+username:
+account: powerapp
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 1525192
+bundleId: 2617380
+url: https://powerapp.shinyapps.io/powerapp/
+when: 1574725650.53034
+asMultiple: FALSE
+asStatic: FALSE

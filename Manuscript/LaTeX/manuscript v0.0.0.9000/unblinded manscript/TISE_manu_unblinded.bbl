@@ -1,0 +1,84 @@
+\begin{thebibliography}{16}
+\newcommand{\enquote}[1]{``#1''}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{Aberson et~al.(2002)Aberson, Berger, Healy, and Romero}]{aberson2002}
+Aberson, C.~L., Berger, D.~E., Healy, M.~R., and Romero, V.~L. (2002),
+  \enquote{An Interactive Tutorial for Teaching Statistical Power,}
+  \textit{Journal of Statistics Education}, 10, 1--7.
+
+\bibitem[{{American Statistical Association}(2014)}]{ASA2014}
+{American Statistical Association} (2014), \textit{2014 Curriculum Guidelines
+  for Undergraduate Programs in Statistical Science}, American Statistical
+  Association.
+
+\bibitem[{{American Statistical Association}(2016)}]{ASA2016}
+--- (2016), \textit{Guidelines for Assessment and Instruction in Statistics
+  Education (GAISE): College report}, American Statistical Association.
+
+\bibitem[{Anderson-Cook and Dorai-Raj(2003)}]{andersoncook2003}
+Anderson-Cook, C.~M. and Dorai-Raj, S. (2003), \enquote{Making the Concepts of
+  Power and Sample Size Relevant and Accessible to Students in Introductory
+  Statistics Courses Using Applets,} \textit{Journal of Statistics Education},
+  11, 1--12.
+
+\bibitem[{Bobek and Tversky(2016)}]{bobek2016}
+Bobek, E. and Tversky, B. (2016), \enquote{Creating Visual Explanations
+  Improves Learning,} \textit{Cognitive Research: Principles and Implications},
+  1, 1--14.
+
+\bibitem[{Casella and Berger(2002)}]{casella2002}
+Casella, G. and Berger, R.~L. (2002), \textit{Statistical Inference},
+  Brooks/Cole Cengage Learning, 2nd ed.
+
+\bibitem[{Chance et~al.(2007)Chance, Ben-Zvi, Garfield, and
+  Medina}]{chance2007}
+Chance, B., Ben-Zvi, D., Garfield, J., and Medina, E. (2007), \enquote{The Role
+  of Technology in Improving Student Learning of Statistics,}
+  \textit{Technology Innovations in Statistics Education}, 1, 1--26.
+
+\bibitem[{delMas et~al.(1999)delMas, Garfield, and Chance}]{delMas1999}
+delMas, R., Garfield, J., and Chance, B. (1999), \enquote{A Model of Classroom
+  Research in Action: Developing Simulation Activities to Improve Students'
+  Statistical Reasoning,} \textit{Journal of Statistics Education}, 7, 1--16.
+
+\bibitem[{Doi et~al.(2016)Doi, Gail, Wong, Alcaraz, and Peter}]{doi2016}
+Doi, J., Gail, P., Wong, J., Alcaraz, I., and Peter, C. (2016), \enquote{Web
+  Application Teaching Tools for Statistics Using {R} and {S}hiny,}
+  \textit{Technology Innovations in Statistics Education}, 9, 1--33.
+
+\bibitem[{Green and Blankenship(2015)}]{green2015}
+Green, J.~L. and Blankenship, E.~E. (2015), \enquote{Fostering Conceptual
+  Understanding in Mathematical Statistics,} \textit{The American
+  Statistician}, 69, 315--325.
+
+\bibitem[{Marengo et~al.(2017)Marengo, Farnsworth, and Stefanic}]{marengo2017}
+Marengo, J., Farnsworth, D., and Stefanic, L. (2017), \enquote{A Geometric
+  Derivation of the Irwin-Hall Distribution,} \textit{International Journal of
+  Mathematics and Mathematical Sciences}, 2017, 1--6.
+
+\bibitem[{Post(2016)}]{post2016}
+Post, J. (2016), \textit{Interactive Math Stat Visualizations Using R Shiny},
+  poster presented at the Electronic Conference on Teaching Statistics.
+
+\bibitem[{{Quijano Xacur}(2019)}]{alberto2019}
+{Quijano Xacur}, O.~A. (2019), \textit{unifed: The Unifed Distribution}, {R}
+  package version 1.1.1.
+
+\bibitem[{Rossman and Chance(2004)}]{rossman2004}
+Rossman, A. and Chance, B. (2004), \textit{The Rossman/Chance Applet
+  Collection}, Available at http://www.rossmanchance.com/applets/.
+
+\bibitem[{Wackerly et~al.(2008)Wackerly, Mendenhall~III, and
+  Scheaffer}]{wackerly2008}
+Wackerly, D.~D., Mendenhall~III, W., and Scheaffer, R.~L. (2008),
+  \textit{Mathematical Statistics with Applications}, Brooks/Cole Cengage
+  Learning, 7th ed.
+
+\bibitem[{Wild et~al.(2011)Wild, Pfannkuch, Regan, and Horton}]{wild2011}
+Wild, C.~J., Pfannkuch, M., Regan, M., and Horton, N.~J. (2011),
+  \enquote{Towards More Accessible Conceptions of Statistical Inference,}
+  \textit{Journal of the Royal Statistical Society: Series A (Statistics in
+  Society)}, 174, 247--295.
+
+\end{thebibliography}

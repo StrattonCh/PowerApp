@@ -50,7 +50,7 @@ And our power function is
 \begin{split}
 \beta(\theta) &= Pr(X \in RR) = Pr\left(X_{(n)} > -\theta_0\log(1 - (1-\alpha)^{1/n}) \Big| \theta\right) \\
 &= 1 - Pr\left(X_{(n)}\leq -\theta_0\log(1 - (1-\alpha)^{1/n}) \Big| \theta\right) \\
-&= 1 - \left[1 - \text{exp}\left(\frac{\theta_0\log(1 - (1-\alpha)^{1/n})}{\theta}\right)\right]^n
+&= 1 - \left[1 - \text{exp}\left(\frac{-\theta_0\log(1 - (1-\alpha)^{1/n})}{\theta}\right)\right]^n
 \end{split}
 \]
 

@@ -1,0 +1,75 @@
+<h4>Extending the Irwin-Hall Distribution</h4>
+
+It can be shown that if $X_i \stackrel{iid}{\sim} \text{Unif}(0, 1)$ and we take a random sample of size $n$ from this population, then $\sum_{i=1}^n X_i \sim \text{Irwin-Hall}(n)$. Suppose that $Y \sim \text{Irwin-Hall}(n)$, then $Y$ has the following density and distribution function:
+\[
+f_Y(y) =\begin{cases}
+\frac{1}{(n-1)!} \sum_{k = 0}^{\left \lfloor{x}\right \rfloor} (-1)^k \binom{n}{k}(y-k)^{n-1}, \ y \in \mathbb{R} & 0 < y < n\theta \\
+0 & \text{else}
+\end{cases} 
+\]
+
+\[
+F_Y(y) = \begin{cases}
+0 & y < 0 \\
+\frac{1}{n!} \sum_{k = 0}^{\left \lfloor{x}\right \rfloor} (-1)^k \binom{n}{k}(y-k)^{n} & 0 \leq y \leq n\theta \\
+1 & y > n\theta 
+\end{cases}
+\]
+
+We desire the distribution of the sum of $n$ $\text{uniform}(0, \theta)$ random variables. It can be shown that if $W_i \stackrel{iid}{\sim} \text{Unif}(0, \theta)$, then $\sum_{i=1}^n W_i$ has the same distribution as $\theta X$, where $X \sim \text{Irwin-Hall}(n)$. That is, let $T = \sum_{i=1}^n W_i$, then
+\[
+Pr(T \leq t) = Pr(\theta X \leq t) = Pr\left(X \leq \frac{t}{\theta}\right)
+\]
+
+Therefore, 
+\[
+\begin{split}
+F_T(t) &= F_Y\left(\frac{t}{\theta} \right) \\
+f_T(t) &= \frac{1}{\theta} f_Y\left(\frac{t}{\theta}\right)
+\end{split}
+\]
+
+<h4>Derivations</h4>
+
+Suppose that $X_i \stackrel{iid}{\sim} \text{Unif}(0, \theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
+\[
+\begin{split}
+\text{$H_0$: }& \theta = \theta_0 \\
+\text{$H_a$: }& \theta \neq \theta_0
+\end{split}
+\]
+
+Consider the following test function:
+\[
+\phi(X) = \begin{cases}
+1 & \sum_{i=1}^n X_i < k_1 \cup \sum_{i=1}^n X_i > k_2 \\
+0 & \text{else}
+\end{cases},
+\]
+
+where $k_1$ and $k_2$ are chosen such that $Pr(\phi(X) = 1|\theta_0) = \alpha$. We choose a symmetric test. Let $T = \sum_{i=1}^n X_i$. We seek $k_1$ and $k_2$ such that $Pr(T < k_1|\theta_0) = \alpha/2$ and $Pr(T < k_2|\theta_0) = \alpha/2$. The values of $k_1$ and $k_2$ that satisfy these equations are the $\alpha/2$ and $1 - \alpha/2$ quantiles of the general Irwin-Hall$(n, \theta_0)$ distribution. Letting $\eta_{\alpha/2, n, \theta_0}$ and $\eta_{\alpha/2, n, \theta_0}$ denote these quantities, our test function is
+
+\[
+\phi(X) = \begin{cases}
+1 & \sum_{i=1}^n X_i < \eta_{\alpha/2, n, \theta_0} \cup \sum_{i=1}^n X_i > \eta_{1-\alpha/2, n, \theta_0} \\
+0 & \text{else}
+\end{cases}
+\]
+
+Therefore, our power function looks like
+\[
+\begin{split}
+\beta(\theta) &= Pr(X \in RR) = 1 - Pr\left(\sum_{i=1}^n X_i < \eta_{1-\alpha/2, n, \theta_0}\right) + Pr\left(\sum_{i=1}^n X_i < \eta_{\alpha/2, n, \theta_0}\right) \\
+\end{split}
+\]
+
+
+
+<div align="right"> <font size="6"> &#9633; </div>
+
+
+
+
+
+
+
