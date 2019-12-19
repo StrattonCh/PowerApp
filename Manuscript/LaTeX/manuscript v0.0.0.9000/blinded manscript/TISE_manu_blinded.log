@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2017.11.13)  5 DEC 2019 16:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2017.11.13)  19 DEC 2019 08:34
 entering extended mode
 **./TISE_manu_blinded.tex
 (TISE_manu_blinded.tex
@@ -411,302 +411,291 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 21.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for T1+aett on input line 27.
+LaTeX Font Info:    Try loading font information for T1+aett on input line 28.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\ae\t1aett.fd"
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
-) [3
+)
+Overfull \hbox (5.9112pt too wide) in paragraph at lines 28--29
+[]\T1/aer/m/n/10 Statistical power is an im-por-tant topic taught in most gradu
+ate-level and undergraduate-
+ []
 
-{C:/Users/3stra/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [4]
-LaTeX Font Info:    Try loading font information for T1+aess on input line 53.
+[1
+
+{C:/Users/3stra/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
+LaTeX Font Info:    Try loading font information for T1+aess on input line 54.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\ae\t1aess.fd"
 File: t1aess.fd 1997/11/16 Font definitions for T1/aess.
 )
-Overfull \hbox (23.78336pt too wide) in paragraph at lines 55--56
-[]\T1/aer/m/n/10.95 This web ap-pli-ca-tion fea-tures three dif-fer-ent fam-i-l
-ies of pop-u-la-tion dis-tri-bu-tions: the exponential($\OML/cmm/m/it/10.95 $\
-T1/aer/m/n/10.95 )
- []
-
-[5]
-<figures/app_layout.png, id=155, 435.5472pt x 774.2526pt>
-File: figures/app_layout.png Graphic file (type png)
-<use figures/app_layout.png>
-Package pdftex.def Info: figures/app_layout.png  used on input line 61. on inpu
-t line 61.
-Package pdftex.def Info: Requested size: 435.54611pt x 774.2507pt on input line
+<figures/fig1.png, id=162, 543.9522pt x 324.7332pt>
+File: figures/fig1.png Graphic file (type png)
+<use figures/fig1.png>
+Package pdftex.def Info: figures/fig1.png  used on input line 61. on input line
  61.
+Package pdftex.def Info: Requested size: 442.65375pt x 264.26129pt on input lin
+e 61.
 
-Overfull \vbox (57.32736pt too high) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-
-[6pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) 
+ [3]
+[4pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) 
 has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.64 
-      <./figures/app_layout.png>]
-<figures/reactive2.png, id=163, 635.976pt x 543.9522pt>
-File: figures/reactive2.png Graphic file (type png)
-<use figures/reactive2.png>
-Package pdftex.def Info: figures/reactive2.png  used on input line 69. on input
- line 69.
+l.68 
+      <./figures/fig1.png>]
+<figures/fig2.png, id=178, 635.976pt x 543.9522pt>
+File: figures/fig2.png Graphic file (type png)
+<use figures/fig2.png>
+Package pdftex.def Info: figures/fig2.png  used on input line 71. on input line
+ 71.
 Package pdftex.def Info: Requested size: 635.97444pt x 543.95085pt on input lin
-e 69.
- [7pdfTeX warning (ext4): destination with the same identifier (name{figure.2})
- has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.74 
-      <./figures/reactive2.png>]
-<figures/derivs.png, id=170, 610.9224pt x 543.9522pt>
-File: figures/derivs.png Graphic file (type png)
-<use figures/derivs.png>
-Package pdftex.def Info: figures/derivs.png  used on input line 77. on input li
-ne 77.
-Package pdftex.def Info: Requested size: 442.65375pt x 394.13528pt on input lin
-e 77.
- [8pdfTeX warning (ext4): destination with the same identifier (name{figure.3})
+e 71.
+<figures/fig3.png, id=179, 1272.755pt x 1133.23375pt>
+File: figures/fig3.png Graphic file (type png)
+<use figures/fig3.png>
+Package pdftex.def Info: figures/fig3.png  used on input line 79. on input line
+ 79.
+Package pdftex.def Info: Requested size: 354.11618pt x 361.34532pt on input lin
+e 79.
+ [5pdfTeX warning (ext4): destination with the same identifier (name{figure.2})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.82 
-      <./figures/derivs.png>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+      <./figures/fig2.png>]
+Underfull \vbox (badness 6927) has occurred while \output is active []
 
- [9]
-<figures/varypop.png, id=184, 435.0654pt x 543.9522pt>
-File: figures/varypop.png Graphic file (type png)
-<use figures/varypop.png>
-Package pdftex.def Info: figures/varypop.png  used on input line 101. on input 
-line 101.
-Package pdftex.def Info: Requested size: 289.07585pt x 289.08179pt on input lin
-e 101.
-
-[10pdfTeX warning (ext4): destination with the same identifier (name{figure.4})
+ [6pdfTeX warning (ext4): destination with the same identifier (name{figure.3})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.106 
-       <./figures/varypop.png>]
-<figures/varystat.png, id=194, 621.522pt x 362.46185pt>
-File: figures/varystat.png Graphic file (type png)
-<use figures/varystat.png>
-Package pdftex.def Info: figures/varystat.png  used on input line 113. on input
- line 113.
-Package pdftex.def Info: Requested size: 433.63042pt x 325.2337pt on input line
+l.90 
+      <./figures/fig3.png>] [7]
+<figures/fig4.png, id=200, 553.84486pt x 543.03813pt>
+File: figures/fig4.png Graphic file (type png)
+<use figures/fig4.png>
+Package pdftex.def Info: figures/fig4.png  used on input line 101. on input lin
+e 101.
+Package pdftex.def Info: Requested size: 553.84352pt x 543.0368pt on input line
+ 101.
+ [8pdfTeX warning (ext4): destination with the same identifier (name{figure.4})
+ has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.110 
+       <./figures/fig4.png>]
+<figures/fig5.png, id=210, 795.63303pt x 531.08505pt>
+File: figures/fig5.png Graphic file (type png)
+<use figures/fig5.png>
+Package pdftex.def Info: figures/fig5.png  used on input line 113. on input lin
+e 113.
+Package pdftex.def Info: Requested size: 442.6499pt x 361.35995pt on input line
  113.
- [11pdfTeX warning (ext4): destination with the same identifier (name{figure.5}
+ [9pdfTeX warning (ext4): destination with the same identifier (name{figure.5})
+ has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.120 
+       <./figures/fig5.png>]
+<figures/fig6.png, id=218, 553.84486pt x 543.03813pt>
+File: figures/fig6.png Graphic file (type png)
+<use figures/fig6.png>
+Package pdftex.def Info: figures/fig6.png  used on input line 123. on input lin
+e 123.
+Package pdftex.def Info: Requested size: 553.84352pt x 543.0368pt on input line
+ 123.
+ [10pdfTeX warning (ext4): destination with the same identifier (name{figure.6}
 ) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.118 
-       <./figures/varystat.png>]
-<figures/varyalt1.png, id=202, 435.5472pt x 543.9522pt>
-File: figures/varyalt1.png Graphic file (type png)
-<use figures/varyalt1.png>
-Package pdftex.def Info: figures/varyalt1.png  used on input line 125. on input
- line 125.
-Package pdftex.def Info: Requested size: 289.08362pt x 289.08179pt on input lin
-e 125.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [12pdfTeX warning (ext4): destination with the same identifier (name{figure.6}
-) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.130 
-       <./figures/varyalt1.png>]
-<figures/varyalt2.png, id=210, 796.8972pt x 333.4056pt>
-File: figures/varyalt2.png Graphic file (type png)
-<use figures/varyalt2.png>
-Package pdftex.def Info: figures/varyalt2.png  used on input line 133. on input
- line 133.
+l.129 \newpage
+               <./figures/fig6.png>]
+<figures/fig7.png, id=225, 796.8972pt x 333.4056pt>
+File: figures/fig7.png Graphic file (type png)
+<use figures/fig7.png>
+Package pdftex.def Info: figures/fig7.png  used on input line 133. on input lin
+e 133.
 Package pdftex.def Info: Requested size: 442.65375pt x 185.2pt on input line 13
 3.
- [13pdfTeX warning (ext4): destination with the same identifier (name{figure.7}
+ [11pdfTeX warning (ext4): destination with the same identifier (name{figure.7}
 ) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.145 I
-       n addition, students can consider more abstract relationships, such a...
- <./figures/varyalt2.png>]
-<figures/varyingsig.png, id=218, 796.8972pt x 499.1448pt>
-File: figures/varyingsig.png Graphic file (type png)
-<use figures/varyingsig.png>
-Package pdftex.def Info: figures/varyingsig.png  used on input line 149. on inp
-ut line 149.
-Package pdftex.def Info: Requested size: 442.65375pt x 277.26476pt on input lin
-e 149.
- [14pdfTeX warning (ext4): destination with the same identifier (name{figure.8}
+l.143 \newpage
+               <./figures/fig7.png>]
+<figures/fig8.png, id=233, 795.63303pt x 531.08505pt>
+File: figures/fig8.png Graphic file (type png)
+<use figures/fig8.png>
+Package pdftex.def Info: figures/fig8.png  used on input line 147. on input lin
+e 147.
+Package pdftex.def Info: Requested size: 442.6499pt x 361.35995pt on input line
+ 147.
+ [12pdfTeX warning (ext4): destination with the same identifier (name{figure.8}
 ) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.157 F
-       rom these plots, students may easily determine the effect of the samp...
- <./figures/varyingsig.png>]
-<figures/varyingn.png, id=226, 539.1342pt x 290.5254pt>
-File: figures/varyingn.png Graphic file (type png)
-<use figures/varyingn.png>
-Package pdftex.def Info: figures/varyingn.png  used on input line 161. on input
- line 161.
-Package pdftex.def Info: Requested size: 442.65375pt x 238.53381pt on input lin
-e 161.
- [15pdfTeX warning (ext4): destination with the same identifier (name{figure.9}
+l.156 
+       <./figures/fig8.png>]
+<figures/fig9.png, id=241, 795.63303pt x 531.08505pt>
+File: figures/fig9.png Graphic file (type png)
+<use figures/fig9.png>
+Package pdftex.def Info: figures/fig9.png  used on input line 159. on input lin
+e 159.
+Package pdftex.def Info: Requested size: 442.6499pt x 361.35995pt on input line
+ 159.
+ [13pdfTeX warning (ext4): destination with the same identifier (name{figure.9}
 ) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.168 
-       <./figures/varyingn.png>]
-<figures/reactive.png, id=235, 635.976pt x 543.9522pt>
-File: figures/reactive.png Graphic file (type png)
-<use figures/reactive.png>
-Package pdftex.def Info: figures/reactive.png  used on input line 173. on input
- line 173.
+l.166 
+       <./figures/fig9.png>]
+<figures/fig10.png, id=250, 635.976pt x 543.9522pt>
+File: figures/fig10.png Graphic file (type png)
+<use figures/fig10.png>
+Package pdftex.def Info: figures/fig10.png  used on input line 171. on input li
+ne 171.
 Package pdftex.def Info: Requested size: 635.97444pt x 543.95085pt on input lin
-e 173.
- [16pdfTeX warning (ext4): destination with the same identifier (name{figure.10
-}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.178 
-       <./figures/reactive.png>]
-<figures/irwinerror.png, id=244, 682.20387pt x 543.27104pt>
-File: figures/irwinerror.png Graphic file (type png)
-<use figures/irwinerror.png>
-Package pdftex.def Info: figures/irwinerror.png  used on input line 189. on inp
-ut line 189.
-Package pdftex.def Info: Requested size: 442.65375pt x 352.50856pt on input lin
-e 189.
+e 171.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [17]
-[18pdfTeX warning (ext4): destination with the same identifier (name{figure.11}
-) has been already used, duplicate ignored
+ [14pdfTeX warning (ext4): destination with the same identifier (name{figure.10
+}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.197 \newpage
-               <./figures/irwinerror.png>]
-<figures/normapprox1.png, id=258, 671.43153pt x 542.95154pt>
-File: figures/normapprox1.png Graphic file (type png)
-<use figures/normapprox1.png>
-Package pdftex.def Info: figures/normapprox1.png  used on input line 201. on in
-put line 201.
-Package pdftex.def Info: Requested size: 442.65375pt x 357.95973pt on input lin
-e 201.
- [19pdfTeX warning (ext4): destination with the same identifier (name{figure.12
+l.176 
+       <./figures/fig10.png>] [15]
+<figures/fig11.png, id=263, 671.43153pt x 542.95154pt>
+File: figures/fig11.png Graphic file (type png)
+<use figures/fig11.png>
+Package pdftex.def Info: figures/fig11.png  used on input line 191. on input li
+ne 191.
+Package pdftex.def Info: Requested size: 420.5197pt x 340.05635pt on input line
+ 191.
+<figures/fig12.png, id=264, 747.2718pt x 543.9522pt>
+File: figures/fig12.png Graphic file (type png)
+<use figures/fig12.png>
+Package pdftex.def Info: figures/fig12.png  used on input line 199. on input li
+ne 199.
+Package pdftex.def Info: Requested size: 442.65375pt x 322.2238pt on input line
+ 199.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [16pdfTeX warning (ext4): destination with the same identifier (name{figure.11
 }) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.202 
+       <./figures/fig11.png>] [17pdfTeX warning (ext4): destination with the sa
+me identifier (name{figure.12}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
 l.208 
-       <./figures/normapprox1.png>]
-<figures/normapprox2.png, id=265, 747.2718pt x 543.9522pt>
-File: figures/normapprox2.png Graphic file (type png)
-<use figures/normapprox2.png>
-Package pdftex.def Info: figures/normapprox2.png  used on input line 211. on in
-put line 211.
-Package pdftex.def Info: Requested size: 442.65375pt x 322.2238pt on input line
- 211.
- [20pdfTeX warning (ext4): destination with the same identifier (name{figure.13
-}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.220 
-       <./figures/normapprox2.png>]
-<figures/sim.png, id=273, 750.1626pt x 543.9522pt>
-File: figures/sim.png Graphic file (type png)
-<use figures/sim.png>
-Package pdftex.def Info: figures/sim.png  used on input line 223. on input line
- 223.
+       <./figures/fig12.png>]
+<figures/fig13.png, id=278, 750.1626pt x 543.9522pt>
+File: figures/fig13.png Graphic file (type png)
+<use figures/fig13.png>
+Package pdftex.def Info: figures/fig13.png  used on input line 211. on input li
+ne 211.
 Package pdftex.def Info: Requested size: 442.65375pt x 320.9705pt on input line
- 223.
- [21pdfTeX warning (ext4): destination with the same identifier (name{figure.14
+ 211.
+ [18pdfTeX warning (ext4): destination with the same identifier (name{figure.13
 }) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.228 
-       <./figures/sim.png>]
-Overfull \hbox (5.39517pt too wide) in paragraph at lines 235--245
+l.216 
+       <./figures/fig13.png>]
+Overfull \hbox (5.39517pt too wide) in paragraph at lines 223--233
  [][] 
  []
 
-[22pdfTeX warning (ext4): destination with the same identifier (name{table.1}) 
+[19pdfTeX warning (ext4): destination with the same identifier (name{table.1}) 
 has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.252 I
-       n the second semester, when this web application was implemented, the...
-]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+l.241 
+      ] [20]
+Underfull \vbox (badness 4013) has occurred while \output is active []
 
- [23]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+ [21]
+[22] [23] [24] (TISE_manu_blinded.bbl) [25] [26]
+<figures/fig14.png, id=344, 682.20387pt x 543.27104pt>
+File: figures/fig14.png Graphic file (type png)
+<use figures/fig14.png>
+Package pdftex.def Info: figures/fig14.png  used on input line 359. on input li
+ne 359.
+Package pdftex.def Info: Requested size: 442.65375pt x 352.50856pt on input lin
+e 359.
+ [27pdfTeX warning (ext4): destination with the same identifier (name{figure.14
+}) has been already used, duplicate ignored
 
- [24]
-[25] [26] [27] (TISE_manu_blinded.bbl) [28] [29] [30]
-Underfull \hbox (badness 10000) in paragraph at lines 395--396
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.363 \newpage
+               <./figures/fig14.png>] [28]
+Underfull \hbox (badness 10000) in paragraph at lines 410--411
 
  []
 
-LaTeX Font Info:    Try loading font information for OMS+aer on input line 401.
+LaTeX Font Info:    Try loading font information for OMS+aer on input line 416.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\ae\omsaer.fd"
 File: omsaer.fd 1999/12/27
 )
 LaTeX Font Info:    Font shape `OMS/aer/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 401.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 416.
 
-Underfull \hbox (badness 10000) in paragraph at lines 401--402
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 407--408
+Underfull \hbox (badness 10000) in paragraph at lines 416--417
 
  []
 
-[31]
-Underfull \hbox (badness 10000) in paragraph at lines 414--415
+
+Underfull \hbox (badness 10000) in paragraph at lines 422--423
 
  []
 
-[32] [33] [34] [35] [36]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 552.
- [37]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 552.
+[29]
+Underfull \hbox (badness 10000) in paragraph at lines 429--430
+
+ []
+
+[30] [31] [32] [33] [34]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 567.
+ [35]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 567.
  (TISE_manu_blinded.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 552.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 552.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 567.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 567.
 Package rerunfilecheck Info: File `TISE_manu_blinded.out' has not changed.
-(rerunfilecheck)             Checksum: 792C3E4700A551929B62E1492F021935;2174.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 552.
+(rerunfilecheck)             Checksum: 1986DD1D888C2BB2FF00F49422E85AD0;2896.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 567.
  ) 
 Here is how much of TeX's memory you used:
- 7883 strings out of 493312
- 112958 string characters out of 3138898
+ 7896 strings out of 493312
+ 113260 string characters out of 3138898
  203605 words of memory out of 3000000
- 11161 multiletter control sequences out of 15000+200000
+ 11165 multiletter control sequences out of 15000+200000
  40153 words of font info for 90 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 35i,18n,34p,2072b,488s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 35i,18n,34p,1418b,488s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fi
 les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files/MiKT
@@ -720,9 +709,9 @@ s/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss1
  Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/M
 iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTeX 2.
 9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on TISE_manu_blinded.pdf (35 pages, 1934261 bytes).
+Output written on TISE_manu_blinded.pdf (35 pages, 1737238 bytes).
 PDF statistics:
- 433 PDF objects out of 1000 (max. 8388607)
- 103 named destinations out of 1000 (max. 500000)
- 215 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 455 PDF objects out of 1000 (max. 8388607)
+ 111 named destinations out of 1000 (max. 500000)
+ 247 words of extra memory for PDF output out of 10000 (max. 10000000)
 

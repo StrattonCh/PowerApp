@@ -82,17 +82,17 @@
 }
 
 
-\Seriesname{Issue}
-\Hypersubject{Journal of Statistical Software}
-\Plaintitle{\@title}
-\Shorttitle{\@title}
-\Plainkeywords{\@Keywords}
+  \Seriesname{Issue}
+  \Hypersubject{Journal of Statistical Software}
+  \Plaintitle{\@title}
+  \Shorttitle{\@title}
+  \Plainkeywords{\@Keywords}
 
-\Hyperauthor{\@Plainauthor}
-\Keywords{---!!!---at least one keyword is required---!!!---}
-\Footername{Affiliation}
-\Firstdate{\textit{Submitted:} \@Submitdate}
-\Seconddate{\textit{Accepted:} \@Acceptdate}
+  \Hyperauthor{\@Plainauthor}
+  \Keywords{---!!!---at least one keyword is required---!!!---}
+  \Footername{Affiliation}
+  \Firstdate{\textit{Submitted:} \@Submitdate}
+  \Seconddate{\textit{Accepted:} \@Acceptdate}
 
 %% Sweave(-like)
 \DefineVerbatimEnvironment{Sinput}{Verbatim}{fontshape=sl}
@@ -116,13 +116,13 @@
 %    \hfill \href{http://www.jstatsoft.org/}{http://www.jstatsoft.org/}}}\\[0.1cm]
 %     \hrule height 3pt}
 }
-\def\maketitle{\@oddhead{\@myoddhead} \par
-  \begingroup
-    \def\thefootnote{\fnsymbol{footnote}}
-    \def\@makefnmark{\hbox to 0pt{$^{\@thefnmark}$\hss}}
-    \long\def\@makefntext##1{\parindent 1em\noindent
-                             \hbox to1.8em{\hss $\m@th ^{\@thefnmark}$}##1}
-    \@maketitle \@thanks
+  \def\maketitle{\@oddhead{\@myoddhead} \par
+   \begingroup
+     \def\thefootnote{\fnsymbol{footnote}}
+     \def\@makefnmark{\hbox to 0pt{$^{\@thefnmark}$\hss}}
+     \long\def\@makefntext##1{\parindent 1em\noindent
+                              \hbox to1.8em{\hss $\m@th ^{\@thefnmark}$}##1}
+     \@maketitle \@thanks
    \endgroup
    \setcounter{footnote}{0}
    \thispagestyle{empty}
