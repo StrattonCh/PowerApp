@@ -8,13 +8,13 @@ Suppose that $X_i \stackrel{iid}{\sim} \text{N}(\theta, \sigma^2)$, where $\sigm
 
 Consider the following test function:
 \[
-\phi(X) = \begin{cases}
-1 & X_{(1)} < k_1 \cup X_{(1)} > k_2 \\
+\phi(\boldsymbol{X}) = \begin{cases}
+1 & X_{(1)} < k_1 \text{ or } X_{(1)} > k_2 \\
 0 & \text{else}
 \end{cases},
 \]
 
-where $k_1$ and $k_2$ are chosen such that $Pr(\phi(X) = 1|\theta_0) = \alpha$. To find these values, we must first find the distribution of the sample minimum. By definition,
+where $k_1$ and $k_2$ are chosen such that $Pr(\phi(\boldsymbol{X}) = 1|\theta_0) = \alpha$. To find these values, we must first find the distribution of the sample minimum. By definition,
 \[
 F_{X_{(1)}}(x) = 1 - [1 - F_X(x)]^n = 1 - [1 - \psi(x, \theta_0, \sigma^2)]^n,
 \]
@@ -37,15 +37,15 @@ The value of $k_1$ that satisfies this equation is the $1 - (1 - \alpha/2)^{1/n}
 \]
 The value of $k_2$ that satisfies this equation is the $1 - (\alpha/2)^{1/n}$ quantile of the $\text{N}(\theta_0, \sigma^2)$ distribution. We let $z^*_{\theta_0, \sigma^2, 1 - (\alpha/2)^{1/n}}$ denote this value. Therefore, our test function becomes
 \[
-\phi(X) = \begin{cases}
-1 & X_{(1)} < z^*_{\theta_0, \sigma^2, 1 - (1-\alpha/2)^{1/n}} \cup X_{(1)} > z^*_{\theta_0, \sigma^2, 1 - (\alpha/2)^{1/n}}\\
+\phi(\boldsymbol{X}) = \begin{cases}
+1 & X_{(1)} < z^*_{\theta_0, \sigma^2, 1 - (1-\alpha/2)^{1/n}} \text{ or } X_{(1)} > z^*_{\theta_0, \sigma^2, 1 - (\alpha/2)^{1/n}}\\
 0 & \text{else}
 \end{cases}
 \]
 
 Therefore, our power function is
 \[
-\beta(\theta) = Pr(X \in RR) = 1 - Pr\left(X_{(1)} < z^*_{\theta_0, \sigma^2, 1 - (\alpha/2)^{1/n}} \Big| \theta\right) + Pr\left(X_{(1)} < z^*_{\theta_0, \sigma^2, 1 - (1-\alpha/2)^{1/n}} \Big| \theta\right)
+Power(\theta) = Pr(\boldsymbol{X} \in RR) = 1 - Pr\left(X_{(1)} < z^*_{\theta_0, \sigma^2, 1 - (\alpha/2)^{1/n}} \Big| \theta\right) + Pr\left(X_{(1)} < z^*_{\theta_0, \sigma^2, 1 - (1-\alpha/2)^{1/n}} \Big| \theta\right)
 \]
 
 

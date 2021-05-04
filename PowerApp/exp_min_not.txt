@@ -1,4 +1,4 @@
-Suppose that $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
+Suppose that $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, where $\theta$ represents the mean, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
 \[
 \begin{split}
 \text{$H_0$: }& \theta = \theta_0 \\
@@ -8,13 +8,13 @@ Suppose that $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, and we take a random
 
 Consider the following test function:
 \[
-\phi(X) = \begin{cases}
+\phi(\boldsymbol{X}) = \begin{cases}
 1 & X_{(1)} < k_1 \text{ or } X_{(1)} > k_2 \\
 0 & \text{else}
 \end{cases},
 \]
 
-where $k_1$ and $k_2$ are chosen such that $Pr(\phi(X) = 1|\theta_0) = \alpha$. It can be shown that if $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, then $X_{(1)} \sim \text{Exp}(\frac{\theta}{n})$. 
+where $k_1$ and $k_2$ are chosen such that $Pr(\phi(\boldsymbol{X}) = 1|\theta_0) = \alpha$. It can be shown that if $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, then $X_{(1)} \sim \text{Exp}(\frac{\theta}{n})$. 
 
 <br> 
 <br>
@@ -23,7 +23,7 @@ Let $T = X_{(1)} \sim \text{Exp}(\frac{\theta}{n})$. We seek the values $k_1$ an
 
 The values of $k_1$ and $k_2$ that satisfy these equations are the $(\alpha/2)^{th}$ and $(1 - \alpha/2)^{th}$ quantiles of the $\text{Exp}(\frac{\theta_0}{n})$ distribution. Letting $\eta_{\theta_0/n, \alpha/2}$ and $\eta_{\theta_0/n, 1 - \alpha/2}$ denote these values, our test functions becomes
 \[
-\phi(X) = \begin{cases}
+\phi(\boldsymbol{X}) = \begin{cases}
 1 & X_{(1)} < \eta_{\theta_0/n, \alpha/2} \text{ or } X_{(1)} > \eta_{\theta_0/n, 1 - \alpha/2}\\
 0 & \text{else}
 \end{cases}
@@ -32,7 +32,7 @@ The values of $k_1$ and $k_2$ that satisfy these equations are the $(\alpha/2)^{
 Therefore, our power function is
 \[
 \begin{split}
-\beta(\theta) = Pr(X \in RR) &= 1 - Pr\left(X_{(1)} < \eta_{\theta_0/n, 1 - \alpha/2}\right) + Pr\left(X_{(1)} < \eta_{\theta_0/n, \alpha/2} \Big| \theta\right) \\
+Power(\theta) = Pr(\boldsymbol{X} \in RR) &= 1 - Pr\left(X_{(1)} < \eta_{\theta_0/n, 1 - \alpha/2}\right) + Pr\left(X_{(1)} < \eta_{\theta_0/n, \alpha/2} \Big| \theta\right) \\
 &= 2 - \exp\left(-\frac{n \cdot \eta_{\theta_0/n, 1 - \alpha/2}}{\theta}\right) - \exp\left(- \frac{n \cdot \eta_{\theta_0/n, \alpha/2} }{\theta} \right) 
 \end{split}
 \]

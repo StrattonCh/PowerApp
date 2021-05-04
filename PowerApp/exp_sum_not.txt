@@ -1,4 +1,4 @@
-Suppose that $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
+Suppose that $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, where $\theta$ represents the mean, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
 \[
 \begin{split}
 \text{$H_0$: }& \theta = \theta_0 \\
@@ -8,13 +8,13 @@ Suppose that $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, and we take a random
 
 Consider the following test function:
 \[
-\phi(X) = \begin{cases}
+\phi(\boldsymbol{X}) = \begin{cases}
 1 & \sum_{i=1}^n X_i < k_1 \text{ or } \sum_{i=1}^n X_i > k_2 \\
 0 & \text{else}
 \end{cases},
 \]
 
-where $k_1$ and $k_2$ are chosen such that $Pr(\phi(X) = 1|\theta_0) = \alpha$. It can be shown that if $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, then $\sum_{i=1}^{n} X_i \sim \text{Gamma}(n, \theta)$.
+where $k_1$ and $k_2$ are chosen such that $Pr(\phi(\boldsymbol{X}) = 1|\theta_0) = \alpha$. It can be shown that if $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, then $\sum_{i=1}^{n} X_i \sim \text{Gamma}(n, \theta)$.
 
 <br>
 <br>
@@ -22,7 +22,7 @@ where $k_1$ and $k_2$ are chosen such that $Pr(\phi(X) = 1|\theta_0) = \alpha$. 
 Let $T = \sum_{i=1}^n X_i \sim \text{Gamma}(n, \theta)$. We seek the values $k_1$ and $k_2$ such that $Pr(T < k_1 | \theta_0) = \alpha/2$ and $Pr(T > k_2 | \theta_0) = \alpha/2$ so that our test is symmetric. 
 The values of $k_1$ and $k_2$ that satisfy these equations are the $(\alpha/2)^{th}$ and $(1 - \alpha/2)^{th}$ quantiles of the $\text{Gamma}(n, \theta_0)$ distribution. Letting $\Gamma_{n, \theta_0, \alpha/2}$ and $\Gamma_{n, \theta_0, 1- \alpha/2}$ denote these values, our test functions becomes
 \[
-\phi(X) = \begin{cases}
+\phi(\boldsymbol{X}) = \begin{cases}
 1 & \sum_{i=1}^n X_i < \Gamma_{n, \theta_0, \alpha/2} \text{ or } \sum_{i=1}^n X_i > \Gamma_{n, \theta_0, 1 - \alpha/2}\\
 0 & \text{else}
 \end{cases}
@@ -30,7 +30,7 @@ The values of $k_1$ and $k_2$ that satisfy these equations are the $(\alpha/2)^{
 
 Therefore, our power function is
 \[
-\beta(\theta) = Pr(X \in RR) = 1 - Pr\left(\sum_{i=1}^n X_i < \Gamma_{n, \theta_0, 1 - \alpha/2}\right) +  Pr\left(\sum_{i=1}^n X_i < \Gamma_{n, \theta_0, \alpha/2} \Big| \theta\right) 
+Power(\theta) = Pr(\boldsymbol{X} \in RR) = 1 - Pr\left(\sum_{i=1}^n X_i < \Gamma_{n, \theta_0, 1 - \alpha/2}\right) +  Pr\left(\sum_{i=1}^n X_i < \Gamma_{n, \theta_0, \alpha/2} \Big| \theta\right) 
 \]
 
 <div align="right"> <font size="6"> &#9633; </div>

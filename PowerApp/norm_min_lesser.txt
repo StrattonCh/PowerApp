@@ -8,13 +8,13 @@ Suppose that $X_i \stackrel{iid}{\sim} \text{N}(\theta, \sigma^2)$, where $\sigm
 
 Consider the following test function:
 \[
-\phi(X) = \begin{cases}
+\phi(\boldsymbol{X}) = \begin{cases}
 1 & X_{(1)} < k \\
 0 & \text{else}
 \end{cases},
 \]
 
-where $k$ is chosen such that $Pr(\phi(X) = 1|\theta_0) = \alpha$. To find this value, we must first find the distribution of the sample minimum. By definition,
+where $k$ is chosen such that $Pr(\phi(\boldsymbol{X}) = 1|\theta_0) = \alpha$. To find this value, we must first find the distribution of the sample minimum. By definition,
 \[
 F_{X_{(1)}}(x) = 1 - [1 - F_X(x)]^n = 1 - [1 - \psi(x, \theta_0, \sigma^2)]^n,
 \]
@@ -34,7 +34,7 @@ Pr(T < k | \theta_0) = 1 - [1 - \psi(k, \theta_0, \sigma^2)]^n &= \alpha \\
 
 The value of $k$ that satisfies this equation is the $1 - (1 - \alpha)^{1/n}$ quantile of the $\text{N}(\theta_0, \sigma^2)$ distribution. Letting $z^*_{\theta_0, \sigma^2, 1 - (1-\alpha)^{1/n}}$ denote this value, our test functions becomes
 \[
-\phi(X) = \begin{cases}
+\phi(\boldsymbol{X}) = \begin{cases}
 1 & X_{(1)} < z^*_{\theta_0, \sigma^2, 1 - (1-\alpha)^{1/n}} \\
 0 & \text{else}
 \end{cases}
@@ -42,7 +42,7 @@ The value of $k$ that satisfies this equation is the $1 - (1 - \alpha)^{1/n}$ qu
 
 Therefore, our power function is
 \[
-\beta(\theta) = Pr(X \in RR) = Pr\left(X_{(1)} < z^*_{\theta_0, \sigma^2, 1 - (1-\alpha)^{1/n}}\Big| \theta\right)
+Power(\theta) = Pr(\boldsymbol{X} \in RR) = Pr\left(X_{(1)} < z^*_{\theta_0, \sigma^2, 1 - (1-\alpha)^{1/n}}\Big| \theta\right)
 \]
 
 

@@ -8,13 +8,13 @@ Suppose that $X_i \stackrel{iid}{\sim} \text{Unif}(0, \theta)$, and we take a ra
 
 Consider the following test function:
 \[
-\phi(X) = \begin{cases}
-1 & X_{(n)} < k_1 \cup X_{(n)} > k_2 \\
+\phi(\boldsymbol{X}) = \begin{cases}
+1 & X_{(n)} < k_1 \text{ or } X_{(n)} > k_2 \\
 0 & \text{else}
 \end{cases},
 \]
 
-where $k_1$ and $k_2$ are chosen such that $Pr(\phi(X) = 1|\theta_0) = \alpha$. To find these values, we need to know the distribution of the sample max. By definition, 
+where $k_1$ and $k_2$ are chosen such that $Pr(\phi(\boldsymbol{X}) = 1|\theta_0) = \alpha$. To find these values, we need to know the distribution of the sample max. By definition, 
 \[
 F_{X_{(n)}}(x) = \left[F_X(x)\right]^n = \left[\frac{x}{\theta}\right]^n = \frac{x^n}{\theta^n}
 \]
@@ -42,8 +42,8 @@ k_2 &= \theta_0(1-\alpha/2)^{1/n}
 
 Therefore, our test function is
 \[
-\phi(X) = \begin{cases}
-1 & X_{(n)} < \theta_0(\alpha/2)^{1/n} \cup X_{(n)} >  \theta_0(1-\alpha/2)^{1/n} \\
+\phi(\boldsymbol{X}) = \begin{cases}
+1 & X_{(n)} < \theta_0(\alpha/2)^{1/n} \text{ or } X_{(n)} >  \theta_0(1-\alpha/2)^{1/n} \\
 0 & \text{else}
 \end{cases}
 \]
@@ -57,7 +57,7 @@ For $0 < \theta \leq k_1$:
 For $k_1 < \theta \leq k_2$:
 \[
 \begin{split}
-\beta(\theta) &= Pr(X \in RR) = Pr\left(X_{(n)} < \theta_0(\alpha/2)^{1/n} \Big| \theta\right) \\
+\beta(\theta) &= Pr(\boldsymbol{X} \in RR) = Pr\left(X_{(n)} < \theta_0(\alpha/2)^{1/n} \Big| \theta\right) \\
 &= \frac{\theta_0^n\alpha}{2\theta^n}
 \end{split}
 \]
@@ -65,7 +65,7 @@ For $k_1 < \theta \leq k_2$:
 For $\theta > k_2$
 \[
 \begin{split}
-\beta(\theta) &= Pr(X \in RR) = Pr\left(X_{(n)} > \theta_0(1-\alpha/2)^{1/n} \Big| \theta\right) + Pr\left(X_{(n)} < \theta_0(\alpha/2)^{1/n} \Big| \theta\right) \\
+Power(\theta) &= Pr(\boldsymbol{X} \in RR) = Pr\left(X_{(n)} > \theta_0(1-\alpha/2)^{1/n} \Big| \theta\right) + Pr\left(X_{(n)} < \theta_0(\alpha/2)^{1/n} \Big| \theta\right) \\
 &= 1 - Pr\left(X_{(n)}\leq \theta_0(1-\alpha/2)^{1/n} \Big| \theta\right) + Pr\left(X_{(n)} < \theta_0(\alpha/2)^{1/n} \Big| \theta\right) \\
 &= 1 - \frac{\theta_0^n(1-\alpha/2)}{\theta^n} + \frac{\theta_0^n\alpha}{2\theta^n}
 \end{split}

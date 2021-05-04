@@ -8,13 +8,13 @@ Suppose that $X_i \stackrel{iid}{\sim} \text{N}(\theta, \sigma^2)$, where $\sigm
 
 Consider the following test function:
 \[
-\phi(X) = \begin{cases}
+\phi(\boldsymbol{X}) = \begin{cases}
 1 & X_{(n)} > k \\
 0 & \text{else}
 \end{cases},
 \]
 
-where $k$ is chosen such that $Pr(\phi(X) = 1|\theta_0) = \alpha$. To find this value, we must first find the distribution of the sample maximum. By definition,
+where $k$ is chosen such that $Pr(\phi(\boldsymbol{X}) = 1|\theta_0) = \alpha$. To find this value, we must first find the distribution of the sample maximum. By definition,
 \[
 F_{X_{(n)}}(x) = [F_X(x)]^n = [\psi(x, \theta_0, \sigma^2)]^n,
 \]
@@ -33,7 +33,7 @@ Using the distribution function derived above, we have:
 
 The value of $k$ that satisfies this equation is the $(1 - \alpha)^{1/n}$ quantile of the $\text{N}(\theta_0, \sigma^2)$ distribution. Letting $z^*_{\theta_0, \sigma^2, (1 - \alpha)^{1/n}}$ denote this value, our test functions becomes
 \[
-\phi(X) = \begin{cases}
+\phi(\boldsymbol{X}) = \begin{cases}
 1 & X_{(n)} > z^*_{\theta_0, \sigma^2, (1 - \alpha)^{1/n}} \\
 0 & \text{else}
 \end{cases}
@@ -41,7 +41,7 @@ The value of $k$ that satisfies this equation is the $(1 - \alpha)^{1/n}$ quanti
 
 Therefore, our power function is
 \[
-\beta(\theta) = Pr(X \in RR) = Pr\left(X_{(n)} > z^*_{\theta_0, \sigma^2, (1 - \alpha)^{1/n}}\Big| \theta\right) = 1 - Pr\left(X_{(n)}\leq z^*_{\theta_0, \sigma^2, (1 - \alpha)^{1/n}} \Big| \theta\right)
+Power(\theta) = Pr(\boldsymbol{X} \in RR) = Pr\left(X_{(n)} > z^*_{\theta_0, \sigma^2, (1 - \alpha)^{1/n}}\Big| \theta\right) = 1 - Pr\left(X_{(n)}\leq z^*_{\theta_0, \sigma^2, (1 - \alpha)^{1/n}} \Big| \theta\right)
 \]
 
 <div align="right"> <font size="6"> &#9633; </div>

@@ -8,26 +8,26 @@ Suppose that $X_i \stackrel{iid}{\sim} \text{N}(\theta, \sigma^2)$, where $\sigm
 
 Consider the following test function:
 \[
-\phi(X) = \begin{cases}
-1 & \sum_{i=1}^n X_i < k_1 \cup \sum_{i=1}^n X_i > k_2 \\
+\phi(\boldsymbol{X}) = \begin{cases}
+1 & \sum_{i=1}^n X_i < k_1 \text{ or } \sum_{i=1}^n X_i > k_2 \\
 0 & \text{else}
 \end{cases},
 \]
 
-where $k_1$ and $k_2$ are chosen such that $Pr(\phi(X) = 1|\theta_0) = \alpha$. It can be shown that if $X_i \stackrel{iid}{\sim} \text{N}(\theta, \sigma^2)$, then $\sum_{i=1}^{n} X_i \sim \text{N}(n\theta, n\sigma^2)$. We assume a symmetric test. Let $T = \sum_{i=1}^n X_i \sim \text{N}(n\theta, n\sigma^2)$. 
+where $k_1$ and $k_2$ are chosen such that $Pr(\phi(\boldsymbol{X}) = 1|\theta_0) = \alpha$. It can be shown that if $X_i \stackrel{iid}{\sim} \text{N}(\theta, \sigma^2)$, then $\sum_{i=1}^{n} X_i \sim \text{N}(n\theta, n\sigma^2)$. We assume a symmetric test. Let $T = \sum_{i=1}^n X_i \sim \text{N}(n\theta, n\sigma^2)$. 
 
 
 We seek values $k_1$ and $k_2$ such that $Pr(T < k_1 | \theta_0) = \alpha/2$ and $Pr(T > k_2 | \theta_0) = \alpha/2$. The values of $k_1$ and $k_2$ that satisfy this requirement are the $\alpha/2$ and $1 - \alpha/2$ quantiles of the $N(n\theta_0, n\sigma^2)$ distribution. Letting $z^*_{n\theta_0, n\sigma^2, \alpha/2}$ and $z^*_{n\theta_0, n\sigma^2, 1 - \alpha/2}$ denote each of these values respectively, our test function becomes:  
 \[
-\phi(X) = \begin{cases}
-1 & \sum_{i=1}^n X_i < z^*_{n\theta_0, n\sigma^2, \alpha/2} \cup \sum_{i=1}^n X_i > z^*_{n\theta_0, n\sigma^2, 1-\alpha/2} \\
+\phi(\boldsymbol{X}) = \begin{cases}
+1 & \sum_{i=1}^n X_i < z^*_{n\theta_0, n\sigma^2, \alpha/2} \text{ or } \sum_{i=1}^n X_i > z^*_{n\theta_0, n\sigma^2, 1-\alpha/2} \\
 0 & \text{else}
 \end{cases}
 \]
 
 Therefore, our power function is
 \[
-\beta(\theta) = Pr(X \in RR) = 1 - Pr\left(\sum_{i=1}^n X_i < z^*_{n\theta_0, n\sigma^2, 1-\alpha/2}\right) +  Pr\left(\sum_{i=1}^n X_i < z^*_{n\theta_0, n\sigma^2, \alpha/2} \Big| \theta\right) 
+Power(\theta) = Pr(\boldsymbol{X} \in RR) = 1 - Pr\left(\sum_{i=1}^n X_i < z^*_{n\theta_0, n\sigma^2, 1-\alpha/2}\right) +  Pr\left(\sum_{i=1}^n X_i < z^*_{n\theta_0, n\sigma^2, \alpha/2} \Big| \theta\right) 
 \]
 
 

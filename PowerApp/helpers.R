@@ -67,7 +67,6 @@ unif_samp_max_pwrfunc_greater <- Vectorize(function(theta, alpha, theta_not, n){
     return(1 - k^n/theta^n)
   }
 }, SIMPLIFY = TRUE)
-
 unif_samp_max_pwrfunc_less <- Vectorize(function(theta, alpha, theta_not, n){
   #function to calculate power of sample max of unif(0,theta)
   k <- theta_not*(alpha)^(1/n)
@@ -81,7 +80,6 @@ unif_samp_max_pwrfunc_less <- Vectorize(function(theta, alpha, theta_not, n){
     return(k^n/theta^n)
   }
 })
-
 unif_samp_max_pwrfunc_noteqto <- Vectorize(function(theta, alpha, theta_not, n){
   #function to calculate power of sample max of unif(0,theta)
   k1 <- theta_not*(alpha/2)^(1/n)
@@ -99,7 +97,6 @@ unif_samp_max_pwrfunc_noteqto <- Vectorize(function(theta, alpha, theta_not, n){
     return(1 - theta_not^n * (1 - alpha/2) / theta^n + alpha*theta_not^n / (2*theta^n))
   }
 })
-
 unif_samp_min_pwrfunc_greater <- Vectorize(function(theta, alpha, theta_not, n){
   #function to calculate power of sample min of unif(0,theta)
   k <- theta_not*(1 - alpha^(1/n))
@@ -113,7 +110,6 @@ unif_samp_min_pwrfunc_greater <- Vectorize(function(theta, alpha, theta_not, n){
     return((1 - k/theta)^n)
   }
 })
-
 unif_samp_min_pwrfunc_less <- Vectorize(function(theta, alpha, theta_not, n){
   #function to calculate power of sample min of unif(0,theta)
   k <- theta_not*(1 - (1 - alpha)^(1/n))
@@ -127,7 +123,6 @@ unif_samp_min_pwrfunc_less <- Vectorize(function(theta, alpha, theta_not, n){
     return(1 - (1 - k/theta)^n)
   }
 })
-
 unif_samp_min_pwrfunc_noteqto <- Vectorize(function(theta, alpha, theta_not, n){
   #function to calculate power of sample min of unif(0,theta)
   k1 <- theta_not*(1 - (1 - alpha/2)^(1/n))
@@ -146,68 +141,7 @@ unif_samp_min_pwrfunc_noteqto <- Vectorize(function(theta, alpha, theta_not, n){
   }
 })
 
-# dirwinhall <- Vectorize(function(x, n, theta){
-#   # function to calculate density of sum of n unif(0, theta) RVs
-#   # inputs  : x - value at which to calculate density
-#   #         : n - number of unif RVs to sum
-#   #         : theta - population maximum
-#   # outputs : numeric value that is the density at x
-#   
-#   if(x/theta < 0) return(0)
-#   if(x/theta > n) return(0)
-#   if(x/theta >= 0 & x/theta <= n){
-#     X  <-  floor(x/theta)
-#     r <- seq(from = 0,  to = X)
-#     s <-  (-1)^r * choose(n, r)*(x/theta-r)^(n-1)/factorial(n-1)
-#     return(sum(s)/theta)
-#   }
-# })
-# 
-# pirwinhall <- Vectorize(function(q, n, theta){
-#   # function to calculate cumulative density of sum of n unif(0, theta) RVs
-#   # inputs  : q - quantile
-#   #         : n - number of unif RVs to sum
-#   #         : theta - population maximum
-#   # outputs : numeric value that is the cumulative density at x
-#   
-#   if(q/theta < 0) return(0)
-#   if(q/theta > n) return(1)
-#   if(q/theta >= 0 & q/theta <= n){
-#     X  <-  floor(q/theta)
-#     r <- seq(from = 0,  to = X)
-#     s <-  (-1)^r * choose(n, r)*(q/theta-r)^(n)/factorial(n)
-#     return(sum(s))
-#   }
-# })
-# 
-# pirwinhall_zero <- Vectorize(function(q, n, theta, p){
-#   # function to calculate cumulative density of sum of n unif(0, theta) RVs
-#   # inputs  : q - quantile
-#   #         : n - number of unif RVs to sum
-#   #         : theta - population maximum
-#   # outputs : numeric value that is the cumulative density at x
-#   
-#   if(q/theta < 0) return(0)
-#   if(q/theta > n) return(1)
-#   if(q/theta >= 0 & q/theta <= n){
-#     X  <-  floor(q/theta)
-#     r <- seq(from = 0,  to = X)
-#     s <-  (-1)^r * choose(n, r)*(q/theta-r)^(n)/factorial(n)
-#     return(sum(s) - p)
-#   }
-# })
-# 
-# qirwinhall <- Vectorize(function(p, n, theta){
-#   # function to calculate quantile of sum of n unif(0, theta) RVs
-#   # inputs  : x - probability
-#   #         : n - number of unif RVs to sum
-#   #         : theta - population maximum
-#   # outputs : numeric value that is the cumulative density at x
-#   
-#   tmp <- uniroot(pirwinhall_zero, n = n, theta = theta, p = p, lower = 0, upper = 3*n*theta + 5 * sqrt(n*theta^2/12), tol = .0001, extendInt = "yes")
-#   return(tmp[[1]])
-#   
-# })
+
 
 dirwinhall <- Vectorize(function(x, n, theta){
   # function to calculate density of sum of n unif(0, theta) RVs
@@ -228,7 +162,6 @@ dirwinhall <- Vectorize(function(x, n, theta){
     return(out)
   }
 })
-
 pirwinhall <- Vectorize(function(q, n, theta){
   # function to calculate cumulative density of sum of n unif(0, theta) RVs
   # inputs  : q - quantile
@@ -246,7 +179,6 @@ pirwinhall <- Vectorize(function(q, n, theta){
   }
   if(q/theta >= n) return(1)
 })
-
 pirwinhall_zero <- Vectorize(function(q, n, theta, p){
   # function to calculate cumulative density of sum of n unif(0, theta) RVs
   # inputs  : q - quantile
@@ -264,7 +196,6 @@ pirwinhall_zero <- Vectorize(function(q, n, theta, p){
     return(out - p)
   }
 })
-
 qirwinhall <- Vectorize(function(p, n, theta){
   # function to calculate quantile of sum of n unif(0, theta) RVs
   # inputs  : x - probability
@@ -333,9 +264,24 @@ is.sorted <- Negate(is.unsorted)
 
 # exponential
 exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha, distribution){
+  
+  distribution <- "Exponential"
+  
+  if(alternative == "greater"){
+    subtitle <- bquote("Plot options:" ~ theta[0] ~ "=" ~ .(theta.not) *"," ~ alpha ~ "=" ~ .(alpha) *"," ~ "n =" ~ .(n) *"," ~ "alt:" ~ ">")
+  }
+  
+  if(alternative == "lesser"){
+    subtitle <- bquote("Plot options:" ~ theta[0] ~ "=" ~ .(theta.not) *"," ~ alpha ~ "=" ~ .(alpha) *"," ~ "n =" ~ .(n) *"," ~ "alt:" ~ "<")
+  }
+  
+  if(alternative == "not"){
+    subtitle <- bquote("Plot options:" ~ theta[0] ~ "=" ~ .(theta.not) *"," ~ alpha ~ "=" ~ .(alpha) *"," ~ "n =" ~ .(n) *"," ~ "alt:" ~ symbol("\271"))
+    
+  }
 
   if(statistic == "sum"){
-    if(alternative == 'Not equal to'){
+    if(alternative == 'not'){
       k1 <- qgamma(alpha/2, n, 1/theta.not)
       k2 <- qgamma(1 - alpha/2, n, 1/theta.not)
       power <- 1 - pgamma(k2, n, 1/theta) + pgamma(k1, n, 1/theta)
@@ -353,8 +299,8 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha, distrib
            )),
            xlab = "T(x)",
            ylab = bquote(f[Sigma(X[i])](x)),
-           main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+           main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution with mean' ~ theta))
+      mtext(subtitle)
       
       (null.curve <- curve(dgamma(x, n, 1 / theta.not), add = T, n = 1000, lty = 2))
       (alt.curve <- curve(dgamma(x, n, 1/theta), add = T, n = 1000))
@@ -405,9 +351,9 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha, distrib
       }
       
       legend("topright",
-             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(round(power, 3)))),
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(round(power, 3)))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
-    } else if(alternative == 'Greater than'){
+    } else if(alternative == 'greater'){
       
       g.star <- qgamma(alpha, n, 1 / theta.not, lower.tail = F)
       upper.x <- max(c(2*n*theta, 2*n*theta.not, g.star + 1))
@@ -420,8 +366,8 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha, distrib
            )),
            xlab = "T(x)",
            ylab = bquote(f[Sigma(X[i])](x)),
-           main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+           main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution with mean' ~ theta))
+      mtext(subtitle)
       
       (alt.curve <- curve(dgamma(x, n, 1 / theta), add = T, n = 1000))
       (null.curve <- curve(dgamma(x, n, 1 / theta.not), add = T, lty = 2, n = 1000))
@@ -448,10 +394,10 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha, distrib
       
       power <- round(1 - pchisq(theta.not*qchisq(1 - alpha, 2*n)/theta, 2*n), 3)
       legend("topright",
-             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(power))),
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(power))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
       text(x = g.star, y = dgamma(g.star, n, 1 / theta.not), labels =  bquote('crit val'~'='~.(round(g.star, 2))), col = "red", pos = 2)
-    } else if(alternative == 'Less than'){
+    } else if(alternative == 'lesser'){
       plot(1, type = "n", las = 1,
            xlim = c(0.001, max(c(2*n*theta, 2*n*theta.not))),
            ylim = c(0, max(
@@ -460,8 +406,8 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha, distrib
            )),
            xlab = "T(x)",
            ylab = bquote(f[Sigma(X[i])](x)),
-           main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+           main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution with mean' ~ theta))
+      mtext(subtitle)
       
       (alt.curve <- curve(dgamma(x, n, 1 / theta), add = T, n = 1000))
       (null.curve <- curve(dgamma(x, n, 1 / theta.not), add = T, lty = 2, n = 1000))
@@ -487,15 +433,185 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha, distrib
                 col = "grey")
       }
       legend("topright",
-             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(round(pchisq(theta.not*qchisq(alpha, 2*n)/theta, 2*n), 3)))),
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(round(pchisq(theta.not*qchisq(alpha, 2*n)/theta, 2*n), 3)))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
       #text(x = 100, y = .001, labels = paste("Power = ", dgamma(theta, n, 1 / theta)))
       text(x = g.star, y = dgamma(g.star, n, 1 / theta.not), labels =  bquote('crit val'~'='~.(round(g.star, 2))), col = "red", pos = 4)
     } 
   }
   
-  if(statistic == "Sample Minimum"){
-    if(alternative == "Not equal to"){
+  if(statistic == "mean"){
+    if(alternative == 'not'){
+      k1 <- qgamma(alpha/2, n, n/theta.not)
+      k2 <- qgamma(1 - alpha/2, n, n/theta.not)
+      power <- 1 - pgamma(k2, n, n/theta) + pgamma(k1, n, n/theta)
+      upper.power <- power - pgamma(k1, n, n/theta)
+      lower.power <- pgamma(k1, n, n/theta)
+      
+      
+      upper.x <- max(c(2*theta, 2*theta.not, k2 + 1))
+      
+      plot(1, type = "n", las = 1,
+           xlim = c(0.001, upper.x),
+           ylim = c(0, max(
+             c(max(dgamma(seq(0, 2*theta, length.out = 100), n, n / theta)),
+               max(dgamma(seq(0, 2*theta.not, length.out = 100), n, n / theta.not)))
+           )),
+           xlab = "T(x)",
+           ylab = bquote(f[Sigma(X[i])](x)),
+           main = bquote("Sampling Distribution of T(X) ="~bar(X)~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution with mean' ~ theta))
+      mtext(subtitle)
+      
+      (null.curve <- curve(dgamma(x, n, n / theta.not), add = T, n = 1000, lty = 2))
+      (alt.curve <- curve(dgamma(x, n, n/theta), add = T, n = 1000))
+      
+      abline(v = k1, lty = 4, col = "red")
+      abline(v = k2, lty = 4, col = "red")
+      
+      if(lower.power < alpha/2){
+        polygon(x = c(0.001, 0.001, null.curve$x[which(null.curve$x < k1)], k1),
+                y = c(0, 0,
+                      dgamma(null.curve$x[which(null.curve$x < k1)], n, n/theta.not), 0),
+                col = "red")
+        polygon(x = c(0.001, 0.001, alt.curve$x[which(alt.curve$x < k1)], k1),
+                y = c(0, 0,
+                      dgamma(alt.curve$x[which(alt.curve$x < k1)], n, n/theta), 0),
+                col = "grey")
+        text(x = k1, y = dgamma(k1, n, n/theta.not), labels = bquote('crit val'~'='~.(round(k1, 2))), col = "red", pos = 2)
+        
+        polygon(x = c(k2, k2, alt.curve$x[which(alt.curve$x > k2)], upper.x),
+                y = c(0, dgamma(k2, n, n/theta),
+                      dgamma(alt.curve$x[which(alt.curve$x > k2)], n, n/theta), 0),
+                col = "grey")
+        polygon(x = c(k2, k2, null.curve$x[which(null.curve$x > k2)], upper.x),
+                y = c(0, dgamma(k2, n, n/theta.not),
+                      dgamma(null.curve$x[which(null.curve$x > k2)], n, n/theta.not), 0),
+                col = "red")
+        text(x = k2, y = dgamma(k2, n, n/theta), labels = bquote('crit val'~'='~.(round(k2, 2))), col = "red", pos = 4)
+      } else{
+        polygon(x = c(0.001, 0.001, alt.curve$x[which(alt.curve$x < k1)], k1),
+                y = c(0, 0,
+                      dgamma(alt.curve$x[which(alt.curve$x < k1)], n, n/theta), 0),
+                col = "grey")
+        polygon(x = c(0.001, 0.001, null.curve$x[which(null.curve$x < k1)], k1),
+                y = c(0, 0,
+                      dgamma(null.curve$x[which(null.curve$x < k1)], n, n/theta.not), 0),
+                col = "red")
+        text(x = k1, y = dgamma(k1, n, n/theta), labels = bquote('crit val'~'='~.(round(k1, 2))), col = "red", pos = 2)
+        
+        polygon(x = c(k2, k2, null.curve$x[which(null.curve$x > k2)], k2),
+                y = c(0, dgamma(k2, n, n/theta.not),
+                      dgamma(null.curve$x[which(null.curve$x > k2)], n, n/theta.not), 0),
+                col = "red")
+        polygon(x = c(k2, k2, alt.curve$x[which(alt.curve$x > k2)], k2),
+                y = c(0, dgamma(k2, n, n/theta),
+                      dgamma(alt.curve$x[which(alt.curve$x > k2)], n, n/theta), 0),
+                col = "grey")
+        text(x = k2, y = dgamma(k2, n, n/theta.not), labels = bquote('crit val'~'='~.(round(k2, 2))), col = "red", pos = 4)
+      }
+      
+      legend("topright",
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(round(power, 3)))),
+             lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
+    } else if(alternative == 'greater'){
+      
+      g.star <- qgamma(alpha, n, n / theta.not, lower.tail = F)
+      upper.x <- max(c(2*theta, 2*theta.not, g.star + 1))
+      
+      plot(1, type = "n", las = 1,
+           xlim = c(0.001, upper.x),
+           ylim = c(0, max(
+             c(max(dgamma(seq(0, 2*theta, length.out = 100), n, n / theta)),
+               max(dgamma(seq(0, 2*theta.not, length.out = 100), n, n / theta.not)))
+           )),
+           xlab = "T(x)",
+           ylab = bquote(f[bar(X)](x)),
+           main = bquote("Sampling Distribution of T(X) ="~bar(X)~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution with mean' ~ theta))
+      mtext(subtitle)
+      
+      (alt.curve <- curve(dgamma(x, n, n / theta), add = T, n = 1000))
+      (null.curve <- curve(dgamma(x, n, n / theta.not), add = T, lty = 2, n = 1000))
+      power <- round(1 - pgamma(qgamma(1 - alpha, n, n / theta.not), n, n / theta), 3)
+      abline(v = g.star, lty = 4, col = "red")
+      if(power >= alpha ) {
+        polygon(x = c(g.star, g.star, alt.curve$x[which(alt.curve$x > g.star)], upper.x),
+                y = c(0, dgamma(g.star, n, n / theta),
+                      dgamma(alt.curve$x[which(alt.curve$x > g.star)], n, n/theta), 0),
+                col = "grey")
+        polygon(x = c(g.star, g.star, null.curve$x[which(null.curve$x > g.star)], upper.x),
+                y = c(0, dgamma(g.star, n, n / theta.not),
+                      dgamma(null.curve$x[which(null.curve$x > g.star)], n, n/theta.not), 0),
+                col = "red")
+      } else {
+        polygon(x = c(g.star, g.star, null.curve$x[which(null.curve$x > g.star)], upper.x),
+                y = c(0, dgamma(g.star, n, n / theta.not),
+                      dgamma(null.curve$x[which(null.curve$x > g.star)], n, n/theta.not), 0),
+                col = "red")
+        polygon(x = c(g.star, g.star, alt.curve$x[which(alt.curve$x > g.star)], upper.x),
+                y = c(0, dgamma(g.star, n, n / theta),
+                      dgamma(alt.curve$x[which(alt.curve$x > g.star)], n, n/theta), 0),
+                col = "grey")
+      }
+
+      
+      legend("topright",
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(power))),
+             lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
+      text(x = g.star, y = dgamma(g.star, n, n / theta.not), labels =  bquote('crit val'~'='~.(round(g.star, 2))), col = "red", pos = 2)
+    } else if(alternative == 'lesser'){
+      
+      g.star <- qgamma(alpha, n, n / theta.not, lower.tail = T)
+      upper.x <- max(c(2*theta, 2*theta.not, g.star + 1))
+
+      plot(1, type = "n", las = 1,
+           xlim = c(0.001, upper.x),
+           ylim = c(0, max(
+             c(max(dgamma(seq(0, 2*theta, length.out = 100), n, n / theta)),
+               max(dgamma(seq(0, 2*theta.not, length.out = 100), n, n / theta.not)),
+               max(dgamma(seq(0, g.star+1, length.out = 100), n, n/theta.not)))
+           )),
+           xlab = "T(x)",
+           ylab = bquote(f[bar(X)](x)),
+           main = bquote("Sampling Distribution of T(X) ="~bar(X)~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution with mean' ~ theta))
+      mtext(subtitle)
+
+
+      (alt.curve <- curve(dgamma(x, n, n / theta), add = T, n = 1000))
+      (null.curve <- curve(dgamma(x, n, n / theta.not), add = T, lty = 2, n = 1000))
+      abline(v = g.star, lty = 4, col = "red")
+
+      power <- round(pgamma(qgamma(alpha, n, n / theta.not), n, n / theta), 3)
+
+      if(power >= alpha ) {
+        polygon(x = c(0, alt.curve$x[which(alt.curve$x < g.star)], g.star, g.star),
+                y = c(0, dgamma(alt.curve$x[which(alt.curve$x < g.star)], n, n/theta),
+                      dgamma(g.star, n, n / theta), 0),
+                col = "grey")
+        polygon(x = c(0, null.curve$x[which(null.curve$x < g.star)], g.star, g.star),
+                y = c(0, dgamma(null.curve$x[which(null.curve$x < g.star)], n, n/theta.not),
+                      dgamma(g.star, n, n / theta.not), 0),
+                col = "red")
+      } else {
+        polygon(x = c(0, null.curve$x[which(null.curve$x < g.star)], g.star, g.star),
+                y = c(0, dgamma(null.curve$x[which(null.curve$x < g.star)], n, n/theta.not),
+                      dgamma(g.star, n, n / theta.not), 0),
+                col = "red")
+        polygon(x = c(0, alt.curve$x[which(alt.curve$x < g.star)], g.star, g.star),
+                y = c(0, dgamma(alt.curve$x[which(alt.curve$x < g.star)], n, n/theta),
+                      dgamma(g.star, n, n / theta), 0),
+                col = "grey")
+      }
+      legend("topright",
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(power))),
+             lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
+      #text(x = 100, y = .001, labels = paste("Power = ", dgamma(theta, n, 1 / theta)))
+      text(x = g.star, y = dgamma(g.star, n, n / theta.not), labels =  bquote('crit val'~'='~.(round(g.star, 2))), col = "red", pos = 4)
+
+    }
+  }
+  
+  if(statistic == "min"){
+    if(alternative == "not"){
       
       k1 <- qexp(alpha/2, n/theta.not)
       k2 <- qexp(1 - alpha/2, n/theta.not)
@@ -511,8 +627,8 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha, distrib
            )),
            xlab = "T(x)",
            ylab = bquote(f[X[(1)]](x)),
-           main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+           main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution with mean' ~ theta))
+      mtext(subtitle)
       
       (null.curve <- curve(dexp(x, n / theta.not), add = T, n = 1000, lty = 2))
       (alt.curve <- curve(dexp(x, n/theta), add = T, n = 1000))
@@ -563,10 +679,10 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha, distrib
       }
       
       legend("topright",
-             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(round(power, 3)))),
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(round(power, 3)))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
       
-    } else if(alternative == 'Less than'){
+    } else if(alternative == 'lesser'){
       plot(1, type = "n", las = 1,
            xlim = c(0.001, max(c(5*theta/n, 5*theta.not/n))), #5 times gives at least 96% of sampling dist by Chebychevs
            ylim = c(0, max(
@@ -575,8 +691,8 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha, distrib
            )),
            xlab = "T(x)",
            ylab = bquote(f[X[(1)]](x)),
-           main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+           main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution with mean' ~ theta))
+      mtext(subtitle)
       
       (alt.curve <- curve(dexp(x, n / theta), add = T, n = 1000))
       (null.curve <- curve(dexp(x, n / theta.not), add = T, lty = 2, n = 1000))
@@ -599,10 +715,10 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha, distrib
                       dexp(g.star, n/ theta), 0), col = "grey")
       }
       legend("topright",
-             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(round(1 - exp(theta.not*log(1 - alpha)/theta), 3)))),
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(round(1 - exp(theta.not*log(1 - alpha)/theta), 3)))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
       text(x = g.star, y = dgamma(g.star, n, 1 / theta.not), labels =  bquote('crit val'~'='~.(round(g.star, 4))), col = "red", pos = 4)
-    } else if(alternative == 'Greater than'){
+    } else if(alternative == 'greater'){
       plot(1, type = "n", las = 1,
            xlim = c(0.001, max(c(5*theta/n, 5*theta.not/n))), #5 times gives at least 96.5% of sampling dist by Chebychevs
            ylim = c(0, max(
@@ -611,8 +727,8 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha, distrib
            )),
            xlab = "T(x)",
            ylab = bquote(f[X[(1)]](x)),
-           main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+           main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution with mean' ~ theta))
+      mtext(subtitle)
       
       (alt.curve <- curve(dexp(x, n / theta), add = T, n = 1000))
       (null.curve <- curve(dexp(x, n / theta.not), add = T, lty = 2, n = 1000))
@@ -638,7 +754,7 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha, distrib
                 col = "grey")
       }
       legend("topright",
-             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(round(exp(theta.not*log(alpha)/theta), 2)))),
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(round(exp(theta.not*log(alpha)/theta), 2)))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
       
       text(x = g.star, y = dexp(g.star, n / theta.not), labels =  bquote('crit val'~'='~.(round(g.star,4))), col = "red", pos = 2)
@@ -646,9 +762,9 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha, distrib
 
   }
   
-  if(statistic == 'Sample Maximum'){
+  if(statistic == 'max'){
     
-    if(alternative == 'Not equal to'){
+    if(alternative == 'not'){
       
       k1 <- -theta.not * log(1 - (alpha/2) ^ (1/n))
       k2 <- -theta.not * log(1 - (1 - alpha/2) ^ (1/n))
@@ -682,8 +798,8 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha, distrib
            ylim = c(0, upper.y),
            xlab = "T(x)",
            ylab = bquote(f[X[(n)]](x)),
-           main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+           main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution with mean' ~ theta))
+      mtext(subtitle)
       
       (alt.curve <- curve(sampdist(x, theta, n), add = T, n = 1000))
       (null.curve <- curve(sampdist(x, theta.not, n), add = T, lty = 2, n = 1000))
@@ -734,12 +850,12 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha, distrib
       }
 
       legend("topright",
-             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(round(power, 3)))),
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(round(power, 3)))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
       
     } 
     
-    if(alternative == 'Less than'){
+    if(alternative == 'lesser'){
       
       # sampling distribution functions
       cdf <- function(x, y, theta, n){
@@ -767,8 +883,8 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha, distrib
            ylim = c(0, upper.y),
            xlab = "T(x)",
            ylab = bquote(f[X[(n)]](x)),
-           main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+           main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution with mean' ~ theta))
+      mtext(subtitle)
       
       (alt.curve <- curve(sampdist(x, theta, n), add = T, n = 1000))
       (null.curve <- curve(sampdist(x, theta.not, n), add = T, lty = 2, n = 1000))
@@ -794,12 +910,12 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha, distrib
       # legend
       power <- round(exp_samp_max_pwrfunc_less(theta, alpha, theta.not, n), 3)
       legend("topright",
-           legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(power))),
+           legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(power))),
            lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
       text(x = g.star, y = sampdist(g.star, theta.not, n), labels =  bquote('crit val'~'='~.(round(g.star, 4))), col = "red", pos = 4)
     }
     
-    if(alternative == 'Greater than'){
+    if(alternative == 'greater'){
       
       # sampling distribution functions
       cdf <- function(x, y, theta, n){
@@ -827,8 +943,8 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha, distrib
            ylim = c(0, upper.y),
            xlab = "T(x)",
            ylab = bquote(f[X[(n)]](x)),
-           main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+           main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution with mean' ~ theta))
+      mtext(subtitle)
       
       (alt.curve <- curve(sampdist(x, theta, n), add = T, n = 1000))
       (null.curve <- curve(sampdist(x, theta.not, n), add = T, lty = 2, n = 1000))
@@ -856,7 +972,7 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha, distrib
       # legend
       power <- round(exp_samp_max_pwrfunc_greater(theta, alpha, theta.not, n), 3)
       legend("topright",
-             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(power))),
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(power))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
       text(x = g.star, y = sampdist(g.star, theta.not, n), labels =  bquote('crit val'~'='~.(round(g.star, 4))), col = "red", pos = 2)
     }
@@ -867,9 +983,24 @@ exp.samp <- function(statistic, alternative, theta, theta.not, n, alpha, distrib
 # normal
 norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma, distribution){
   
+  distribution <- "Normal"
+  # subtitle
+  if(alternative == "greater"){
+    subtitle <- bquote("Plot options:" ~ theta[0] ~ "=" ~ .(theta.not) *"," ~ alpha ~ "=" ~ .(alpha) *"," ~ "n =" ~ .(n) *"," ~ "alt:" ~ ">" *"," ~ sigma ~ "=" ~ .(sigma))
+  }
+  
+  if(alternative == "lesser"){
+    subtitle <- bquote("Plot options:" ~ theta[0] ~ "=" ~ .(theta.not) *"," ~ alpha ~ "=" ~ .(alpha) *"," ~ "n =" ~ .(n) *"," ~ "alt:" ~ "<" *"," ~ sigma ~ "=" ~ .(sigma))
+  }
+  
+  if(alternative == "not"){
+    subtitle <- bquote("Plot options:" ~ theta[0] ~ "=" ~ .(theta.not) *"," ~ alpha ~ "=" ~ .(alpha) *"," ~ "n =" ~ .(n) *"," ~ "alt:" ~ symbol("\271") *"," ~ sigma ~ "=" ~ .(sigma))
+    
+  }
+  
   if(statistic == "sum"){
     
-    if(alternative == 'Not equal to'){
+    if(alternative == 'not'){
       
       k1 <- qnorm(alpha/2, n*theta.not, sqrt(n)*sigma)
       k2 <- qnorm(1- alpha/2, n*theta.not, sqrt(n)*sigma)
@@ -909,8 +1040,8 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma,
            ylim = c(0, upper.y),
            xlab = "T(x)",
            ylab = bquote(f[Sigma(X[i])](x)),
-           main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+           main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution'))
+      mtext(subtitle)
       
       (alt.curve <- curve(dnorm(x, n*theta, sqrt(n)*sigma), add = T, n = 1000))
       (null.curve <- curve(dnorm(x, n*theta.not, sqrt(n)*sigma), add = T, lty = 2, n = 1000))
@@ -962,12 +1093,12 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma,
       }
 
       legend("topright",
-             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(round(power, 3)))),
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(round(power, 3)))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
       
     } 
     
-    if(alternative == 'Less than'){
+    if(alternative == 'lesser'){
       
       # crit val
       g.star <- qnorm(alpha, n*theta.not, sqrt(n)*sigma)
@@ -992,8 +1123,8 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma,
            ylim = c(0, upper.y),
            xlab = "T(x)",
            ylab = bquote(f[Sigma(X[i])](x)),
-           main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+           main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution'))
+      mtext(subtitle)
       
       (alt.curve <- curve(dnorm(x, n*theta, sqrt(n)*sigma), add = T, n = 1000))
       (null.curve <- curve(dnorm(x, n*theta.not, sqrt(n)*sigma), add = T, lty = 2, n = 1000))
@@ -1019,12 +1150,12 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma,
       # legend
       power <- round(pnorm(qnorm(alpha, n*theta.not, sqrt(n)*sigma), n*theta, sqrt(n)*sigma), 2)
       legend("topright",
-             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(power))),
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(power))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
       text(x = g.star, y = dnorm(g.star, n*theta.not, sqrt(n)*sigma), labels =  bquote('crit val'~'='~.(round(g.star, 2))), col = "red", pos = 4)
     }
     
-    if(alternative == 'Greater than'){
+    if(alternative == 'greater'){
       
       # crit val
       g.star <- qnorm(1 - alpha, n*theta.not, sqrt(n)*sigma)
@@ -1049,8 +1180,8 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma,
            ylim = c(0, upper.y),
            xlab = "T(x)",
            ylab = bquote(f[Sigma(X[i])](x)),
-           main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+           main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution'))
+      mtext(subtitle)
       
       (alt.curve <- curve(dnorm(x, n*theta, sqrt(n)*sigma), add = T, n = 1000))
       (null.curve <- curve(dnorm(x, n*theta.not, sqrt(n)*sigma), add = T, lty = 2, n = 1000))
@@ -1078,15 +1209,15 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma,
       # legend
       power <- round(1 - pnorm(qnorm(1 - alpha, n*theta.not, sqrt(n)*sigma), n*theta, sqrt(n)*sigma), 2)
       legend("topright",
-             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(power))),
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(power))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
       text(x = g.star, y = dnorm(g.star, n*theta.not, sqrt(n)*sigma), labels =  bquote('crit val'~'='~.(round(g.star, 2))), col = "red", pos = 2)
     }
   } 
   
-  if(statistic == "Sample Minimum"){
+  if(statistic == "min"){
     
-    if(alternative == 'Not equal to'){
+    if(alternative == 'not'){
       
       k1 <- qnorm(1 - (1 - alpha/2) ^ (1/n), theta.not, sigma)
       k2 <- qnorm(1 - (alpha/2) ^ (1/n), theta.not, sigma)
@@ -1122,8 +1253,8 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma,
            ylim = c(0, upper.y),
            xlab = "T(x)",
            ylab = bquote(f[X[(1)]](x)),
-           main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+           main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution'))
+      mtext(subtitle)
       
       (alt.curve <- curve(sampdist(x, theta, n, sigma), add = T, n = 1000))
       (null.curve <- curve(sampdist(x, theta.not, n, sigma), add = T, lty = 2, n = 1000))
@@ -1175,14 +1306,14 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma,
       }
       
       legend("topright",
-             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(round(power, 3)))),
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(round(power, 3)))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
       
       
       
     } 
     
-    if(alternative == 'Less than'){
+    if(alternative == 'lesser'){
       
       # sampling distribution functions
       cdf <- function(x, y, theta, n, sigma = sigma){
@@ -1215,8 +1346,8 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma,
            ylim = c(0, upper.y),
            xlab = "T(x)",
            ylab = bquote(f[X[(1)]](x)),
-           main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+           main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution'))
+      mtext(subtitle)
       
       (alt.curve <- curve(sampdist(x, theta, n, sigma), add = T, n = 1000))
       (null.curve <- curve(sampdist(x, theta.not, n, sigma), add = T, lty = 2, n = 1000))
@@ -1242,12 +1373,12 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma,
       # legend
       power <- round(norm_samp_min_pwrfunc_less(theta, alpha, sigma, theta.not, n), 3)
       legend("topright",
-             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(power))),
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(power))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
       text(x = g.star, y = sampdist(g.star, theta.not, n, sigma), labels =  bquote('crit val'~'='~.(round(g.star, 2))), col = "red", pos = 4)
     }
     
-    if(alternative == 'Greater than'){
+    if(alternative == 'greater'){
       
       # sampling distribution functions
       # sampling distribution functions
@@ -1281,8 +1412,8 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma,
            ylim = c(0, upper.y),
            xlab = "T(x)",
            ylab = bquote(f[X[(1)]](x)),
-           main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+           main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution'))
+      mtext(subtitle)
       
       (alt.curve <- curve(sampdist(x, theta, n, sigma), add = T, n = 1000))
       (null.curve <- curve(sampdist(x, theta.not, n, sigma), add = T, lty = 2, n = 1000))
@@ -1310,16 +1441,16 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma,
       # legend
       power <- round(norm_samp_min_pwrfunc_greater(theta, alpha, sigma, theta.not, n), 3)
       legend("topright",
-             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(power))),
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(power))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
       text(x = g.star, y = sampdist(g.star, theta.not, n, sigma), labels =  bquote('crit val'~'='~.(round(g.star, 2))), col = "red", pos = 2)
     }
     
   } 
   
-  if(statistic == "Sample Maximum"){
+  if(statistic == "max"){
     
-    if(alternative == 'Not equal to'){
+    if(alternative == 'not'){
       
       k1 <- qnorm((alpha/2)^(1/n), theta.not, sigma)
       k2 <- qnorm((1 - alpha/2)^(1/n), theta.not, sigma)
@@ -1355,8 +1486,8 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma,
            ylim = c(0, upper.y),
            xlab = "T(x)",
            ylab = bquote(f[X[(n)]](x)),
-           main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+           main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution'))
+      mtext(subtitle)
       
       (alt.curve <- curve(sampdist(x, theta, n, sigma), add = T, n = 1000))
       (null.curve <- curve(sampdist(x, theta.not, n, sigma), add = T, lty = 2, n = 1000))
@@ -1408,14 +1539,14 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma,
       }
       
       legend("topright",
-             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(round(power, 3)))),
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(round(power, 3)))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
       
       
       
     } 
     
-    if(alternative == 'Less than'){
+    if(alternative == 'lesser'){
       
       # sampling distribution functions
       cdf <- function(x, y, theta, n, sigma = sigma){
@@ -1448,8 +1579,8 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma,
            ylim = c(0, upper.y),
            xlab = "T(x)",
            ylab = bquote(f[X[(n)]](x)),
-           main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+           main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution'))
+      mtext(subtitle)
       
       (alt.curve <- curve(sampdist(x, theta, n, sigma), add = T, n = 1000))
       (null.curve <- curve(sampdist(x, theta.not, n, sigma), add = T, lty = 2, n = 1000))
@@ -1475,12 +1606,12 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma,
       # legend
       power <- round(norm_samp_max_pwrfunc_less(theta, alpha, sigma, theta.not, n), 3)
       legend("topright",
-             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(power))),
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(power))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
       text(x = g.star, y = sampdist(g.star, theta.not, n, sigma), labels =  bquote('crit val'~'='~.(round(g.star, 2))), col = "red", pos = 4)
     }
     
-    if(alternative == 'Greater than'){
+    if(alternative == 'greater'){
       
       # sampling distribution functions
       cdf <- function(x, y, theta, n, sigma = sigma){
@@ -1513,8 +1644,8 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma,
            ylim = c(0, upper.y),
            xlab = "T(x)",
            ylab = bquote(f[X[(n)]](x)),
-           main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+           main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution'))
+      mtext(subtitle)
       
       (alt.curve <- curve(sampdist(x, theta, n, sigma), add = T, n = 1000))
       (null.curve <- curve(sampdist(x, theta.not, n, sigma), add = T, lty = 2, n = 1000))
@@ -1542,22 +1673,256 @@ norm.samp <- function(statistic, alternative, theta, theta.not, n, alpha, sigma,
       # legend
       power <- round(norm_samp_max_pwrfunc_greater(theta, alpha, sigma, theta.not, n), 3)
       legend("topright",
-             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(power))),
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(power))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
       text(x = g.star, y = sampdist(g.star, theta.not, n, sigma), labels =  bquote('crit val'~'='~.(round(g.star, 2))), col = "red", pos = 2)
     }
   }
+  
+  if(statistic == "mean"){
+    
+    if(alternative == 'not'){
+      
+      k1 <- qnorm(alpha/2, theta.not, sigma/sqrt(n))
+      k2 <- qnorm(1- alpha/2, theta.not, sigma/sqrt(n))
+      power <- 1 - pnorm(k2, theta, sigma/sqrt(n)) + pnorm(k1, theta, sigma/sqrt(n))
+      upper.power <- power - pnorm(k1, theta, sigma/sqrt(n))
+      lower.power <- pnorm(k1, theta, sigma/sqrt(n))
+      
+      # plotting limits
+      
+      if(is.na(theta)){
+        upper.x <- max(c(
+          theta.not + 5*sigma/sqrt(n),
+          theta + 5*sigma/sqrt(n)
+        ))
+        lower.x <- min(c(
+          theta.not - 5*sigma/sqrt(n),
+          theta - 5*sigma/sqrt(n)
+        ))
+      } else{
+        upper.x <- max(c(
+          theta.not + 5*sigma/sqrt(n),
+          theta + 5*sigma/sqrt(n)
+        ))
+        lower.x <- min(c(
+          theta.not - 5*sigma/sqrt(n),
+          theta - 5*sigma/sqrt(n)
+        ))
+      }
+      
+      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 500), FUN = function(x) dnorm(x, theta.not, sigma/sqrt(n))))
+      altmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 500), FUN = function(x) dnorm(x, theta, sigma/sqrt(n))))
+      upper.y <- max(c(nullmax, altmax))
+      
+      # plot
+      plot(1, type = "n", las = 1,
+           xlim = c(lower.x, upper.x),
+           ylim = c(0, upper.y),
+           xlab = "T(x)",
+           ylab = bquote(f[bar(X)](x)),
+           main = bquote("Sampling Distribution of T(X) ="~bar(X)~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution'))
+      mtext(subtitle)
+      
+      (alt.curve <- curve(dnorm(x, theta, sigma/sqrt(n)), add = T, n = 1000))
+      (null.curve <- curve(dnorm(x, theta.not, sigma/sqrt(n)), add = T, lty = 2, n = 1000))
+      
+      abline(v = k1, lty = 4, col = "red")
+      abline(v = k2, lty = 4, col = "red")
+      
+      if(lower.power < alpha/2){
+        polygon(x = c(null.curve$x[which(null.curve$x < k1)], k1, k1),
+                y = c(dnorm(null.curve$x[which(null.curve$x < k1)], theta.not, sigma/sqrt(n)), 
+                      dnorm(k1, theta.not, sigma/sqrt(n)), 0),
+                col = "red")
+        polygon(x = c(alt.curve$x[which(alt.curve$x < k1)], k1, k1),
+                y = c(dnorm(null.curve$x[which(null.curve$x < k1)], theta, sigma/sqrt(n)), 
+                      dnorm(k1, theta, sigma/sqrt(n)), 0),
+                col = "grey")
+        text(x = k1, y = dnorm(k1, theta.not, sigma/sqrt(n)), labels = bquote('crit val'~'='~.(round(k1, 2))), col = "red", pos = 4)
+        
+        polygon(x = c(k2, k2, alt.curve$x[which(alt.curve$x > k2)]),
+                y = c(0, dnorm(k2, theta, sigma/sqrt(n)),
+                      dnorm(alt.curve$x[which(alt.curve$x > k2)], theta, sigma/sqrt(n))),
+                col = "grey")
+        polygon(x = c(k2, k2, null.curve$x[which(null.curve$x > k2)]),
+                y = c(0, dnorm(k2, theta.not, sigma/sqrt(n)),
+                      dnorm(null.curve$x[which(null.curve$x > k2)], theta.not, sigma/sqrt(n))),
+                col = "red")
+        text(x = k2, y = dnorm(k2, theta.not, sigma/sqrt(n)), labels = bquote('crit val'~'='~.(round(k2, 2))), col = "red", pos = 4)
+      } else{
+        polygon(x = c(alt.curve$x[which(alt.curve$x < k1)], k1, k1),
+                y = c(dnorm(null.curve$x[which(null.curve$x < k1)], theta, sigma/sqrt(n)), 
+                      dnorm(k1, theta, sigma/sqrt(n)), 0),
+                col = "grey")
+        polygon(x = c(null.curve$x[which(null.curve$x < k1)], k1, k1),
+                y = c(dnorm(null.curve$x[which(null.curve$x < k1)], theta.not, sigma/sqrt(n)), 
+                      dnorm(k1, theta.not, sigma/sqrt(n)), 0),
+                col = "red")
+        text(x = k1, y = dnorm(k1, theta.not, sigma/sqrt(n)), labels = bquote('crit val'~'='~.(round(k1, 2))), col = "red", pos = 4)
+        
+        polygon(x = c(k2, k2, null.curve$x[which(null.curve$x > k2)]),
+                y = c(0, dnorm(k2, theta.not, sigma/sqrt(n)),
+                      dnorm(null.curve$x[which(null.curve$x > k2)], theta.not, sigma/sqrt(n))),
+                col = "red")
+        polygon(x = c(k2, k2, alt.curve$x[which(alt.curve$x > k2)]),
+                y = c(0, dnorm(k2, theta, sigma/sqrt(n)),
+                      dnorm(alt.curve$x[which(alt.curve$x > k2)], theta, sigma/sqrt(n))),
+                col = "grey")
+        text(x = k2, y = dnorm(k2, theta.not, sigma/sqrt(n)), labels = bquote('crit val'~'='~.(round(k2, 2))), col = "red", pos = 4)
+        
+      }
+      
+      legend("topright",
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(round(power, 3)))),
+             lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
+      
+    } 
+    
+    if(alternative == 'lesser'){
+      
+      # crit val
+      g.star <- qnorm(alpha, theta.not, sigma/ sqrt(n))
+      
+      # plotting limits
+      upper.x <- max(c(
+        theta.not + 5*sigma/sqrt(n),
+        theta + 5*sigma/ sqrt(n)
+      ))
+      
+      lower.x <- min(c(
+        theta.not - 5*sigma/ sqrt(n),
+        theta - 5*sigma/ sqrt(n)
+      ))
+      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 500), FUN = function(x) dnorm(x, theta.not, sigma/ sqrt(n))))
+      altmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 500), FUN = function(x) dnorm(x, theta, sigma/ sqrt(n))))
+      upper.y <- max(c(nullmax, altmax))
+      
+      # plot
+      plot(1, type = "n", las = 1,
+           xlim = c(lower.x, upper.x),
+           ylim = c(0, upper.y),
+           xlab = "T(x)",
+           ylab = bquote(f[bar(X)](x)),
+           main = bquote("Sampling Distribution of T(X) ="~bar(X)~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution'))
+      mtext(subtitle)
+      
+      (alt.curve <- curve(dnorm(x, theta, sigma/ sqrt(n)), add = T, n = 1000))
+      (null.curve <- curve(dnorm(x, theta.not, sigma/ sqrt(n)), add = T, lty = 2, n = 1000))
+      abline(v = g.star, lty = 4, col = "red")
+      
+      # polygons
+      if(pnorm(qnorm(alpha, theta.not, sigma/sqrt(n)), theta, sigma/ sqrt(n)) >= alpha){
+        polygon(x = c(alt.curve$x[which(alt.curve$x < g.star)], g.star, g.star),
+                y = c(dnorm(alt.curve$x[which(alt.curve$x < g.star)], theta, sigma/ sqrt(n)),
+                      dnorm(g.star, theta, sigma/ sqrt(n)), 0), col = "grey")
+        polygon(x = c(alt.curve$x[which(alt.curve$x < g.star)], g.star, g.star),
+                y = c(dnorm(alt.curve$x[which(alt.curve$x < g.star)], theta.not, sigma/ sqrt(n)),
+                      dnorm(g.star, theta.not, sigma/sqrt(n)), 0), col = "red")
+      } else{
+        polygon(x = c(alt.curve$x[which(alt.curve$x < g.star)], g.star, g.star),
+                y = c(dnorm(alt.curve$x[which(alt.curve$x < g.star)], theta.not, sigma/ sqrt(n)),
+                      dnorm(g.star, theta.not, sigma/ sqrt(n)), 0), col = "red")
+        polygon(x = c(alt.curve$x[which(alt.curve$x < g.star)], g.star, g.star),
+                y = c(dnorm(alt.curve$x[which(alt.curve$x < g.star)], theta, sigma/ sqrt(n)),
+                      dnorm(g.star, theta, sigma/ sqrt(n)), 0), col = "grey")
+      }
+      
+      # legend
+      power <- round(pnorm(qnorm(alpha, theta.not, sigma/ sqrt(n)), theta, sigma/ sqrt(n)), 3)
+      legend("topright",
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(power))),
+             lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
+      text(x = g.star, y = dnorm(g.star, theta.not, sigma/ sqrt(n)), labels =  bquote('crit val'~'='~.(round(g.star, 2))), col = "red", pos = 4)
+    }
+
+    if(alternative == 'greater'){
+      
+      # crit val
+      g.star <- qnorm(1 - alpha, theta.not, sigma/sqrt(n))
+      
+      # plotting limits
+      upper.x <- max(c(
+        theta.not + 5*sigma/sqrt(n),
+        theta + 5*sigma/sqrt(n)
+      ))
+      
+      lower.x <- min(c(
+        theta.not - 5*sigma/sqrt(n),
+        theta - 5*sigma/sqrt(n)
+      ))
+      nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 500), FUN = function(x) dnorm(x, theta.not, sigma/sqrt(n))))
+      altmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 500), FUN = function(x) dnorm(x, theta, sigma/sqrt(n))))
+      upper.y <- max(c(nullmax, altmax))
+      
+      # plot
+      plot(1, type = "n", las = 1,
+           xlim = c(lower.x, upper.x),
+           ylim = c(0, upper.y),
+           xlab = "T(x)",
+           ylab = bquote(f[bar(X)](x)),
+           main = bquote("Sampling Distribution of T(X) ="~bar(X)~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution'))
+      mtext(subtitle)
+      
+      (alt.curve <- curve(dnorm(x, theta, sigma/sqrt(n)), add = T, n = 1000))
+      (null.curve <- curve(dnorm(x, theta.not, sigma/sqrt(n)), add = T, lty = 2, n = 1000))
+      abline(v = g.star, lty = 4, col = "red")
+      
+      # polygons
+      if(1 - pnorm(qnorm(1 - alpha, theta.not, sigma/sqrt(n)), theta, sigma/sqrt(n)) >= alpha){
+        polygon(x = c(g.star, g.star, alt.curve$x[which(alt.curve$x > g.star)]),
+                y = c(0, dnorm(g.star, theta, sigma/sqrt(n)), dnorm(alt.curve$x[which(alt.curve$x > g.star)], theta, sigma/sqrt(n))),
+                col = "grey")
+        polygon(x = c(g.star, g.star, null.curve$x[which(null.curve$x > g.star)]),
+                y = c(0, dnorm(g.star, theta.not, sigma/sqrt(n)),
+                      dnorm(null.curve$x[which(null.curve$x > g.star)], theta.not, sigma/sqrt(n))),
+                col = "red")
+      } else{
+        polygon(x = c(g.star, g.star, null.curve$x[which(null.curve$x > g.star)]),
+                y = c(0, dnorm(g.star, theta.not, sigma/sqrt(n)),
+                      dnorm(null.curve$x[which(null.curve$x > g.star)], theta.not, sigma/sqrt(n))),
+                col = "red")
+        polygon(x = c(g.star, g.star, alt.curve$x[which(alt.curve$x > g.star)]),
+                y = c(0, dnorm(g.star, theta, sigma/sqrt(n)), dnorm(alt.curve$x[which(alt.curve$x > g.star)], theta, sigma/sqrt(n))),
+                col = "grey")
+      }
+      
+      # legend
+      power <- round(1 - pnorm(qnorm(1 - alpha, theta.not, sigma/sqrt(n)), theta, sigma/sqrt(n)), 3)
+      legend("topright",
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(power))),
+             lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
+      text(x = g.star, y = dnorm(g.star, theta.not, sigma/sqrt(n)), labels =  bquote('crit val'~'='~.(round(g.star, 2))), col = "red", pos = 2)
+    }
+  } 
     
 }
 
 # uniform
 unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.approx = F, distribution){
   
+  distribution <- "Uniform"
+  
+  
+  if(alternative == "greater"){
+    subtitle <- bquote("Plot options:" ~ theta[0] ~ "=" ~ .(theta.not) *"," ~ alpha ~ "=" ~ .(alpha) *"," ~ "n =" ~ .(n) *"," ~ "alt:" ~ ">")
+  }
+  
+  if(alternative == "lesser"){
+    subtitle <- bquote("Plot options:" ~ theta[0] ~ "=" ~ .(theta.not) *"," ~ alpha ~ "=" ~ .(alpha) *"," ~ "n =" ~ .(n) *"," ~ "alt:" ~ "<")
+  }
+  
+  if(alternative == "not"){
+    subtitle <- bquote("Plot options:" ~ theta[0] ~ "=" ~ .(theta.not) *"," ~ alpha ~ "=" ~ .(alpha) *"," ~ "n =" ~ .(n) *"," ~ "alt:" ~ symbol("\271"))
+    
+  }
+  
+  
   if(statistic == "sum"){
     
     if(norm.approx){
       
-      if(alternative == 'Not equal to'){
+      if(alternative == 'not'){
         k1 <- qnorm(alpha/2, n * theta.not / 2, sqrt(n * theta.not^2 / 12))
         k2 <- qnorm(1 - alpha/2, n * theta.not / 2, sqrt(n * theta.not^2 / 12))
         power <- 1 - pnorm(k2, n*theta/2, sqrt(n * theta^2 / 12)) + pnorm(k1, n*theta/2, sqrt(n * theta^2 / 12))
@@ -1583,14 +1948,14 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
         upper.y <- max(c(nullmax, altmax))
         
         # plot
-        title <- bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2)) ~ "based on a normal approximation")
+        title <- bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2)) ~"for samples from the" ~ .(distribution) ~ 'distribution'~ "based on a normal approximation")
         plot(1, type = "n", las = 1,
              xlim = c(lower.x, upper.x),
              ylim = c(0, upper.y),
              xlab = "T(x)",
              ylab = bquote(f[Sigma(X[i])](x)),
              main = title)
-        mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+        mtext(subtitle)
         
         (alt.curve <- curve(dnorm(x, n*theta/2, sqrt(n*theta^2/12)), add = T, n = 1000))
         (null.curve <- curve(dnorm(x, n*theta.not/2, sqrt(n*theta.not^2/12)), add = T, lty = 2, n = 1000))
@@ -1625,12 +1990,12 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
         }
         
         legend("topright",
-               legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(round(power, 3)))),
+               legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(round(power, 3)))),
                lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
         
       } 
       
-      if(alternative == 'Less than'){
+      if(alternative == 'lesser'){
         
         # crit val
         k1 <- qnorm(alpha, n * theta.not / 2, sqrt(n * theta.not^2 / 12))
@@ -1653,14 +2018,14 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
         upper.y <- max(c(nullmax, altmax))
         
         # plot
-        title <- bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2)) ~ "based on a normal approximation")
+        title <- bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2)) ~"for samples from the" ~ .(distribution) ~ 'distribution'~ "based on a normal approximation")
         plot(1, type = "n", las = 1,
              xlim = c(lower.x, upper.x),
              ylim = c(0, upper.y),
              xlab = "T(x)",
              ylab = bquote(f[Sigma(X[i])](x)),
              main = title)
-        mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+        mtext(subtitle)
         
         (alt.curve <- curve(dnorm(x, n*theta/2, sqrt(n*theta^2/12)), add = T, n = 1000))
         (null.curve <- curve(dnorm(x, n*theta.not/2, sqrt(n*theta.not^2/12)), add = T, lty = 2, n = 1000))
@@ -1683,13 +2048,13 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
         
         # legend
         legend("topright",
-               legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(power))),
+               legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(power))),
                lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
         text(x = k1, y = dnorm(k1, n*theta.not/2, sqrt(n * theta.not^2/12)), labels =  bquote('crit val'~'='~.(round(k1, 2))), col = "red", pos = 2)
         
       }
       
-      if(alternative == 'Greater than'){
+      if(alternative == 'greater'){
         # crit val
         k1 <- qnorm(1 - alpha, n * theta.not / 2, sqrt(n * theta.not^2 / 12))
         
@@ -1711,14 +2076,14 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
         upper.y <- max(c(nullmax, altmax))
         
         # plot
-        title <- bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"based on a normal approximation")
+        title <- bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution'~"based on a normal approximation")
         plot(1, type = "n", las = 1,
              xlim = c(lower.x, upper.x),
              ylim = c(0, upper.y),
              xlab = "T(x)",
              ylab = bquote(f[Sigma(X[i])](x)),
              main = title)
-        mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+        mtext(subtitle)
         
         (alt.curve <- curve(dnorm(x, n*theta/2, sqrt(n*theta^2/12)), add = T, n = 1000))
         (null.curve <- curve(dnorm(x, n*theta.not/2, sqrt(n*theta.not^2/12)), add = T, lty = 2, n = 1000))
@@ -1741,14 +2106,14 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
 
         # legend
         legend("topright",
-               legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(power))),
+               legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(power))),
                lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
         text(x = k1, y = dnorm(k1, n*theta.not/2, sqrt(n * theta.not^2/12)), labels =  bquote('crit val'~'='~.(round(k1, 2))), col = "red", pos = 2)
       }
       
     } else{
       
-      if(alternative == 'Not equal to'){
+      if(alternative == 'not'){
         
         k1 <- qirwinhall(alpha/2, n, theta.not)
         k2 <- qirwinhall(1 - alpha/2, n, theta.not)
@@ -1779,10 +2144,10 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
              ylim = c(0, upper.y),
              xlab = "T(x)",
              ylab = bquote(f[Sigma(X[i])](x)),
-             main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
+             main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution'))
         (alt.curve <- curve(dirwinhall(x, n, theta), add = T, n = 1000))
         (null.curve <- curve(dirwinhall(x, n, theta.not), add = T, lty = 2, n = 1000))
-        mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+        mtext(subtitle)
         
         abline(v = k1, lty = 4, col = "red")
         abline(v = k2, lty = 4, col = "red")
@@ -1830,12 +2195,12 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
         }
         
         legend("topright",
-               legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(round(power, 3)))),
+               legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(round(power, 3)))),
                lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
         
       } 
       
-      if(alternative == 'Less than'){
+      if(alternative == 'lesser'){
 
         # crit val
         g.star <- qirwinhall(alpha, n, theta.not)
@@ -1863,8 +2228,8 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
              ylim = c(0, upper.y),
              xlab = "T(x)",
              ylab = bquote(f[Sigma(X[i])](x)),
-             main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-        mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+             main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution'))
+        mtext(subtitle)
         
         (alt.curve <- curve(dirwinhall(x, n, theta), add = T, n = 1000))
         (null.curve <- curve(dirwinhall(x, n, theta.not), add = T, lty = 2, n = 1000))
@@ -1890,13 +2255,13 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
         # legend
         power <- round(unif_sum_pwrfunc_less(theta, alpha, theta.not, n), 3)
         legend("topright",
-               legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(power))),
+               legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(power))),
                lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
         text(x = g.star, y = dirwinhall(g.star, n, theta.not), labels =  bquote('crit val'~'='~.(round(g.star, 2))), col = "red", pos = 4)
 
       }
       
-      if(alternative == 'Greater than'){
+      if(alternative == 'greater'){
         # crit val
         g.star <- qirwinhall(1 - alpha, n, theta.not)
 
@@ -1924,8 +2289,8 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
              ylim = c(0, upper.y),
              xlab = "T(x)",
              ylab = bquote(f[Sigma(X[i])](x)),
-             main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-        mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+             main = bquote("Sampling Distribution of T(X) ="~Sigma(X[i])~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution'))
+        mtext(subtitle)
         
         (alt.curve <- curve(dirwinhall(x, n, theta), add = T, n = 1000))
         (null.curve <- curve(dirwinhall(x, n, theta.not), add = T, lty = 2, n = 1000))
@@ -1947,7 +2312,7 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
         # legend
         power <- round(unif_sum_pwrfunc_greater(theta, alpha, theta.not, n), 3)
         legend("topright",
-               legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(power))),
+               legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(power))),
                lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
         text(x = g.star, y = dirwinhall(g.star, n, theta.not), labels =  bquote('crit val'~'='~.(round(g.star, 2))), col = "red", pos = 2)
       }
@@ -1956,9 +2321,9 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
     
   }
   
-  if(statistic == "Sample Minimum"){
+  if(statistic == "min"){
     
-    if(alternative == 'Not equal to'){
+    if(alternative == 'not'){
       
       # crit val
       k1 <- theta.not * (1 - (1 - alpha/2)^(1/n))
@@ -2013,8 +2378,8 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
            ylim = c(0, upper.y),
            xlab = "T(x)",
            ylab = bquote(f[X[(1)]](x)),
-           main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+           main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution'))
+      mtext(subtitle)
       
       (alt.curve <- curve(sampdist.vec(x, theta, n), add = T, n = 1000))
       (null.curve <- curve(sampdist.vec(x, theta.not, n), add = T, lty = 2, n = 1000))
@@ -2062,11 +2427,11 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
       
       # legend
       legend("topright",
-             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(power))),
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(power))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
     }
     
-    if(alternative == 'Less than'){
+    if(alternative == 'lesser'){
       
       # crit val
       k1 <- theta.not * (1 - (1 - alpha)^(1/n))
@@ -2120,8 +2485,8 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
            ylim = c(0, upper.y),
            xlab = "T(x)",
            ylab = bquote(f[X[(1)]](x)),
-           main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+           main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution'))
+      mtext(subtitle)
       
       (alt.curve <- curve(sampdist.vec(x, theta, n), add = T, n = 1000))
       (null.curve <- curve(sampdist.vec(x, theta.not, n), add = T, lty = 2, n = 1000))
@@ -2148,13 +2513,13 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
 
       # legend
       legend("topright",
-             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(power))),
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(power))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
       text(x = k1, y = sampdist(k1, theta.not, n), labels =  bquote('crit val'~'='~.(round(k1, 4))), col = "red", pos = 4)
       
     }
     
-    if(alternative == 'Greater than'){
+    if(alternative == 'greater'){
       
       # crit val
       k1 <- theta.not * (1 - alpha^(1/n))
@@ -2206,8 +2571,8 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
            ylim = c(0, upper.y),
            xlab = "T(x)",
            ylab = bquote(f[X[(1)]](x)),
-           main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+           main = bquote("Sampling Distribution of T(X) ="~X[(1)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution'))
+      mtext(subtitle)
       
       (alt.curve <- curve(sampdist.vec(x, theta, n), add = T, n = 1000))
       (null.curve <- curve(sampdist.vec(x, theta.not, n), add = T, lty = 2, n = 1000))
@@ -2233,7 +2598,7 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
       # 
       # # legend
       legend("topright",
-             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(power))),
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(power))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
       text(x = k1, y = sampdist(k1, theta.not, n), labels =  bquote('crit val'~'='~.(round(k1, 4))), col = "red", pos = 2)
       
@@ -2241,9 +2606,9 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
     
   }
   
-  if(statistic == "Sample Maximum"){
+  if(statistic == "max"){
     
-    if(alternative == 'Not equal to'){
+    if(alternative == 'not'){
       
       # crit val
       k1 <- theta.not * (alpha/2)^(1/n)
@@ -2287,7 +2652,7 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
       #   uniroot(cdf, y = .0001, theta = theta, n = n, lower = theta - 5*n, upper = theta + 5*n, extendInt = "yes", tol = .000001)$root,
       #   uniroot(cdf, y = .0001, theta = theta.not, n = n, lower = theta.not - 5*n, upper = theta.not + 5*n, extendInt = "yes", tol = .000001)$root
       # ))
-      lower.x <- (.0001*theta^n)^(1/n)
+      lower.x <- min(c((.0001*theta^n)^(1/n), (.0001*theta.not^n)^(1/n)))
       upper.x <- max(c(theta, theta.not))
       
       # nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 500), FUN = function(x) sampdist(x, theta.not, n)))
@@ -2300,8 +2665,8 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
            ylim = c(0, upper.y),
            xlab = "T(x)",
            ylab = bquote(f[X[(1)]](x)),
-           main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+           main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution'))
+      mtext(subtitle)
       
       (alt.curve <- curve(sampdist.vec(x, theta, n), add = T, n = 1000))
       (null.curve <- curve(sampdist.vec(x, theta.not, n), add = T, lty = 2, n = 1000))
@@ -2349,11 +2714,11 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
       
       # legend
       legend("topleft",
-             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(power))),
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(power))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
     }
     
-    if(alternative == 'Less than'){
+    if(alternative == 'lesser'){
       
       # crit val
       k1 <- theta.not * (alpha)^(1/n)
@@ -2394,7 +2759,7 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
       #   uniroot(cdf, y = .0001, theta = theta, n = n, lower = theta - 5*n, upper = theta + 5*n, extendInt = "yes")$root,
       #   uniroot(cdf, y = .0001, theta = theta.not, n = n, lower = theta.not - 5*n, upper = theta.not + 5*n, extendInt = "yes")$root
       # ))
-      lower.x <- (.0001*theta^n)^(1/n)
+      lower.x <- min(c((.0001*theta^n)^(1/n), (.0001*theta.not^n)^(1/n)))
       upper.x <- max(c(theta, theta.not))
 
       nullmax <- sampdist(theta.not, theta.not, n)
@@ -2407,8 +2772,8 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
            ylim = c(0, upper.y),
            xlab = "T(x)",
            ylab = bquote(f[X[(1)]](x)),
-           main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+           main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution'))
+      mtext(subtitle)
       
       (alt.curve <- curve(sampdist.vec(x, theta, n), add = T, n = 1000))
       (null.curve <- curve(sampdist.vec(x, theta.not, n), add = T, lty = 2, n = 1000))
@@ -2436,13 +2801,13 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
 
       # legend
       legend("topleft",
-             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(power))),
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(power))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
       text(x = k1, y = sampdist(k1, theta.not, n), labels =  bquote('crit val'~'='~.(round(k1, 2))), col = "red", pos = 4)
       
     }
     
-    if(alternative == 'Greater than'){
+    if(alternative == 'greater'){
       
       # crit val
       k1 <- theta.not * (1 - alpha)^(1/n)
@@ -2483,7 +2848,7 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
       #   uniroot(cdf, y = .0001, theta = theta, n = n, lower = theta - 5*n, upper = theta + 5*n, extendInt = "yes")$root,
       #   uniroot(cdf, y = .0001, theta = theta.not, n = n, lower = theta.not - 5*n, upper = theta.not + 5*n, extendInt = "yes")$root
       # ))
-      lower.x <- (.0001*theta^n)^(1/n)
+      lower.x <- min(c((.0001*theta^n)^(1/n), (.0001*theta.not^n)^(1/n)))
       upper.x <- max(c(theta, theta.not))
       
       # nullmax <- max(sapply(seq(from = lower.x, to = upper.x, length.out = 500), FUN = function(x) sampdist(x, theta.not, n)))
@@ -2496,8 +2861,8 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
            ylim = c(0, upper.y),
            xlab = "T(x)",
            ylab = bquote(f[X[(1)]](x)),
-           main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))))
-      mtext(bquote("for samples from the" ~ .(distribution) ~ 'distribution'))
+           main = bquote("Sampling Distribution of T(X) ="~X[(n)]~"for"~theta~"="~.(round(theta, 2))~"and"~theta[0]~"="~.(round(theta.not,2))~"for samples from the" ~ .(distribution) ~ 'distribution'))
+      mtext(subtitle)
       
       (alt.curve <- curve(sampdist.vec(x, theta, n), add = T, n = 1000))
       (null.curve <- curve(sampdist.vec(x, theta.not, n), add = T, lty = 2, n = 1000))
@@ -2524,7 +2889,7 @@ unif.samp <- function(statistic, alternative, theta, theta.not, n, alpha, norm.a
 
       # legend
       legend("topleft",
-             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote(beta(theta)~"="~.(power))),
+             legend = c(expression(paste("Sampling Distribution Under ",theta)), bquote("Sampling Distribution Under"~theta[0]), bquote(alpha), bquote("Power"(theta)~"="~.(power))),
              lty = c(1,2,NA,NA), pch = c(NA, NA, 15, 15), col = c(1,1,"red","gray") , bty = "n")
       text(x = k1, y = sampdist(k1, theta.not, n), labels =  bquote('crit val'~'='~.(round(k1, 2))), col = "red", pos = 2)
       

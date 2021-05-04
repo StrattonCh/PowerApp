@@ -8,13 +8,13 @@ Suppose that $X_i \stackrel{iid}{\sim} \text{Unif}(0, \theta)$, and we take a ra
 
 Consider the following test function:
 \[
-\phi(X) = \begin{cases}
+\phi(\boldsymbol{X}) = \begin{cases}
 1 & X_{(n)} < k \\
 0 & \text{else}
 \end{cases},
 \]
 
-where $k$ is chosen such that $Pr(\phi(X) = 1|\theta_0) = \alpha$. To find this value of $k$, we need to know the distribution of the sample max. By definition, 
+where $k$ is chosen such that $Pr(\phi(\boldsymbol{X}) = 1|\theta_0) = \alpha$. To find this value of $k$, we need to know the distribution of the sample max. By definition, 
 \[
 F_{X_{(n)}}(x) = \left[F_X(x)\right]^n = \left[\frac{x}{\theta}\right]^n = \frac{x^n}{\theta^n}
 \]
@@ -36,7 +36,7 @@ k &= \theta_0\alpha^{1/n}
 
 Therefore, our test function is
 \[
-\phi(X) = \begin{cases}
+\phi(\boldsymbol{X}) = \begin{cases}
 1 & X_{(n)} < \theta_0\alpha^{1/n}  \\
 0 & \text{else}
 \end{cases}
@@ -50,7 +50,7 @@ For $0 < \theta < k$:
 For $\theta \geq k$
 \[
 \begin{split}
-\beta(\theta) &= Pr(X \in RR) = Pr\left(X_{(n)} < \theta_0\alpha^{1/n} \Big| \theta\right) \\
+Power(\theta) &= Pr(\boldsymbol{X} \in RR) = Pr\left(X_{(n)} < \theta_0\alpha^{1/n} \Big| \theta\right) \\
 &= \frac{\theta_0^n\alpha}{\theta^n}
 \end{split}
 \]

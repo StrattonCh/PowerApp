@@ -1,4 +1,4 @@
-Suppose that $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
+Suppose that $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, where $\theta$ represents the mean, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
 \[
 \begin{split}
 \text{$H_0$: }& \theta = \theta_0 \\
@@ -8,13 +8,13 @@ Suppose that $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, and we take a random
 
 Consider the following test function:
 \[
-\phi(X) = \begin{cases}
+\phi(\boldsymbol{X}) = \begin{cases}
 1 & X_{(n)} < k_1 \text{ or } X_{(n)} > k_2 \\
 0 & \text{else}
 \end{cases},
 \]
 
-where $k_1$ and $k_2$ are chosen such that $Pr(\phi(X) = 1|\theta_0) = \alpha$. To find these values of $k_1$ and $k_2$, we need to know the distribution of the sample max. By definition, 
+where $k_1$ and $k_2$ are chosen such that $Pr(\phi(\boldsymbol{X}) = 1|\theta_0) = \alpha$. To find these values of $k_1$ and $k_2$, we need to know the distribution of the sample max. By definition, 
 \[
 F_{X_{(n)}}(x) = \left[F_X(x)\right]^n = \left[1 - \text{exp}(-\frac{x}{\theta})\right]^n
 \]
@@ -44,7 +44,7 @@ k_2 &= -\theta_0\log(1 - (1-\alpha/2)^{1/n})
 
 where $\log$ denotes the natural log. Therefore, our test function is
 \[
-\phi(X) = \begin{cases}
+\phi(\boldsymbol{X}) = \begin{cases}
 1 & X_{(n)} < -\theta_0\log(1 - (\alpha/2)^{1/n}) \text{ or } X_{(n)} > -\theta_0\log(1 - (1-\alpha/2)^{1/n}) \\
 0 & \text{else}
 \end{cases}
@@ -53,7 +53,7 @@ where $\log$ denotes the natural log. Therefore, our test function is
 And our power function is
 \[
 \begin{split}
-\beta(\theta) &= Pr(X \in RR)  \\
+Power(\theta) &= Pr(\boldsymbol{X} \in RR)  \\
 &= 1 - Pr\left(X_{(n)} < -\theta_0\log(1 - (1-\alpha/2)^{1/n} \Big| \theta\right) + Pr\left(X_{(n)} < -\theta_0\log(1 - (\alpha/2)^{1/n}) \Big| \theta\right)\\
 &= 1 - \left[1 - \text{exp}\left(\frac{-\theta_0\log(1 - (1-\alpha/2)^{1/n})}{\theta}\right)\right]^n + \left[1 - \text{exp}\left(\frac{-\theta_0\log(1 - (\alpha/2)^{1/n})}{\theta}\right)\right]^n
 \end{split}

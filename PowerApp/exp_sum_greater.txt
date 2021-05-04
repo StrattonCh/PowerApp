@@ -1,4 +1,4 @@
-Suppose that $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
+Suppose that $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, where $\theta$ represents the mean, and we take a random sample of size $n$ from this population. Further suppose that we wish to test the following hypotheses:
 \[
 \begin{split}
 \text{$H_0$: }& \theta \leq \theta_0 \\
@@ -8,15 +8,15 @@ Suppose that $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, and we take a random
 
 Consider the following test function:
 \[
-\phi(X) = \begin{cases}
+\phi(\boldsymbol{X}) = \begin{cases}
 1 & \sum_{i=1}^n X_i > k \\
 0 & \text{else}
 \end{cases},
 \]
 
-where $k$ is chosen such that $Pr(\phi(X) = 1|\theta_0) = \alpha$. It can be shown that if $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, then $\sum_{i=1}^{n} X_i \sim \text{Gamma}(n, \theta)$. Let $T = \sum_{i=1}^n X_i \sim \text{Gamma}(n, \theta)$. To define our test, we seek the value $k$ such that 
+where $k$ is chosen such that $Pr(\phi(\boldsymbol{X}) = 1|\theta_0) = \alpha$. It can be shown that if $X_i \stackrel{iid}{\sim} \text{Exp}(\theta)$, then $\sum_{i=1}^{n} X_i \sim \text{Gamma}(n, \theta)$. Let $T = \sum_{i=1}^n X_i \sim \text{Gamma}(n, \theta)$. To define our test, we seek the value $k$ such that 
 \[
-Pr(\phi(X) = 1 | \theta_0) = Pr(T > k | \theta_0) = 1 - Pr(T \leq k | \theta_0) = \alpha
+Pr(\phi(\boldsymbol{X}) = 1 | \theta_0) = Pr(T > k | \theta_0) = 1 - Pr(T \leq k | \theta_0) = \alpha
 \]
 
 The value of $k$ that satisfies this equation is the $(1 - \alpha)^{th}$ quantile of the $\text{Gamma}(n, \theta_0)$ distribution. Letting $\Gamma_{n, \theta_0, 1-\alpha}$ denote this value, our test functions becomes
@@ -29,7 +29,7 @@ The value of $k$ that satisfies this equation is the $(1 - \alpha)^{th}$ quantil
 
 Therefore, our power function is
 \[
-\beta(\theta) = Pr(X \in RR) = Pr\left(\sum_{i=1}^n X_i > \Gamma_{n, \theta_0, 1-\alpha} \Big| \theta\right) = 1 - Pr\left(\sum_{i=1}^n X_i \leq \Gamma_{n, \theta_0, 1-\alpha} \Big| \theta\right)
+Power(\theta) = Pr(\boldsymbol{X} \in RR) = Pr\left(\sum_{i=1}^n X_i > \Gamma_{n, \theta_0, 1-\alpha} \Big| \theta\right) = 1 - Pr\left(\sum_{i=1}^n X_i \leq \Gamma_{n, \theta_0, 1-\alpha} \Big| \theta\right)
 \]
 
 <div align="right"> <font size="6"> &#9633; </div>
